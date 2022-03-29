@@ -1,3 +1,11 @@
+#' Neutralise Main function
+#'
+#' @param path is the directory path of neutralizefiles
+#' @param Test, run simulations for this test
+#' @param Data.Generator, generates data
+#' @return results
+#' @examples
+#'
 Neutralise<-function(path,
                      Test=NULL,
                      Data.Generator=NULL,
