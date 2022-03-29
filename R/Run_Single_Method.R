@@ -1,0 +1,81 @@
+
+Run_Single_Method<-function(path,method.name,data.name,
+                            settings,method.filename,data.filename,
+                            N=1000,
+                            mode="all") {
+  n.settings<-nrow(settings)
+  n.parameters<-ncol(settings)
+  results<-matrix(ncol=9+n.parameters,
+                  nrow=n.settings*nrow(sample.sizes))
+  results<-as.data.frame(results)
+  names(results)<-c(c("method","distribution","seed","N","n1","n2"),
+                    names(settings),"power.01", "power.05","power.10")
+
+  cnt<-1
+  for(nn in 1:nrow(sample.sizes)) {
+    for(pp in 1:n.settings) {
+      seed<-round((as.numeric(Sys.time()))/100000*exp(runif(1,min=0.00001,max=10)),0)
+      set.seed(seed)
+      pwr<-Power(n1=sample.sizes[nn,1],
+                 n2=sample.sizes[nn,2],
+                 parameters = as.numeric(settings[pp,-n.parameters]),
+                 N=N)
+
+      results[cnt,]<-c(method.name,data.name,seed,N,
+                       sample.sizes[nn,1],sample.sizes[nn,2],
+                       settings[pp,],pwr)
+      cnt<-cnt+1
+    }
+  }
+
+  #if(mode=="all") {
+  #new.dir<-paste(path,"/Results/SimRes_",method.name,"_",data.name,sep="")
+  #}
+  #if(mode=="single") {
+  #new.dir<-paste(path,"/Results/Local/SimRes_",method.name,"_",data.name,sep="")
+  #}
+  subdir<-ifelse(mode=="single","Local/","")
+  new.dir<-paste(path,"/Results/",subdir,"SimRes_",method.name,"_",data.name,sep="")
+
+  if(file.exists(new.dir)) {
+    l<-length(dir(paste(path,"/Results/",subdir,sep="")))
+    new.dir<-paste(new.dir,"_",l+1,sep="")
+  }
+  dir.create(new.dir)
+
+  filename<-paste(new.dir,"/",method.name,"_",data.name,"_",seed,sep="")
+
+  save(results,
+       file=paste(filename,".RData",sep=""))
+  write.table(results,
+              row.names = FALSE, col.names = TRUE,
+              append = FALSE, dec=".", sep=",",
+              file=paste(filename,".txt",sep=""))
+
+  sink(paste(new.dir,"/SessionInfo.txt",sep=""))
+  print(sessionInfo())
+  sink()
+
+  if(mode=="all") {
+    # copy R functions to Results directory
+    file.copy(from=method.filename,
+              to=paste(new.dir,"/",method.name,".R",sep=""))
+    file.copy(from=data.filename,
+              to=paste(new.dir,"/",data.name,".R",sep=""))
+    save(settings,
+         file=paste(new.dir,"/settings.RData",sep=""))
+
+    finished<-read.table(file=paste(path,"/Results/Finished.txt",sep=""),
+                         header=TRUE, sep=",")
+    newline<-data.frame(method=method.name,
+                        data=data.name,
+                        date=date())
+    finished<-rbind(finished,newline)
+    write.table(finished,
+                file=paste(path,"/Results/Finished.txt",sep=""),
+                sep=",",col.names = TRUE, row.names = FALSE)
+  }
+  if(mode=="single") {
+    return(results)
+  }
+}
