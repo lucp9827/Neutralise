@@ -1,3 +1,5 @@
+#'
+#' @export
 Initialise_Neutralise<-function(path) {
   neutralise.status<-data.frame(
     file.name="foo",
@@ -7,10 +9,10 @@ Initialise_Neutralise<-function(path) {
     to.run=FALSE,
     neutralised=FALSE
   )
-  
+
   save(neutralise.status,
        file=paste(path,"/Results/NeutraliseStatus.RData",sep=""))
-  
+
   finished<-data.frame(
     method="NULL",
     data="NULL",

@@ -28,5 +28,4 @@ Neutralise Main function
 }
 \examples{
 see Demonstration.Rmd
-
 }

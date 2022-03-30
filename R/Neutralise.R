@@ -6,7 +6,7 @@
 
 #' @return results of the analysis (test statistic - p-value - power calculations) in the Results directory
 #' @examples see Demonstration.Rmd
-#'
+#' @export
 Neutralise<-function(path,
                      Test=NULL,
                      Data.Generator=NULL,
