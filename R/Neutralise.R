@@ -1,10 +1,10 @@
 #' Neutralise Main function
 #'
 #' @param path is the directory path of neutralizefiles
-#' @param Test is a function of a statistical test, if not specified (=NULL default) it will evaluate all statistical methods in the *Methods* directory if these are not evaluated yet.
-#' @param Data.Generator  is a function of a data generator, if not specified (=NULL default) it will simulate data using all data generators in the *Data* directory and settings in the *Setting* directory, if these are not simulated yet.
+#' @param Test is a function of a statistical test, if not specified (=NULL default) it will evaluate all statistical methods in the Methods directory if these are not evaluated yet.
+#' @param Data.Generator  is a function of a data generator, if not specified (=NULL default) it will simulate data using all data generators in the Data directory and settings in the Setting directory, if these are not simulated yet.
 
-#' @return results of the analysis (test statistic - p-value - power calculations) in the *Results* directory
+#' @return results of the analysis (test statistic - p-value - power calculations) in the Results directory
 #' @examples see Demonstration.Rmd
 #'
 Neutralise<-function(path,
