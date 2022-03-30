@@ -1,99 +1,78 @@
-Test_New_Data<-function(path) {
-  check.data.result<-c()
-  check.data.issues<-list()
-  check.data.names<-c()
-
+Test_New_Method<-function(path) {
+  db.test<-data.frame(y=rnorm(20),
+                      group=rep(c(1,2),c(10,10)))
+  
+  check.method.result<-c()
+  check.method.issues<-list()
+  check.method.names<-c()
   cnt<-1
-  data.files<-dir(path=paste(path,"/Data",sep=""))
+  method.files<-dir(path=paste(path,"/Methods",sep=""))
   load(paste(path,"/Results/NeutraliseStatus.RData",sep=""))
-  data.exists<-
-    !data.files%in%neutralise.status$file.name[
-      (neutralise.status$type=="data")&
+  method.exists<-
+    !method.files%in%neutralise.status$file.name[
+      (neutralise.status$type=="method")&
         (neutralise.status$check==TRUE)]
-
-  if(sum(data.exists)>0) {
-    for(data in data.files[data.exists]) {
+  
+  
+  if(sum(method.exists)>0) {
+    for(method in method.files[method.exists]) {
       issues<-c()
-      filename<-paste(path,"/Data/",data,sep="")
-      header<-Check_Data_Description(filename)
+      filename<-paste(path,"/Methods/",method,sep="")
+      header<-Check_Method_Description(filename)
       if(!header) {
         issues<-c(issues,
-                  "Header of data generator R file does not have a correct header")
+                  "Header of method R file does not have a correct header")
       }
-      data.name<-strsplit(data,".R")[[1]]
-      if(data.name%in%neutralise.status$name[neutralise.status$type=="data"]) {
+      method.name<-strsplit(method,".R")[[1]]
+      if(method.name%in%neutralise.status$name) {
         issues<-c(issues,
-                  "data generator name already exists")
+                  "methods name already exists")
       }
-      #if(exists("settings")) {
-      #  remove("settings")
-      #}
-
-      #setting.issues<-Test_New_Setting1(path,
-      #                                  data.name)
-      #issues<-c(issues,setting.issues)
-
-
-      source(paste(path,"/Data/",data,sep=""))
-      #pars<-settings[1,which(colnames(settings)!="null")]
-      res<-try(Data.Generator(n1=20,n2=20),
-               silent=TRUE)
+      source(filename)
+      res<-try(Test(db.test), silent=TRUE)
       if(inherits(res, "try-error")) {
-        issues<-c(issues,"error on running Data.Generator function")
+        issues<-c(issues,"error on running Test function")
       }
       else {
-        # further checks
-        if(length(res)!=2) {
-          issues<-c(issues,
-                    "Data generator should output data from with two columns")
-        }
-        if(length(res)==2) {
-          if(min(names(res)==c("y","group"))==0) {
-            issues<-c(issues,
-                      "names of generated data frame are incorrect")
-          }
-          if(nrow(res)!=40) {
-            issues<-c(issues,
-                      "number of rows of data frame is not equal to n1+n2")
-          }
+        if(max((names(res)!=c("stat","p.value")))==1) {
+          issues<-c(issues,"names of returned object are wrong")
         }
       }
-
-
       if(length(issues)==0) {
         neutralise.status<-neutralise.status%>%
-          add_row(file.name=data,
-                  name=data.name,
-                  type="data",
+          add_row(file.name=method,
+                  name=method.name,
+                  type="method",
                   check=TRUE,
-                  to.run=FALSE,
+                  to.run=TRUE,
                   neutralised=FALSE)
       }
       if(length(issues)>0) {
         neutralise.status<-neutralise.status%>%
-          add_row(file.name=data,
-                  name=data.name,
-                  type="data",
+          add_row(file.name=method,
+                  name=method.name,
+                  type="method",
                   check=FALSE,
                   to.run=FALSE,
                   neutralised=FALSE)
         write(issues,
-              file=paste(path,"/Issues/issues_",data.name,".txt",sep=""))
+              file=paste(path,"/Issues/issues_",method.name,".txt",sep=""))
       }
       save(neutralise.status,
            file=paste(path,"/Results/NeutraliseStatus.RData",sep=""))
-      check.data.issues[[cnt]]<-issues
-      check.data.names<-c(check.data.names,data.name)
-      check.data.result<-c(check.data.result,
-                           ifelse(length(issues)==0,TRUE,FALSE))
+      
+      check.method.issues[[cnt]]<-issues
+      check.method.names<-c(check.method.names,method.name)
+      check.method.result<-c(check.method.result,
+                             ifelse(length(issues)==0,TRUE,FALSE))
       cnt<-cnt+1
     }
   }
-  if(sum(data.exists)==0) {
-    check.data.result<-0
+  if(sum(method.exists)==0) {
+    check.method.result<-0
   }
-
-  return(list(check.data.issues=check.data.issues,
-              check.data.names=check.data.names,
-              check.data.result=check.data.result))
+  return(list(check.method.issues=check.method.issues,
+              check.method.names=check.method.names,
+              check.method.result=check.method.result))
 }
+
