@@ -181,7 +181,7 @@ res<-Neutralise(path, N=2)
 
 
 ## 3. Upload code and/or results to Github 
-This initiative is set up as an open science collaboration, and we hope that many users will make use of it and return the code and results to enhance this initiative. It just takes 5 steps! 
+This initiative is set up as an open science collaboration, and we hope that many users will make use of it and return the code and results to enhance this initiative. It just takes 5 steps! New users to github can find a quickstart guide of Github on the following website: https://docs.github.com/en/get-started/quickstart/fork-a-repo .
 
 *Step 1*:  Go to github.com/login and sign in
 
