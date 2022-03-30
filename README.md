@@ -193,12 +193,12 @@ This initiative is set up as an open science collaboration, and we hope that man
 
 *Step 5*: Create pull request to merge changes (commits) with the original NeutraliseFiles. 
 
-All the pull request will be checked by the coreteam and if validated they will be added to the repisotory.
+All the pull request will be checked by the coreteam and if validated they will be added to the repository.
 
 ## 4. Evaluate - report
 
 
-# Report results per data generator
+#### Report results per data generator
 
 ```{r}
 # load(paste(path,'\\Results\\neutralise_status.R',sep=''))
