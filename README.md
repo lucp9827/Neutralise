@@ -31,6 +31,7 @@ library('Neutralise')
 Download 'NeutraliseFiles.zip' from 'https://github.com/lucp9827/NeutraliseFiles'. Unzip the 'NeutraliseFiles' file and save the path to this unzipped NeutraliseFiles folder.
 
 ```{r}
+# Example:
 path = "C:\\Users\\lucp9827\\Desktop\\Neutralise\\NeutraliseFiles"
 ```
 
