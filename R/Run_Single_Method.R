@@ -3,6 +3,14 @@ Run_Single_Method<-function(path,method.name,data.name,
                             settings,method.filename,data.filename,
                             N=1000,
                             mode="all") {
+
+  sample.sizes<-matrix(ncol=2,c(
+    10,10,
+    20,20,
+    100,100,
+    10,100
+  ), byrow=T)
+
   n.settings<-nrow(settings)
   n.parameters<-ncol(settings)
   results<-matrix(ncol=9+n.parameters,
