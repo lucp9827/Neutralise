@@ -22,7 +22,8 @@ Test_New_Setting1<-function(path,data.name) {
 
   filename<-paste(path,"/Settings/",
                   setting.file.name,sep="")
-  source(filename)
+  #source(filename)
+  load(filename)
 
   if(!exists("settings")) {
     issues<-c(issues,"no settings are specified (or at least not with the proper name)")
