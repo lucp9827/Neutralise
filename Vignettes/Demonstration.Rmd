@@ -33,7 +33,7 @@ Download 'NeutraliseFiles.zip' from 'https://github.com/lucp9827/NeutraliseFiles
 
 ```{r}
 # Example:
-path = "C:\\Users\\lucp9827\\Desktop\\Neutralise\\NeutraliseFiles\\Demo4"
+path = "C:\\Users\\lucp9827\\Desktop\\NeutraliseFiles"
 ```
 
 
