@@ -180,7 +180,19 @@ res<-Neutralise(path, N=2)
 ```
 
 
-## 3. Evaluate - report
+## 3. Upload code or results to Github 
+
+*Step 1*:  Go to github.com/login and sign in
+
+*Step 2*:  Go to https://github.com/lucp9827/NeutraliseFiles 
+
+*Step 3*:  Fork (copy) the repository 'NeutraliseFiles'
+
+*Step 4*: Commit changes made to 'NeutraliseFiles' folders: Add new method, data generator or setting file to the correct directories. Commit (add) additional results as zip file. 
+
+*Step 5*: Create pull request to merge changes (commits) with the original NeutraliseFiles. 
+
+## 4. Evaluate - report
 
 
 # Report results per data generator
@@ -196,5 +208,3 @@ Graphs of the results:
 ```{r, echo=FALSE}
 
 ```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
