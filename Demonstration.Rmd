@@ -136,7 +136,7 @@ settings<-data.frame(
 
 # The setting will be saved in the Settings directory
 save(settings,
-       file=paste(path,"/Settings/Normal_settings.RData",sep=""))
+       file=paste(path,"/Settings/Normal_settings.R",sep=""))
 
 # Run the Neutralise main function
 
