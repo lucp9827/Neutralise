@@ -38,7 +38,7 @@ path = "C:\\Users\\lucp9827\\Desktop\\Neutralise\\NeutraliseFiles\\Demo4"
 NeutraliseFiles contains 4 directories; 
 
 1. **Data**: This Folder contains the data generator functions available.
-2. **Settings**: This Folder contains the settings for the existing data generators. If the settings have been simulated, the setting files change from an R-file extension to an R workspace.
+2. **Settings**: This Folder contains the settings for the existing data generators. If the settings have been simulated, the setting files change from an R-data file extension to an R workspace.
 3. **Methods**: This Folder contains the statistical methods available.
 4. **Results**: This folder contains the result of all combinations of statistical methods and simulation scenarios available, and a text file 'Finished' with information on the simulation runs already done, and an R-file describing the status of all methods, data generators and settings, and a Local folder for the results of the *single* operating mode.
 
@@ -101,7 +101,7 @@ res<-Neutralise(path,Test=AD_Asymp,
 ## 2.2 Operating mode: *All*
 
 To run all combinations of statistical methods and simulation scenarios (i.e. combination of data generator and settings) available on Github the following code can be used and the results will be saved in the *Results* directory. This function can be used to reproduce results of previous simulations.
-Note: To reproduce results it's important to have (1) an 'empty' *Results* directory and (2) to reinitialise the files *Finished.txt* and *neutralise_status.Rfile*. Also (3) add the specific settings R-files that you want to reproduce into the *Settings* directory. 
+Note: To reproduce results it's important to have (1) an 'empty' *Results* directory and (2) to reinitialise the files *Finished.txt* and *neutralise_status.Rfile*. Also (3) add the specific settings RData-files that you want to reproduce into the *Settings* directory. 
 
 
 ```{r}
@@ -113,7 +113,7 @@ Initialise_Neutralise(path)
 # Run Neutralise main function 
 # Delete N 
 
-res<-Neutralise(path, N=2)
+res<-Neutralise(path, N=1)
 ```
 
 
@@ -136,11 +136,11 @@ settings<-data.frame(
 
 # The setting will be saved in the Settings directory
 save(settings,
-       file=paste(path,"/Settings/Normal_settings.R",sep=""))
+       file=paste(path,"/Settings/Normal_settings.RData",sep=""))
 
 # Run the Neutralise main function
 
-res<-Neutralise(path, N=2)
+res<-Neutralise(path, N=1)
 ```
 
 Suppose that we now have an new statistical method to be run for the data generators that already exists. Then we add a new method R-file to the directory *Methods* and run the code again.
@@ -175,7 +175,7 @@ Test<-function(db) {
 After saving the new method in the *Methods* directory as an R-file, we can run the main neutralise function. The results of the new simulations can be found in the *Results* directory.
 
 ```{r}
-res<-Neutralise(path, N=2)
+res<-Neutralise(path, N=1)
 ```
 
 
