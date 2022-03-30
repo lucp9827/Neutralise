@@ -121,7 +121,7 @@ Suppose that we now have some new additional settings to be run for a data gener
 
 ### Adding a new setting to the settings directory
 
-Make sure the R-file for the new setting begins with the same name as the existing Data.Generator R-file (in *Data* directory) and ends with '_settings.R'. 
+Make sure the R-file for the new setting begins with the same name as the existing Data.Generator R-file (in *Data* directory) and ends with '_settings.R'. Also, add 1 empty line at the end of the R-file.
 
 
 ```{r}
