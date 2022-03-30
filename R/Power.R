@@ -1,3 +1,5 @@
+#'
+#' @export
 Power<-function(n1,n2,parameters,N=100) {
   p.values<-numeric(N)
   for(i in 1:N) {

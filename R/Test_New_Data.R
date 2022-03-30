@@ -1,3 +1,5 @@
+#'
+#' @export
 Test_New_Data<-function(path) {
   check.data.result<-c()
   check.data.issues<-list()

@@ -1,3 +1,5 @@
+#'
+#' @export
 Run_All_New_Data<-function(path) {
   load(paste(path,"/Results/NeutraliseStatus.RData",sep=""))
   new.data<-neutralise.status$file.name[

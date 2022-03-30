@@ -1,3 +1,5 @@
+#'
+#' @export
 Test_New_Setting<-function(path) {
   check.settings.result<-c()
   check.settings.issues<-list()

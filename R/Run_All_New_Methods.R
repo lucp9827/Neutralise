@@ -1,3 +1,5 @@
+#'
+#' @export
 Run_All_New_Methods<-function(path) {
   load(paste(path,"/Results/NeutraliseStatus.RData",sep=""))
   new.methods<-neutralise.status$file.name[

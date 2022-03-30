@@ -1,3 +1,5 @@
+#'
+#' @export
 Run_All<-function(path) {
   test.method<-Test_New_Method(path)
   if(max(test.method$check.method.result)==1) {

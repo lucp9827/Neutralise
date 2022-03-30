@@ -1,4 +1,5 @@
-
+#'
+#' @export
 Run_Single_Method<-function(path,method.name,data.name,
                             settings,method.filename,data.filename,
                             N=1000,

@@ -1,3 +1,5 @@
+#'
+#' @export
 Check_Method_Description<-function(filename) {
   check<-TRUE
   con=file(filename,"r")

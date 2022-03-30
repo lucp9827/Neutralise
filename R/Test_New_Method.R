@@ -1,7 +1,9 @@
+#'
+#' @export
 Test_New_Method<-function(path) {
   db.test<-data.frame(y=rnorm(20),
                       group=rep(c(1,2),c(10,10)))
-  
+
   check.method.result<-c()
   check.method.issues<-list()
   check.method.names<-c()
@@ -12,8 +14,8 @@ Test_New_Method<-function(path) {
     !method.files%in%neutralise.status$file.name[
       (neutralise.status$type=="method")&
         (neutralise.status$check==TRUE)]
-  
-  
+
+
   if(sum(method.exists)>0) {
     for(method in method.files[method.exists]) {
       issues<-c()
@@ -60,7 +62,7 @@ Test_New_Method<-function(path) {
       }
       save(neutralise.status,
            file=paste(path,"/Results/NeutraliseStatus.RData",sep=""))
-      
+
       check.method.issues[[cnt]]<-issues
       check.method.names<-c(check.method.names,method.name)
       check.method.result<-c(check.method.result,
