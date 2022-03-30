@@ -54,7 +54,7 @@ For example, we have a new method (here Anderson Darling).
 
 ```{r}
 AD_Asymp<-function(db) {
-  results<-ad.test(db$y[db$group==1],db$y[db$group==2],
+  results<-kSamples::ad.test(db$y[db$group==1],db$y[db$group==2],
                    method="asymptotic")
   return(list(
     stat=results$ad[1,1],
