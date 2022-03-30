@@ -1,12 +1,22 @@
 Initialise_Neutralise<-function(path) {
-  local.file.name<-paste(path,"/NeutraliseFiles.zip",sep="")
-  download.file(url = "https://github.com/othas/neutralise/blob/main/NeutraliseFiles.zip",
-                destfile = local.file.name)
+  neutralise.status<-data.frame(
+    file.name="foo",
+    name="foo",
+    type="foo",  # "method", "data" or "setting"
+    check=FALSE,
+    to.run=FALSE,
+    neutralised=FALSE
+  )
   
-  path2<-paste(path,"/NeutraliseFiles",sep="")
+  save(neutralise.status,
+       file=paste(path,"/Results/NeutraliseStatus.RData",sep=""))
   
-  zip::unzip(zipfile = local.file.name,
-             exdir = path2)
-  
-  return(path2)
+  finished<-data.frame(
+    method="NULL",
+    data="NULL",
+    date=date()
+  )
+  write.table(finished,
+              file=paste(path,"/Results/Finished.txt",sep=""),
+              sep=",",col.names = TRUE, row.names = FALSE)
 }
