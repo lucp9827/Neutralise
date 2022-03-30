@@ -1,9 +1,8 @@
 ---
-title: "Neutralise: an open source initiative for neutral comparison of two-sample tests"
-output: github_document
+# Neutralise: an open source initiative for neutral comparison of two-sample tests
 ---
 
-# 1. Installation 
+# 1. Load required packages and Installation steps 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 
@@ -17,6 +16,8 @@ library(twosamples)
 
 ## Github installation 
 
+Code to install *Neutralise*, with authentication code for permission. (Authentication code needs be deleted when the resporitory is set public)
+
 ```{r , message = FALSE}
 library(devtools)
 
@@ -27,11 +28,10 @@ library('Neutralise')
 
 ## Initialise local directory structure
 
-Download 'NeutraliseFiles.zip' from 'https://github.com/lucp9827/NeutraliseFiles'. 
-Unzip the 'NeutraliseFiles' file and save the path to this unzipped NeutraliseFiles folder.
+Download 'NeutraliseFiles.zip' from 'https://github.com/lucp9827/NeutraliseFiles'. Unzip the 'NeutraliseFiles' file and save the path to this unzipped NeutraliseFiles folder.
 
 ```{r}
-path = "C:\\Users\\lucp9827\\Desktop\\Neutralise\\NeutraliseFiles\\Demo4"
+path = "C:\\Users\\lucp9827\\Desktop\\Neutralise\\NeutraliseFiles"
 ```
 
 
