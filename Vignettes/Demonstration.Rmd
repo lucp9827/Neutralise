@@ -108,7 +108,7 @@ Note: To reproduce results it's important to have (1) an 'empty' *Results* direc
 
 ```{r}
 
-# Code to reinitilize the files *Finished.txt* and *neutralise_status.Rfile (dont run if you don't want to reproduce results)
+# Code to reinitilize the files *Finished.txt* and *neutralise_status.Rfile (dont run if you don't want to reproduce all results)
 
 Initialise_Neutralise(path)
 
