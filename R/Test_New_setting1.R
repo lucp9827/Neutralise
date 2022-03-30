@@ -16,9 +16,9 @@ Test_New_Setting1<-function(path,data.name) {
   issues<-c()
   #setting.name<-strsplit(setting,".R")[[1]]
 
-  if(exists("settings")) {
-    remove("settings")
-  }
+  # if(exists("settings")) {
+  #   remove("settings")
+  # }
 
   filename<-paste(path,"/Settings/",
                   setting.file.name,sep="")
