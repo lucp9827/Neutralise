@@ -122,7 +122,7 @@ Suppose that we now have some new additional settings to be run for a data gener
 
 ### Adding a new setting to the settings directory
 
-Make sure the R-file for the new setting begins with the same name as the existing Data.Generator R-file (in *Data* directory) and ends with '_settings.R'. 
+Make sure the R-file for the new setting begins with the same name as the existing Data.Generator R-file (in *Data* directory) and ends with '_settings.R'. Also, add an empty line of code to the end of the R-file.
 
 
 ```{r}
@@ -158,8 +158,8 @@ The R-file must contain a header that gives a **name** and a **description** of 
 # DESCRIPTION
 # Two sample Kolmogorov-Smirnov test . P-values based on asymptotic approximation
 # REFERENCES
-# Kolmogorov, A. 1933. ???Sulla Determinazione Empirica di una Legge di Distributione???. Giornale dell'Istituto Italiano degli Attuari, 4: 1???11.
-# Smirnov, H. 1939. ???Sur les Ecarts de la Courbe de Distribution Empirique???. Recueil MathematiqueMatematiceskii Sbornik), : 3???26. N.S. 6
+# Kolmogorov, A. 1933. Sulla Determinazione Empirica di una Legge di Distributione. Giornale dell'Istituto Italiano degli Attuari, 4: 1-11.
+# Smirnov, H. 1939. Sur les Ecarts de la Courbe de Distribution Empirique. Recueil MathematiqueMatematiceskii Sbornik), : 3-26. N.S. 6
 # END
 
 Test<-function(db) {
