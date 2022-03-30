@@ -190,7 +190,6 @@ res<-Neutralise(path, N=2)
 
 *Step 4*: Commit changes made to 'NeutraliseFiles' folders: Add new method, data generator or setting file to the correct directories. Commit (add) additional results as zip file. 
 
-![]{https://github.com/lucp9827/Neutralise/blob/master/Fork.png}
 *Step 5*: Create pull request to merge changes (commits) with the original NeutraliseFiles. 
 
 ## 4. Evaluate - report
