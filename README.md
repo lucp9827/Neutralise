@@ -180,7 +180,8 @@ res<-Neutralise(path, N=2)
 ```
 
 
-## 3. Upload code or results to Github 
+## 3. Upload code and/or results to Github 
+This initiative is set up as an open science collaboration, and we hope that many users will make use of it and return the code and results to enhance this initiative. It just takes 5 steps! 
 
 *Step 1*:  Go to github.com/login and sign in
 
@@ -191,6 +192,8 @@ res<-Neutralise(path, N=2)
 *Step 4*: Commit changes made to 'NeutraliseFiles' folders: Add new method, data generator or setting file to the correct directories. Commit (add) additional results as zip file. 
 
 *Step 5*: Create pull request to merge changes (commits) with the original NeutraliseFiles. 
+
+All the pull request will be checked by the coreteam and if validated they will be added to the repisotory.
 
 ## 4. Evaluate - report
 
