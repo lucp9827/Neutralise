@@ -53,9 +53,10 @@ Run_Single_Method<-function(path,method.name,data.name,
   dir.create(new.dir)
 
   filename<-paste(new.dir,"/",method.name,"_",data.name,"_",seed,sep="")
+  filename_res<-paste(new.dir,"/",method.name,"_",data.name,"_",sep="")
 
   save(results,
-       file=paste(filename,".RData",sep=""))
+       file=paste(filename_res,".RData",sep=""))
   write.table(results,
               row.names = FALSE, col.names = TRUE,
               append = FALSE, dec=".", sep=",",
