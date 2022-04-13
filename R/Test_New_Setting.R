@@ -53,6 +53,7 @@ Test_New_Setting<-function(path) {
                   neutralised=NA)
       }
       if(length(issues)>0) {
+        setting.name<-strsplit(setting,".R")[[1]]
         write(issues,
               file=paste(path,"/Issues/issues_",setting.name,".txt",sep=""))
         neutralise.status<-neutralise.status%>%
