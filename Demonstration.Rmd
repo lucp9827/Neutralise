@@ -110,7 +110,7 @@ Note: To reproduce results it's important to have (1) an 'empty' *Results* direc
 
 # Code to reinitilize the files *Finished.txt* and *neutralise_status.Rfile (dont run if you don't want to reproduce all results)
 
-Initialise_Neutralise(path)
+#Initialise_Neutralise(path)
 
 # Run Neutralise main function 
 # Delete N 
@@ -194,7 +194,7 @@ This initiative is set up as an open science collaboration, and we hope that man
 
 *Step 5*: Create pull request to merge changes (commits) with the original NeutraliseFiles. 
 
-All the pull request will be checked by the coreteam and if validated they will be added to the repisotory.
+All the pull request will be checked by the coreteam and if validated they will be added to the repository.
 ## 4. Evaluate - report
 
 
@@ -203,6 +203,79 @@ All the pull request will be checked by the coreteam and if validated they will 
 ```{r}
 # load(paste(path,'\\Results\\neutralise_status.R',sep=''))
 # m = neutralise_status$type=='method'
+
+# Logistic data generator 
+
+load(paste0(path,"/Results/SimRes_AD_Logistic/AD_Logistic_3715094.RData"))
+AD=results
+
+load(paste0(path,"/Results/SimRes_CVM_Logistic/CVM_Logistic_142389.RData"))
+CVM=results
+
+load(paste0(path,"/Results/SimRes_KS_Logistic/KS_Logistic_157768102.RData"))
+KS=results
+
+load(paste0(path,"/Results/SimRes_TTest_VarEqual_Logistic/TTest_VarEqual_Logistic_200613.RData"))
+TTest_varEqual=results
+
+load(paste0(path,"/Results/SimRes_TTest_VarUnequal_Logistic/TTest_VarUnequal_Logistic_89423569.RData"))
+TTest_varUnequal=results
+
+load(paste0(path,"/Results/SimRes_WMW_Asymp_Logistic/WMW_Asymp_Logistic_393057.RData"))
+WMW_Asymp=results
+
+remove(results)
+
+logistic_res = rbind(AD,CVM,KS,TTest_varEqual,TTest_varUnequal,WMW_Asymp)
+
+# Normal Data generator 
+
+load(paste0(path,"/Results/SimRes_AD_Normal/AD_Normal_656143.RData"))
+AD=results
+
+load(paste0(path,"/Results/SimRes_CVM_Normal/CVM_Normal_983294.RData"))
+CVM=results
+
+load(paste0(path,"/Results/SimRes_KS_Normal/KS_Normal_31685644.RData"))
+KS=results
+
+load(paste0(path,"/Results/SimRes_TTest_VarEqual_Normal/TTest_VarEqual_Normal_3552193.RData"))
+TTest_varEqual=results
+
+load(paste0(path,"/Results/SimRes_TTest_VarUnequal_Normal/TTest_VarUnequal_Normal_232437.RData"))
+TTest_varUnequal=results
+
+load(paste0(path,"/Results/SimRes_WMW_Asymp_Normal/WMW_Asymp_Normal_5088054.RData"))
+WMW_Asymp=results
+
+remove(results)
+
+Normal_res = rbind(AD,CVM,KS,TTest_varEqual,TTest_varUnequal,WMW_Asymp)
+
+# Normal2Var Data generator 
+
+load(paste0(path,"/Results/SimRes_AD_Normal2Var/AD_Normal2Var_16855.RData"))
+AD=results
+
+load(paste0(path,"/Results/SimRes_CVM_Normal2Var/CVM_Normal2Var_80836861.RData"))
+CVM=results
+
+load(paste0(path,"/Results/SimRes_KS_Normal2Var/KS_Normal2Var_19255868.RData"))
+KS=results
+
+load(paste0(path,"/Results/SimRes_TTest_VarEqual_Normal2Var/TTest_VarEqual_Normal2Var_7531797.RData"))
+TTest_varEqual=results
+
+load(paste0(path,"/Results/SimRes_TTest_VarUnequal_Normal2Var/TTest_VarUnequal_Normal2Var_937767.RData"))
+TTest_varUnequal=results
+
+load(paste0(path,"/Results/SimRes_WMW_Asymp_Normal2Var/WMW_Asymp_Normal2Var_103265195.RData"))
+WMW_Asymp=results
+
+remove(results)
+
+Normal2Var_res = rbind(AD,CVM,KS,TTest_varEqual,TTest_varUnequal,WMW_Asymp)
+
 ```
 
 Tables summerizing the results:

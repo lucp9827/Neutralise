@@ -134,7 +134,7 @@ directory.
 ``` r
 # Code to reinitilize the files *Finished.txt* and *neutralise_status.Rfile (dont run if you don't want to reproduce all results)
 
-Initialise_Neutralise(path)
+#Initialise_Neutralise(path)
 
 # Run Neutralise main function 
 # Delete N 
@@ -220,12 +220,19 @@ res<-Neutralise(path, N=1)
 
 ## 3. Upload code or results to Github
 
+This initiative is set up as an open science collaboration, and we hope
+that many users will make use of it and return the code and results to
+enhance this initiative. It just takes 5 steps! New users to github can
+find a quickstart guide of Github on the following website:
+<https://docs.github.com/en/get-started/quickstart/hello-world>
+
 *Step 1*: Go to github.com/login and sign in
 
 *Step 2*: Go to <https://github.com/lucp9827/NeutraliseFiles>
 
 *Step 3*: Fork (copy) the repository ‘NeutraliseFiles’ to your own
-account. ![](C:\Users\lucp9827\Desktop)
+account.
+(<https://docs.github.com/en/get-started/quickstart/fork-a-repo>)
 
 *Step 4*: Commit changes made to ‘NeutraliseFiles’ folders: Add new
 method, data generator or setting file to the correct directories.
@@ -234,7 +241,8 @@ Commit (add) additional results as zip file.
 *Step 5*: Create pull request to merge changes (commits) with the
 original NeutraliseFiles.
 
-## 4. Evaluate - report
+All the pull request will be checked by the coreteam and if validated
+they will be added to the repisotory. \#\# 4. Evaluate - report
 
 # Report results per data generator
 
