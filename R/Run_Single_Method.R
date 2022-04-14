@@ -18,7 +18,7 @@ Run_Single_Method<-function(path,method.name,data.name,
                   nrow=n.settings*nrow(sample.sizes))
   results<-as.data.frame(results)
   names(results)<-c(c("method","distribution","seed","N","n1","n2"),
-                    names(settings),"power.01", "power.05","power.10")
+                    names(settings),"power0.01", "power0.05","power0.10")
 
   cnt<-1
   for(nn in 1:nrow(sample.sizes)) {
