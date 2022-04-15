@@ -44,7 +44,7 @@ Power_QQ<-function(path,method1,method2,alpha=0.05,
     }
 
     if(!is.null(par.fix)) {
-      settings.fix<-results%>%select(names(par.fix))
+      settings.fix<-results%>%dplyr::select(names(par.fix))
       results<-results[apply(settings.fix,1,
                              function(x) {
                                all(x==unlist(par.fix))
@@ -62,7 +62,7 @@ Power_QQ<-function(path,method1,method2,alpha=0.05,
     }
 
     if(!is.null(par.fix)) {
-      settings.fix<-results%>%select(names(par.fix))
+      settings.fix<-results%>%dplyr::select(names(par.fix))
       results<-results[apply(settings.fix,1,
                              function(x) {
                                all(x==unlist(par.fix))
