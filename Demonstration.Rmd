@@ -33,7 +33,7 @@ Download 'NeutraliseFiles.zip' from 'https://github.com/lucp9827/NeutraliseFiles
 
 ```{r}
 # Example:
-path = "C:\\Users\\lucp9827\\Desktop\\NeutraliseFiles"
+path = "C:\\Users\\lucp9827\\Desktop\\R_codes & Data\\NeutraliseFiles"
 ```
 
 
@@ -96,7 +96,7 @@ Then we can run the following code. This will NOT add the new method and data ge
 res<-Neutralise(path,Test=AD_Asymp,
                 Data.Generator = ExpLocShift,
                 settings=settings,
-                N=1)
+                N=2)
 ```
 
 
@@ -197,84 +197,45 @@ This initiative is set up as an open science collaboration, and we hope that man
 All the pull request will be checked by the coreteam and if validated they will be added to the repository.
 ## 4. Evaluate - report
 
-
-# Report results per data generator
+# Report results
 
 ```{r}
-# load(paste(path,'\\Results\\neutralise_status.R',sep=''))
-# m = neutralise_status$type=='method'
+#load(paste(path,'\\Results\\NeutraliseStatus.RData',sep=''))
 
-# Logistic data generator 
+library(dplyr)
 
-load(paste0(path,"/Results/SimRes_AD_Logistic/AD_Logistic_3715094.RData"))
-AD=results
+# All methods & data generation methods that have been 'neutralized'
 
-load(paste0(path,"/Results/SimRes_CVM_Logistic/CVM_Logistic_142389.RData"))
-CVM=results
+methods = All_Neutralised(path)
+data.gen = All_Neutralised(path, type='data')
 
-load(paste0(path,"/Results/SimRes_KS_Logistic/KS_Logistic_157768102.RData"))
-KS=results
+method1=methods[3]
+method2=methods[6]
 
-load(paste0(path,"/Results/SimRes_TTest_VarEqual_Logistic/TTest_VarEqual_Logistic_200613.RData"))
-TTest_varEqual=results
+# Power comparison between two methods - general 
+Graph1 = Power_QQ(path,method1,method2,alpha=0.05)
 
-load(paste0(path,"/Results/SimRes_TTest_VarUnequal_Logistic/TTest_VarUnequal_Logistic_89423569.RData"))
-TTest_varUnequal=results
+Graph1$graph
 
-load(paste0(path,"/Results/SimRes_WMW_Asymp_Logistic/WMW_Asymp_Logistic_393057.RData"))
-WMW_Asymp=results
+# Power comparison between two methods - specified Data Generator = Logistic
 
-remove(results)
+Graph1b = Power_QQ(path,method1,method2,alpha=0.05,data='Logistic')
 
-logistic_res = rbind(AD,CVM,KS,TTest_varEqual,TTest_varUnequal,WMW_Asymp)
+Graph1b$graph
 
-# Normal Data generator 
 
-load(paste0(path,"/Results/SimRes_AD_Normal/AD_Normal_656143.RData"))
-AD=results
+# Power comparison between two methods - per data generation method 
+Graph2 = Power_QQ(path,methods[3],methods[6],alpha=0.05,group=TRUE)
 
-load(paste0(path,"/Results/SimRes_CVM_Normal/CVM_Normal_983294.RData"))
-CVM=results
+Graph2$graph
 
-load(paste0(path,"/Results/SimRes_KS_Normal/KS_Normal_31685644.RData"))
-KS=results
 
-load(paste0(path,"/Results/SimRes_TTest_VarEqual_Normal/TTest_VarEqual_Normal_3552193.RData"))
-TTest_varEqual=results
+# Power comparison between two methods - per data generation method and a specified setting parameter (delta = 0.5 --> difference in means of 0.5)
 
-load(paste0(path,"/Results/SimRes_TTest_VarUnequal_Normal/TTest_VarUnequal_Normal_232437.RData"))
-TTest_varUnequal=results
+db=data.frame(delta=0.5)
+Graph3 = Power_QQ(path,methods[3],methods[6],alpha=0.05,group=TRUE,par.fix=db)
 
-load(paste0(path,"/Results/SimRes_WMW_Asymp_Normal/WMW_Asymp_Normal_5088054.RData"))
-WMW_Asymp=results
-
-remove(results)
-
-Normal_res = rbind(AD,CVM,KS,TTest_varEqual,TTest_varUnequal,WMW_Asymp)
-
-# Normal2Var Data generator 
-
-load(paste0(path,"/Results/SimRes_AD_Normal2Var/AD_Normal2Var_16855.RData"))
-AD=results
-
-load(paste0(path,"/Results/SimRes_CVM_Normal2Var/CVM_Normal2Var_80836861.RData"))
-CVM=results
-
-load(paste0(path,"/Results/SimRes_KS_Normal2Var/KS_Normal2Var_19255868.RData"))
-KS=results
-
-load(paste0(path,"/Results/SimRes_TTest_VarEqual_Normal2Var/TTest_VarEqual_Normal2Var_7531797.RData"))
-TTest_varEqual=results
-
-load(paste0(path,"/Results/SimRes_TTest_VarUnequal_Normal2Var/TTest_VarUnequal_Normal2Var_937767.RData"))
-TTest_varUnequal=results
-
-load(paste0(path,"/Results/SimRes_WMW_Asymp_Normal2Var/WMW_Asymp_Normal2Var_103265195.RData"))
-WMW_Asymp=results
-
-remove(results)
-
-Normal2Var_res = rbind(AD,CVM,KS,TTest_varEqual,TTest_varUnequal,WMW_Asymp)
+Graph3$graph
 
 ```
 
