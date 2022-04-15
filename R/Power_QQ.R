@@ -83,6 +83,12 @@ Power_QQ<-function(path,method1,method2,alpha=0.05,
     pwr1<-c(pwr1,pwr1.tmp)
     pwr2<-c(pwr2,pwr2.tmp)
     data.gen <-c(data.gen,rep(d,length(pwr1.tmp)))
+
+    if (group==TRUE){
+      win_tmp = sum(pwr1.tmp<pwr2.tmp)
+      cat(paste(d,": ",method2," wins over ",method1, " in ", round(100*win_tmp/length(pwr1.tmp),1),
+                "% of the ", length(pwr1.tmp), " scenarios",sep=""))
+    }
   }
   powers<-data.frame(pwr1=pwr1,pwr2=pwr2,data.gen=data.gen)
 
