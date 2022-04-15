@@ -197,10 +197,9 @@ All the pull request will be checked by the coreteam and if validated they will 
 
 ## 4. Evaluate - report
 
+# Report results - Power 
 
-#### Report results per data generator
-
-```{r, echo=FALSE}
+```{r}
 #load(paste(path,'\\Results\\NeutraliseStatus.RData',sep=''))
 
 library(dplyr)
@@ -210,8 +209,8 @@ library(dplyr)
 methods = All_Neutralised(path)
 data.gen = All_Neutralised(path, type='data')
 
-method1=methods[3]
-method2=methods[6]
+method1=methods[2]
+method2=methods[5]
 
 # Power comparison between two methods - general 
 Graph1 = Power_QQ(path,method1,method2,alpha=0.05)
@@ -226,7 +225,7 @@ Graph1b$graph
 
 
 # Power comparison between two methods - per data generation method 
-Graph2 = Power_QQ(path,methods[3],methods[6],alpha=0.05,group=TRUE)
+Graph2 = Power_QQ(path,methods[2],methods[5],alpha=0.05,group=TRUE)
 
 Graph2$graph
 
@@ -234,7 +233,46 @@ Graph2$graph
 # Power comparison between two methods - per data generation method and a specified setting parameter (delta = 0.5 --> difference in means of 0.5)
 
 db=data.frame(delta=0.5)
-Graph3 = Power_QQ(path,methods[3],methods[6],alpha=0.05,group=TRUE,par.fix=db)
+Graph3 = Power_QQ(path,methods[2],methods[5],alpha=0.05,group=TRUE,par.fix=db)
 
 Graph3$graph
+
 ```
+
+# Report results - Type 1 error  
+
+```{r}
+#load(paste(path,'\\Results\\NeutraliseStatus.RData',sep=''))
+
+library(dplyr)
+
+# All methods & data generation methods that have been 'neutralized'
+
+methods = All_Neutralised(path)
+data.gen = All_Neutralised(path, type='data')
+
+method1=methods[2]
+method2=methods[5]
+
+# Boxplot of type  error for a specified method - boxplot: over all data generators & scenarios
+
+Graph1_type1error = Boxplot_TypeI(path,method1)
+Graph1_type1error
+
+# Boxplot of type  error for a specified method - boxplot: per data generator
+
+Graph2_type1error = Boxplot_TypeI(path,method1,panel="distribution")
+Graph2_type1error
+
+
+# Boxplot of type  error for a specified method - boxplot: per sample size
+
+Graph3_type1error = Boxplot_TypeI(path,method1,panel="n")
+Graph3_type1error
+
+
+
+
+```
+
+
