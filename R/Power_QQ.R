@@ -95,8 +95,8 @@ Power_QQ<-function(path,method1,method2,alpha=0.05,
       geom_point(colour={{col}})+
       ylim(0,1)+xlim(0,1)+
       geom_abline()+
-      xlab(paste("power of ",deparse(substitute(method1)),sep=""))+
-      ylab(paste("power of ",deparse(substitute(method2)),sep=""))
+      xlab(paste("power of ",method1,sep=""))+
+      ylab(paste("power of ",method2,sep=""))
   }
     else {
       p<-add.to.plot+
@@ -111,8 +111,8 @@ Power_QQ<-function(path,method1,method2,alpha=0.05,
       geom_point(colour="grey90")+
       ylim(0,1)+xlim(0,1)+
       geom_abline()+
-      xlab(paste("power of ",deparse(substitute(method1)),sep=""))+
-      ylab(paste("power of ",deparse(substitute(method2)),sep=""))
+      xlab(paste("power of ",method1,sep=""))+
+      ylab(paste("power of ",method2,sep=""))
   }
   else {
     p<-add.to.plot+
