@@ -60,7 +60,7 @@ Boxplot_TypeI<-function(path,method,alpha=0.05,tol=0.02,panel="",ylim=c(0,0.07))
   if(panel=="n") {
     p0<-ggplot(db,aes(x=factor(n),y=pwr))
   }
-  p0+
+  graph=p0+
     geom_boxplot()+
     geom_jitter(alpha=0.6,width = 0.2, aes(colour=n))+
     lims(y=ylim)+
@@ -68,4 +68,5 @@ Boxplot_TypeI<-function(path,method,alpha=0.05,tol=0.02,panel="",ylim=c(0,0.07))
                {{method}},sep=""))+
     geom_hline(yintercept=alpha, linetype="dotted", colour="red")+
     xlab("")
+  return(Graph=graph,results=results1)
 }
