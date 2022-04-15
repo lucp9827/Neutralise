@@ -200,14 +200,6 @@ All the pull request will be checked by the coreteam and if validated they will 
 
 #### Report results per data generator
 
-```{r}
-# load(paste(path,'\\Results\\neutralise_status.R',sep=''))
-# m = neutralise_status$type=='method'
-```
-
-Tables summerizing the results:
-Graphs of the results:
-
 ```{r, echo=FALSE}
 #load(paste(path,'\\Results\\NeutraliseStatus.RData',sep=''))
 
