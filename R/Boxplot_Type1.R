@@ -30,6 +30,12 @@ Boxplot_TypeI<-function(path,method,alpha=0.05,tol=0.02,panel="",ylim=c(0,0.07))
 
     cnt<-cnt+1
     cnt.scenarios<-cnt.scenarios+length(pwr)
+
+    db_tmp<-data.frame(pwr=pwr,distribution=distr,n=n)
+
+    cat(paste(d,":\n",method," has on average a type I error rate of ",
+              round(100*db_tmp[db$distribution_tmp==d,'pwr']/cnt.scenarios,2),"% at the nominal ",
+              alpha," level.\n",sep=""))
   }
 
   #boxplot(pwr,
@@ -37,10 +43,7 @@ Boxplot_TypeI<-function(path,method,alpha=0.05,tol=0.02,panel="",ylim=c(0,0.07))
   #                   deparse(substitute(method)),sep=""))
 
 
-  cat(paste(method," has on average a type I error rate of ",
-            round(100*pwr/cnt.scenarios,2),"% at the nominal ",
-            alpha," level.\n",sep=""))
-  cat(paste(method," has a type I error rate not larger than ",
+  cat(paste("On average (over all scenarios) :",method," has a type I error rate not larger than ",
             alpha," + ",tol," in ",
             round(100*mean(pwr<alpha+tol),1),
             "% of the scenarios.\n",sep=""))
