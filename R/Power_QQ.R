@@ -21,6 +21,7 @@ Power_QQ<-function(path,method1,method2,alpha=0.05,
   cnt<-1
   pwr1<-c()
   pwr2<-c()
+  data.gen<-c()
 
   for(d in data.i) {
 
@@ -80,14 +81,15 @@ Power_QQ<-function(path,method1,method2,alpha=0.05,
 
     pwr1<-c(pwr1,pwr1.tmp)
     pwr2<-c(pwr2,pwr2.tmp)
+    data.gen <-c(data.gen,rep(d,length(pwr1.tmp)))
   }
-  powers<-data.frame(pwr1=pwr1,pwr2=pwr2)
+  powers<-data.frame(pwr1=pwr1,pwr2=pwr2,data.gen=data.gen)
 
   cat(paste(method2," wins over ",method1, " in ", round(100*win2/cnt.scenarios,1),
             "% of the ", cnt.scenarios, " scenarios",sep=""))
 
   if(is.null(add.to.plot)) {
-    p<-ggplot(powers,aes(x=pwr1,y=pwr2))+
+    p<-ggplot(powers,aes(x=pwr1,y=pwr2,color=data.gen))+
       geom_point(colour={{col}})+
       ylim(0,1)+xlim(0,1)+
       geom_abline()+
@@ -96,7 +98,7 @@ Power_QQ<-function(path,method1,method2,alpha=0.05,
   }
   else {
     p<-add.to.plot+
-      geom_point(data=powers,aes(x=pwr1,y=pwr2),
+      geom_point(data=powers,aes(x=pwr1,y=pwr2,color=data.gen),
                  colour={{col}})
   }
   p
