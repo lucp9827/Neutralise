@@ -68,5 +68,5 @@ Boxplot_TypeI<-function(path,method,alpha=0.05,tol=0.02,panel="",ylim=c(0,0.07))
                {{method}},sep=""))+
     geom_hline(yintercept=alpha, linetype="dotted", colour="red")+
     xlab("")
-  return(list(Graph=graph,results=results1))
+
 }
