@@ -49,8 +49,7 @@ Boxplot_TypeI<-function(path,method,alpha=0.05,tol=0.02,panel="",ylim=c(0,0.07))
             "% of the scenarios.\n",sep=""))
 
   db<-data.frame(pwr=pwr,distribution=distr,n=n)
-  invisible(list(power=db,
-                 results=results1))
+  invisible(list(results=results1)) #power=db,
 
   if(panel=="") {
     p0<-ggplot(db,aes(x="",y=pwr))
