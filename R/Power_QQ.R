@@ -89,8 +89,9 @@ Power_QQ<-function(path,method1,method2,alpha=0.05,
             "% of the ", cnt.scenarios, " scenarios",sep=""))
 
   if(is.null(add.to.plot)) {
-    p<-ggplot(powers,aes(x=pwr1,y=pwr2,color=data.gen))+
-      geom_point(colour={{col}})+
+    p<-ggplot(powers,aes(x=pwr1,y=pwr2))+
+      geom_point(aes(colour=factor(data.gen)),size=3)+
+      geom_point(colour="grey90")+
       ylim(0,1)+xlim(0,1)+
       geom_abline()+
       xlab(paste("power of ",method1,sep=""))+
@@ -98,7 +99,7 @@ Power_QQ<-function(path,method1,method2,alpha=0.05,
   }
   else {
     p<-add.to.plot+
-      geom_point(data=powers,aes(x=pwr1,y=pwr2,color=data.gen),
+      geom_point(data=powers,aes(x=pwr1,y=pwr2),
                  colour={{col}})
   }
   p
