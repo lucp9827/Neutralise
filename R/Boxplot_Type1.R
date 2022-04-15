@@ -59,7 +59,7 @@ Boxplot_TypeI<-function(path,method,alpha=0.05,tol=0.02,panel="",ylim=c(0,0.07))
     p0<-ggplot(db,aes(x=distribution,y=pwr))
   }
   if(panel=="n") {
-    p0<-ggplot(db,aes(x=n,y=pwr))
+    p0<-ggplot(db,aes(x=factor(n),y=pwr))
   }
   p0+
     geom_boxplot()+
