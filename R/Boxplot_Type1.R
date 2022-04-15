@@ -18,7 +18,7 @@ Boxplot_TypeI<-function(path,method,alpha=0.05,tol=0.02,panel="",ylim=c(0,0.07))
                  sep="")
 
     load(file1)
-    results1[[cnt]]<-results
+    results1[[d]]<-results
 
     x= colnames(results)
     colnr = grep(alpha,x)
