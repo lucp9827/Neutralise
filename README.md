@@ -200,8 +200,6 @@ All the pull request will be checked by the coreteam and if validated they will 
 # Report results - Power 
 
 ```{r}
-#load(paste(path,'\\Results\\NeutraliseStatus.RData',sep=''))
-
 library(dplyr)
 
 # All methods & data generation methods that have been 'neutralized'
@@ -242,17 +240,12 @@ Graph3$graph
 # Report results - Type 1 error  
 
 ```{r}
-#load(paste(path,'\\Results\\NeutraliseStatus.RData',sep=''))
-
-library(dplyr)
-
 # All methods & data generation methods that have been 'neutralized'
 
 methods = All_Neutralised(path)
 data.gen = All_Neutralised(path, type='data')
 
 method1=methods[2]
-method2=methods[5]
 
 # Boxplot of type  error for a specified method - boxplot: over all data generators & scenarios
 
