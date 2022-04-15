@@ -2,7 +2,7 @@
 Power_QQ<-function(path,method1,method2,alpha=0.05,
                    par.fix=NULL,
                    data=NULL,
-                   col="black", add.to.plot=NULL) { # data = data generation tool
+                   col="black", add.to.plot=NULL,group=FALSE) { # data = data generation tool
 
   # Read finished file
   finished<-read.csv(paste(path,"/Results/Finished.txt",sep=""),
@@ -88,6 +88,22 @@ Power_QQ<-function(path,method1,method2,alpha=0.05,
   cat(paste(method2," wins over ",method1, " in ", round(100*win2/cnt.scenarios,1),
             "% of the ", cnt.scenarios, " scenarios",sep=""))
 
+  if (!group){
+    if(is.null(add.to.plot)) {
+    p<-ggplot(powers,aes(x=pwr1,y=pwr2))+
+      geom_point(colour={{col}})+
+      ylim(0,1)+xlim(0,1)+
+      geom_abline()+
+      xlab(paste("power of ",deparse(substitute(method1)),sep=""))+
+      ylab(paste("power of ",deparse(substitute(method2)),sep=""))
+  }
+    else {
+      p<-add.to.plot+
+        geom_point(data=powers,aes(x=pwr1,y=pwr2),
+                   colour={{col}})
+    }
+
+  }else{
   if(is.null(add.to.plot)) {
     p<-ggplot(powers,aes(x=pwr1,y=pwr2))+
       geom_point(aes(colour=factor(data.gen)),size=3)+
@@ -101,7 +117,7 @@ Power_QQ<-function(path,method1,method2,alpha=0.05,
     p<-add.to.plot+
       geom_point(data=powers,aes(x=pwr1,y=pwr2),
                  colour={{col}})
-  }
+  }}
   p
 
   invisible(list(win.pct=win2/cnt.scenarios,
