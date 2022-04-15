@@ -197,7 +197,7 @@ This initiative is set up as an open science collaboration, and we hope that man
 All the pull request will be checked by the coreteam and if validated they will be added to the repository.
 ## 4. Evaluate - report
 
-# Report results - Power 
+## Report results - Power 
 
 ```{r}
 #load(paste(path,'\\Results\\NeutraliseStatus.RData',sep=''))
@@ -239,7 +239,7 @@ Graph3$graph
 
 ```
 
-# Report results - Type 1 error  
+## Report results - Type 1 error 
 
 ```{r}
 
@@ -250,11 +250,10 @@ data.gen = All_Neutralised(path, type='data')
 
 method1=methods[2]
 
-# Boxplot of type  error for a specified method - boxplot: over all data generators & scenarios
+# Boxplot of type  error for a specified method - boxplot: over all data generators & scenarios - Every printed row is a specific setting scenario for a data generator. In the Results folder for the specified method(in combination with a data generator), you can find the specifics for all the scenario parameters
 
 Graph1_type1error = Boxplot_TypeI(path,method1)
 Graph1_type1error
-
 # Boxplot of type  error for a specified method - boxplot: per data generator
 
 Graph2_type1error = Boxplot_TypeI(path,method1,panel="distribution")
@@ -264,7 +263,7 @@ Graph2_type1error
 # Boxplot of type  error for a specified method - boxplot: per sample size
 
 Graph3_type1error = Boxplot_TypeI(path,method1,panel="n")
-Graph3_type1error$data
+Graph3_type1error
 
 ```
 
