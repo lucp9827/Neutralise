@@ -209,5 +209,40 @@ Tables summerizing the results:
 Graphs of the results:
 
 ```{r, echo=FALSE}
+#load(paste(path,'\\Results\\NeutraliseStatus.RData',sep=''))
 
+library(dplyr)
+
+# All methods & data generation methods that have been 'neutralized'
+
+methods = All_Neutralised(path)
+data.gen = All_Neutralised(path, type='data')
+
+method1=methods[3]
+method2=methods[6]
+
+# Power comparison between two methods - general 
+Graph1 = Power_QQ(path,method1,method2,alpha=0.05)
+
+Graph1$graph
+
+# Power comparison between two methods - specified Data Generator = Logistic
+
+Graph1b = Power_QQ(path,method1,method2,alpha=0.05,data='Logistic')
+
+Graph1b$graph
+
+
+# Power comparison between two methods - per data generation method 
+Graph2 = Power_QQ(path,methods[3],methods[6],alpha=0.05,group=TRUE)
+
+Graph2$graph
+
+
+# Power comparison between two methods - per data generation method and a specified setting parameter (delta = 0.5 --> difference in means of 0.5)
+
+db=data.frame(delta=0.5)
+Graph3 = Power_QQ(path,methods[3],methods[6],alpha=0.05,group=TRUE,par.fix=db)
+
+Graph3$graph
 ```
