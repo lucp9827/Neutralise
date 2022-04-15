@@ -33,7 +33,7 @@ Boxplot_TypeI<-function(path,method,alpha=0.05,tol=0.02,panel="",ylim=c(0,0.07))
 
     db_tmp<-data.frame(pwr=pwr,distribution=distr,n=n)
 
-    cat(paste(d,":\n",method," has on average a type I error rate of ",
+    cat(paste(d," with a total sample size of =",db_tmp[db_tmp$distribution==d,'n'],":\n",method," has on average a type I error rate of ",
               round(100*db_tmp[db_tmp$distribution==d,'pwr']/cnt.scenarios,2),"% at the nominal ",
               alpha," level.\n",sep=""))
   }
