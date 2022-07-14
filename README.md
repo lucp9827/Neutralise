@@ -16,7 +16,7 @@ library(twosamples)
 
 ## Github installation 
 
-Code to install *Neutralise*, with authentication code for permission. (Authentication code needs be deleted when the resporitory is set public)
+Code to install *Neutralise*, with authentication code for permission. (Authentication code needs be deleted when the repository is set public)
 
 ```{r , message = FALSE}
 library(devtools)
@@ -28,7 +28,7 @@ library('Neutralise')
 
 ## Initialise local directory structure
 
-Download 'NeutraliseFiles.zip' from 'https://github.com/lucp9827/NeutraliseFiles'. Unzip the 'NeutraliseFiles' file and save the path to this unzipped NeutraliseFiles folder.
+Download 'NeutraliseFiles.zip' from 'https://github.com/lucp9827/NeutraliseFiles'. Unzip the 'NeutraliseFiles' file and save the path to this unzipped NeutraliseFiles folder. This folders allows the user to execute the demonstration and/or to reproduce all the results. Download the whole repository of NeutraliseFiles if you want to add material/results to the repository. 
 
 ```{r}
 # Example:
@@ -94,8 +94,7 @@ Then we can run the following code. This will NOT add the new method and data ge
 ```{r}
 res<-Neutralise(path,Test=AD_Asymp,
                 Data.Generator = ExpLocShift,
-                settings=settings,
-                N=1)
+                settings=settings)
 ```
 
 
@@ -114,7 +113,7 @@ Initialise_Neutralise(path)
 # Run Neutralise main function 
 # Delete N 
 
-res<-Neutralise(path, N=2)
+res<-Neutralise(path)
 ```
 
 
@@ -141,7 +140,7 @@ save(settings,
 
 # Run the Neutralise main function
 
-res<-Neutralise(path, N=2)
+res<-Neutralise(path)
 ```
 
 Suppose that we now have an new statistical method to be run for the data generators that already exists. Then we add a new method R-file to the directory *Methods* and run the code again.
@@ -176,7 +175,7 @@ Test<-function(db) {
 After saving the new method in the *Methods* directory as an R-file, we can run the main neutralise function. The results of the new simulations can be found in the *Results* directory.
 
 ```{r}
-res<-Neutralise(path, N=2)
+res<-Neutralise(path)
 ```
 
 
