@@ -94,8 +94,7 @@ Then we can run the following code. This will NOT add the new method and data ge
 ```{r}
 res<-Neutralise(path,Test=AD_Asymp,
                 Data.Generator = ExpLocShift,
-                settings=settings,
-                N=1)
+                settings=settings)
 ```
 
 
