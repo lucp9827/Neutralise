@@ -12,13 +12,7 @@ public)
 
 ``` r
 library(devtools)
-```
 
-    ## Warning: package 'devtools' was built under R version 4.0.5
-
-    ## Warning: package 'usethis' was built under R version 4.0.5
-
-``` r
 #install_github("lucp9827/Neutralise",auth_token="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",force=TRUE)
 
 library(Neutralise)
@@ -33,17 +27,17 @@ NeutraliseFiles folder.
 
 ``` r
 # Example:
-path = "C:\\Users\\lucp9827\\Desktop\\NeutraliseFiles"
+path = "C:\\Users\\lucp9827\\Desktop\\R_codes & Data\\NeutraliseFiles"
 ```
 
 NeutraliseFiles contains 4 directories;
 
-1.  **Data**: This Folder contains the data generator functions
-    available.
+1.  **Data**: This Folder contains the available data generator
+    functions.
 2.  **Settings**: This Folder contains the settings for the existing
     data generators. If the settings have been simulated, the setting
     files change from an R-data file extension to an R workspace.
-3.  **Methods**: This Folder contains the statistical methods available.
+3.  **Methods**: This Folder contains the available statistical methods.
 4.  **Results**: This folder contains the result of all combinations of
     statistical methods and simulation scenarios available, and a text
     file ‘Finished’ with information on the simulation runs already
@@ -54,13 +48,13 @@ NeutraliseFiles contains 4 directories;
 # 2. Demonstration Neutralise
 
 We will demonstrate two operating modes of Neutralise; **single** and
-**all**. First, we demonstrate the operating model *single*, which
-allows a user to evaluate a single statistical method under a single
-simulation scenario. Second, we demonstrate the operating mode *all*,
-which allows the user to evaluate a new statistical method under all
-scenario’s available on Github and compare the results to other
-statistical methods on Github. It’s also possible to evaluate all
-statistical methods available on Github under a new simulation scenario.
+**all**. First, we demonstrate the operating mode *single*, which allows
+a user to evaluate a single statistical method under a single simulation
+scenario. Second, we demonstrate the operating mode *all*, which allows
+the user to evaluate a new statistical method under all scenario’s
+available on Github and compare the results to other statistical methods
+on Github. It’s also possible to evaluate all statistical methods
+available on Github under a new simulation scenario.
 
 ## 2.1 Operating mode: *Single*
 
@@ -105,8 +99,8 @@ settings<-data.frame(
 ```
 
 Then we can run the following code. This will NOT add the new method and
-data generator to the *Methods* and *Data* directories, and the results
-will be saved to the directory Results/Local so that the results are not
+data generator to the *Methods* and *Data* directories, the results will
+be saved to the directory Results/Local so that the results are not
 mixed with the other results. However, the format in which the results
 are saved is the same as for the “all” mode. The power results are also
 in the object “res” so that the user does not necessarily has to go to
@@ -115,8 +109,7 @@ the Results/Local directory.
 ``` r
 res<-Neutralise(path,Test=AD_Asymp,
                 Data.Generator = ExpLocShift,
-                settings=settings,
-                N=1)
+                settings=settings)
 ```
 
 ## 2.2 Operating mode: *All*
@@ -127,7 +120,7 @@ the following code can be used and the results will be saved in the
 *Results* directory. This function can be used to reproduce results of
 previous simulations. Note: To reproduce results it’s important to have
 (1) an ‘empty’ *Results* directory and (2) to reinitialise the files
-*Finished.txt* and *neutralise\_status.Rfile*. Also (3) add the specific
+*Finished.txt* and *neutralise_status.Rfile*. Also (3) add the specific
 settings RData-files that you want to reproduce into the *Settings*
 directory.
 
@@ -137,9 +130,8 @@ directory.
 #Initialise_Neutralise(path)
 
 # Run Neutralise main function 
-# Delete N 
 
-res<-Neutralise(path, N=1)
+res<-Neutralise(path)
 ```
 
 Suppose that we now have some new additional settings to be run for a
@@ -150,8 +142,8 @@ first demonstrate how a new settings R-file should be constructed.
 ### Adding a new setting to the settings directory
 
 Make sure the R-file for the new setting begins with the same name as
-the existing Data Generator R-file (in *Data* directory) and ends with
-’\_settings.R’.
+the existing Data Generator R-file (in *Data* directory) for which the
+setting is developed and ends with ‘\_settings.R’.
 
 ``` r
 # Add setting for the 'Normal data generator' in the  Settings directory
@@ -168,8 +160,10 @@ save(settings,
 
 # Run the Neutralise main function
 
-res<-Neutralise(path, N=1)
+res<-Neutralise(path)
 ```
+
+    ## Warning in remove("settings"): object 'settings' not found
 
 Suppose that we now have an new statistical method to be run for the
 data generators that already exists. Then we’ll add a new method’s
@@ -183,12 +177,12 @@ directory.
 Statistical tests can be added to the system as an R file with a single
 function. This function must be named **Test** and specify one argument
 **bd**, which is a data frame with two columns. One column must be named
-**y** and contains the *n<sub>1</sub> + n<sub>2</sub>* sample
-observations, and the other column must be named **group** and contains
-values 1 and 2, referring to the groups the sample obserations come
-from. The R-file must contain a header that gives a **name** and a
-**description** of the method and references to the literature if
-appropriate. Also, add 1 empty line at the end of the R-file.
+**y** and contains the *n\~1\~ + n\~2\~* sample observations, and the
+other column must be named **group** and contains values 1 and 2,
+referring to the groups the sample obserations come from. The R-file
+must contain a header that gives a **name** and a **description** of the
+method and references to the literature if appropriate. Also, add 1
+empty line at the end of the R-file.
 
 ``` r
 # NAME
@@ -215,7 +209,7 @@ can run the main neutralise function. The results of the new simulations
 can be found in the *Results* directory.
 
 ``` r
-res<-Neutralise(path, N=1)
+res<-Neutralise(path)
 ```
 
 ## 3. Upload code or results to Github
@@ -242,16 +236,1868 @@ Commit (add) additional results as zip file.
 original NeutraliseFiles.
 
 All the pull request will be checked by the coreteam and if validated
-they will be added to the repisotory. \#\# 4. Evaluate - report
+they will be added to the repository.
 
-# Report results per data generator
+## 4. Evaluate - report
+
+## Report results - Power
 
 ``` r
-# load(paste(path,'\\Results\\neutralise_status.R',sep=''))
-# m = neutralise_status$type=='method'
+#load(paste(path,'\\Results\\NeutraliseStatus.RData',sep=''))
+
+library(dplyr)
+
+# All methods & data generation methods that have been 'neutralised'
+
+methods = All_Neutralised(path)
+data.gen = All_Neutralised(path, type='data')
+
+method1=methods[2] # CVM
+method2=methods[5] # "TTest_VarUnequal"
+
+# Power comparison between two methods - general 
+
+Graph1 = Power_QQ(path,method1,method2,alpha=0.05)
 ```
 
-Tables summerizing the results: Graphs of the results:
+    ## TTest_VarUnequal wins over CVM in 36.1% of the 36 scenarios
 
-Note that the `echo = FALSE` parameter was added to the code chunk to
-prevent printing of the R code that generated the plot.
+``` r
+Graph1$graph
+```
+
+![](Demonstration_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
+
+``` r
+# Power Comparison between a fixed method (e.g. CVM) and all other methods - general 
+
+Graphs = list()
+for (m in methods){
+  if(m != method1){
+  Graphs[[m]] = Power_QQ(path,m,method1,alpha=0.05)$graph
+  print("")}
+}
+```
+
+    ## CVM wins over AD in 36.1% of the 36 scenarios[1] ""
+    ## CVM wins over KS in 88.9% of the 36 scenarios[1] ""
+    ## CVM wins over TTest_VarEqual in 44.4% of the 36 scenarios[1] ""
+    ## CVM wins over TTest_VarUnequal in 55.6% of the 36 scenarios[1] ""
+    ## CVM wins over WMW_Asymp in 52.8% of the 36 scenarios[1] ""
+
+``` r
+ggarrange(plotlist=Graphs)
+```
+
+![](Demonstration_files/figure-gfm/unnamed-chunk-11-2.png)<!-- -->
+
+``` r
+# Power comparison between two methods - specified Data Generator = Logistic
+
+Graph1b = Power_QQ(path,method1,method2,alpha=0.05,data='Logistic')
+```
+
+    ## TTest_VarUnequal wins over CVM in 16.7% of the 12 scenarios
+
+``` r
+Graph1b$graph
+```
+
+![](Demonstration_files/figure-gfm/unnamed-chunk-11-3.png)<!-- -->
+
+``` r
+Graphsb = list()
+for (m in methods){
+  if(m != method1){
+  Graphsb[[m]] = Power_QQ(path,m,method1,alpha=0.05,data='Logistic')$graph
+  print("")}}
+```
+
+    ## CVM wins over AD in 66.7% of the 12 scenarios[1] ""
+    ## CVM wins over KS in 100% of the 12 scenarios[1] ""
+    ## CVM wins over TTest_VarEqual in 66.7% of the 12 scenarios[1] ""
+    ## CVM wins over TTest_VarUnequal in 83.3% of the 12 scenarios[1] ""
+    ## CVM wins over WMW_Asymp in 66.7% of the 12 scenarios[1] ""
+
+``` r
+ggarrange(plotlist=Graphsb)
+```
+
+![](Demonstration_files/figure-gfm/unnamed-chunk-11-4.png)<!-- -->
+
+``` r
+# Power comparison between two methods - per data generation method 
+Graph2 = Power_QQ(path,methods[2],methods[5],alpha=0.01,group=TRUE)
+```
+
+    ## Logistic: TTest_VarUnequal wins over CVM in 25% of the 12 scenarios
+    ## Normal2Var: TTest_VarUnequal wins over CVM in 50% of the 12 scenarios
+    ## Normal: TTest_VarUnequal wins over CVM in 58.3% of the 12 scenarios
+    ## TTest_VarUnequal wins over CVM in 44.4% of the 36 scenarios
+
+``` r
+Graph2$graph
+```
+
+![](Demonstration_files/figure-gfm/unnamed-chunk-11-5.png)<!-- -->
+
+``` r
+Graphs2 = list()
+for (m in methods){
+  if(m != method1){
+  Graphs2[[m]] = Power_QQ(path,m,method1,alpha=0.05,group=TRUE)$graph
+  print("")}}
+```
+
+    ## Logistic: CVM wins over AD in 66.7% of the 12 scenarios
+    ## Normal2Var: CVM wins over AD in 16.7% of the 12 scenarios
+    ## Normal: CVM wins over AD in 25% of the 12 scenarios
+    ## CVM wins over AD in 36.1% of the 36 scenarios[1] ""
+    ## Logistic: CVM wins over KS in 100% of the 12 scenarios
+    ## Normal2Var: CVM wins over KS in 75% of the 12 scenarios
+    ## Normal: CVM wins over KS in 91.7% of the 12 scenarios
+    ## CVM wins over KS in 88.9% of the 36 scenarios[1] ""
+    ## Logistic: CVM wins over TTest_VarEqual in 66.7% of the 12 scenarios
+    ## Normal2Var: CVM wins over TTest_VarEqual in 50% of the 12 scenarios
+    ## Normal: CVM wins over TTest_VarEqual in 16.7% of the 12 scenarios
+    ## CVM wins over TTest_VarEqual in 44.4% of the 36 scenarios[1] ""
+    ## Logistic: CVM wins over TTest_VarUnequal in 83.3% of the 12 scenarios
+    ## Normal2Var: CVM wins over TTest_VarUnequal in 33.3% of the 12 scenarios
+    ## Normal: CVM wins over TTest_VarUnequal in 50% of the 12 scenarios
+    ## CVM wins over TTest_VarUnequal in 55.6% of the 36 scenarios[1] ""
+    ## Logistic: CVM wins over WMW_Asymp in 66.7% of the 12 scenarios
+    ## Normal2Var: CVM wins over WMW_Asymp in 50% of the 12 scenarios
+    ## Normal: CVM wins over WMW_Asymp in 41.7% of the 12 scenarios
+    ## CVM wins over WMW_Asymp in 52.8% of the 36 scenarios[1] ""
+
+``` r
+ggarrange(plotlist=Graphs2)
+```
+
+![](Demonstration_files/figure-gfm/unnamed-chunk-11-6.png)<!-- -->
+
+``` r
+# Power comparison between two methods - per data generation method and a specified setting parameter (delta = 0.5 --> difference in means of 0.5)
+
+db=data.frame(delta=0.5) # important that the specified parameter is exactly the same as in the setting file 
+Graph3 = Power_QQ(path,methods[2],methods[5],alpha=0.05,group=TRUE,par.fix=db)
+```
+
+    ## Logistic: TTest_VarUnequal wins over CVM in 25% of the 4 scenarios
+    ## Normal2Var: TTest_VarUnequal wins over CVM in NaN% of the 0 scenarios
+    ## Normal: TTest_VarUnequal wins over CVM in 25% of the 4 scenarios
+    ## TTest_VarUnequal wins over CVM in 25% of the 8 scenarios
+
+``` r
+Graph3$graph
+```
+
+![](Demonstration_files/figure-gfm/unnamed-chunk-11-7.png)<!-- -->
+
+``` r
+Graphs3 = list()
+for (m in methods){
+  if(m != method1){
+  Graphs3[[m]] = Power_QQ(path,m,method1,alpha=0.05,group=TRUE,par.fix=db)$graph
+  print("")}}
+```
+
+    ## Logistic: CVM wins over AD in 75% of the 4 scenarios
+    ## Normal2Var: CVM wins over AD in NaN% of the 0 scenarios
+    ## Normal: CVM wins over AD in 25% of the 4 scenarios
+    ## CVM wins over AD in 50% of the 8 scenarios[1] ""
+    ## Logistic: CVM wins over KS in 100% of the 4 scenarios
+    ## Normal2Var: CVM wins over KS in NaN% of the 0 scenarios
+    ## Normal: CVM wins over KS in 100% of the 4 scenarios
+    ## CVM wins over KS in 100% of the 8 scenarios[1] ""
+    ## Logistic: CVM wins over TTest_VarEqual in 75% of the 4 scenarios
+    ## Normal2Var: CVM wins over TTest_VarEqual in NaN% of the 0 scenarios
+    ## Normal: CVM wins over TTest_VarEqual in 50% of the 4 scenarios
+    ## CVM wins over TTest_VarEqual in 62.5% of the 8 scenarios[1] ""
+    ## Logistic: CVM wins over TTest_VarUnequal in 75% of the 4 scenarios
+    ## Normal2Var: CVM wins over TTest_VarUnequal in NaN% of the 0 scenarios
+    ## Normal: CVM wins over TTest_VarUnequal in 75% of the 4 scenarios
+    ## CVM wins over TTest_VarUnequal in 75% of the 8 scenarios[1] ""
+    ## Logistic: CVM wins over WMW_Asymp in 75% of the 4 scenarios
+    ## Normal2Var: CVM wins over WMW_Asymp in NaN% of the 0 scenarios
+    ## Normal: CVM wins over WMW_Asymp in 75% of the 4 scenarios
+    ## CVM wins over WMW_Asymp in 75% of the 8 scenarios[1] ""
+
+``` r
+ggarrange(plotlist=Graphs3)
+```
+
+![](Demonstration_files/figure-gfm/unnamed-chunk-11-8.png)<!-- -->
+
+## Report results - Type 1 error
+
+``` r
+# All methods & data generation methods that have been 'neutralised'
+
+methods = All_Neutralised(path)
+data.gen = All_Neutralised(path, type='data')
+
+method1=methods[2]
+
+# Boxplot of type  error for a specified method - boxplot: over all data generators & scenarios - Every printed row is a specific setting scenario for a data generator. In the Results folder for the specified method(in combination with a data generator), you can find the specifics for all the scenario parameters
+
+Graph1_type1error = Boxplot_TypeI(path,method1)
+```
+
+    ## Logistic with a total sample size of 20:
+    ## CVM has on average a type I error rate of 1.15% at the nominal 0.05 level.
+    ##  Logistic with a total sample size of 40:
+    ## CVM has on average a type I error rate of 1.45% at the nominal 0.05 level.
+    ##  Logistic with a total sample size of 200:
+    ## CVM has on average a type I error rate of 1.32% at the nominal 0.05 level.
+    ##  Logistic with a total sample size of 110:
+    ## CVM has on average a type I error rate of 1.65% at the nominal 0.05 level.
+    ## Normal2Var with a total sample size of 20:
+    ## CVM has on average a type I error rate of 0.67% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 20:
+    ## CVM has on average a type I error rate of 0.32% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 40:
+    ## CVM has on average a type I error rate of 0.9% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 40:
+    ## CVM has on average a type I error rate of 0.45% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 200:
+    ## CVM has on average a type I error rate of 5.79% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 200:
+    ## CVM has on average a type I error rate of 1.96% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 110:
+    ## CVM has on average a type I error rate of 0.3% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 110:
+    ## CVM has on average a type I error rate of 0.22% at the nominal 0.05 level.
+    ## Normal with a total sample size of 20:
+    ## CVM has on average a type I error rate of 0.16% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## CVM has on average a type I error rate of 0.12% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## CVM has on average a type I error rate of 0.16% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## CVM has on average a type I error rate of 0.14% at the nominal 0.05 level.
+    ## Normal with a total sample size of 20:
+    ## CVM has on average a type I error rate of 0.1% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## CVM has on average a type I error rate of 0.08% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## CVM has on average a type I error rate of 0.1% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## CVM has on average a type I error rate of 0.08% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 20:
+    ## CVM has on average a type I error rate of 0.1% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## CVM has on average a type I error rate of 0.08% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## CVM has on average a type I error rate of 0.1% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## CVM has on average a type I error rate of 0.08% at the nominal 0.05 level.
+    ## Normal with a total sample size of 20:
+    ## CVM has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## CVM has on average a type I error rate of 0.05% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## CVM has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## CVM has on average a type I error rate of 0.06% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 20:
+    ## CVM has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## CVM has on average a type I error rate of 0.05% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## CVM has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## CVM has on average a type I error rate of 0.06% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 20:
+    ## CVM has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## CVM has on average a type I error rate of 0.05% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## CVM has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## CVM has on average a type I error rate of 0.06% at the nominal 0.05 level.
+    ## On average (over all scenarios) :CVM has a type I error rate not larger than 0.05 + 0.02 in 79.2% of the scenarios.
+
+``` r
+Graph1_type1error
+```
+
+    ## Warning: Removed 5 rows containing non-finite values (stat_boxplot).
+
+    ## Warning: Removed 5 rows containing missing values (geom_point).
+
+![](Demonstration_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
+
+``` r
+Graphs_type1error= list()
+for (m in methods){
+  
+  Graphs_type1error[[m]] = Boxplot_TypeI(path,m)
+}
+```
+
+    ## Logistic with a total sample size of 20:
+    ## AD has on average a type I error rate of 1.23% at the nominal 0.05 level.
+    ##  Logistic with a total sample size of 40:
+    ## AD has on average a type I error rate of 1.27% at the nominal 0.05 level.
+    ##  Logistic with a total sample size of 200:
+    ## AD has on average a type I error rate of 1.1% at the nominal 0.05 level.
+    ##  Logistic with a total sample size of 110:
+    ## AD has on average a type I error rate of 1.32% at the nominal 0.05 level.
+    ## Normal2Var with a total sample size of 20:
+    ## AD has on average a type I error rate of 0.54% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 20:
+    ## AD has on average a type I error rate of 0.31% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 40:
+    ## AD has on average a type I error rate of 1.33% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 40:
+    ## AD has on average a type I error rate of 0.5% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 200:
+    ## AD has on average a type I error rate of 6.23% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 200:
+    ## AD has on average a type I error rate of 3.66% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 110:
+    ## AD has on average a type I error rate of 0.16% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 110:
+    ## AD has on average a type I error rate of 0.13% at the nominal 0.05 level.
+    ## Normal with a total sample size of 20:
+    ## AD has on average a type I error rate of 0.16% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## AD has on average a type I error rate of 0.15% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## AD has on average a type I error rate of 0.11% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## AD has on average a type I error rate of 0.17% at the nominal 0.05 level.
+    ## Normal with a total sample size of 20:
+    ## AD has on average a type I error rate of 0.1% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## AD has on average a type I error rate of 0.09% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## AD has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## AD has on average a type I error rate of 0.1% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 20:
+    ## AD has on average a type I error rate of 0.1% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## AD has on average a type I error rate of 0.09% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## AD has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## AD has on average a type I error rate of 0.1% at the nominal 0.05 level.
+    ## Normal with a total sample size of 20:
+    ## AD has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## AD has on average a type I error rate of 0.06% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## AD has on average a type I error rate of 0.04% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## AD has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 20:
+    ## AD has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## AD has on average a type I error rate of 0.06% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## AD has on average a type I error rate of 0.04% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## AD has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 20:
+    ## AD has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## AD has on average a type I error rate of 0.06% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## AD has on average a type I error rate of 0.04% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## AD has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ## On average (over all scenarios) :AD has a type I error rate not larger than 0.05 + 0.02 in 79.2% of the scenarios.
+    ## Logistic with a total sample size of 20:
+    ## CVM has on average a type I error rate of 1.15% at the nominal 0.05 level.
+    ##  Logistic with a total sample size of 40:
+    ## CVM has on average a type I error rate of 1.45% at the nominal 0.05 level.
+    ##  Logistic with a total sample size of 200:
+    ## CVM has on average a type I error rate of 1.32% at the nominal 0.05 level.
+    ##  Logistic with a total sample size of 110:
+    ## CVM has on average a type I error rate of 1.65% at the nominal 0.05 level.
+    ## Normal2Var with a total sample size of 20:
+    ## CVM has on average a type I error rate of 0.67% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 20:
+    ## CVM has on average a type I error rate of 0.32% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 40:
+    ## CVM has on average a type I error rate of 0.9% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 40:
+    ## CVM has on average a type I error rate of 0.45% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 200:
+    ## CVM has on average a type I error rate of 5.79% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 200:
+    ## CVM has on average a type I error rate of 1.96% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 110:
+    ## CVM has on average a type I error rate of 0.3% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 110:
+    ## CVM has on average a type I error rate of 0.22% at the nominal 0.05 level.
+    ## Normal with a total sample size of 20:
+    ## CVM has on average a type I error rate of 0.16% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## CVM has on average a type I error rate of 0.12% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## CVM has on average a type I error rate of 0.16% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## CVM has on average a type I error rate of 0.14% at the nominal 0.05 level.
+    ## Normal with a total sample size of 20:
+    ## CVM has on average a type I error rate of 0.1% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## CVM has on average a type I error rate of 0.08% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## CVM has on average a type I error rate of 0.1% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## CVM has on average a type I error rate of 0.08% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 20:
+    ## CVM has on average a type I error rate of 0.1% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## CVM has on average a type I error rate of 0.08% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## CVM has on average a type I error rate of 0.1% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## CVM has on average a type I error rate of 0.08% at the nominal 0.05 level.
+    ## Normal with a total sample size of 20:
+    ## CVM has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## CVM has on average a type I error rate of 0.05% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## CVM has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## CVM has on average a type I error rate of 0.06% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 20:
+    ## CVM has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## CVM has on average a type I error rate of 0.05% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## CVM has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## CVM has on average a type I error rate of 0.06% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 20:
+    ## CVM has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## CVM has on average a type I error rate of 0.05% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## CVM has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## CVM has on average a type I error rate of 0.06% at the nominal 0.05 level.
+    ## On average (over all scenarios) :CVM has a type I error rate not larger than 0.05 + 0.02 in 79.2% of the scenarios.
+    ## Logistic with a total sample size of 20:
+    ## KS has on average a type I error rate of 0.4% at the nominal 0.05 level.
+    ##  Logistic with a total sample size of 40:
+    ## KS has on average a type I error rate of 0.7% at the nominal 0.05 level.
+    ##  Logistic with a total sample size of 200:
+    ## KS has on average a type I error rate of 0.9% at the nominal 0.05 level.
+    ##  Logistic with a total sample size of 110:
+    ## KS has on average a type I error rate of 0.88% at the nominal 0.05 level.
+    ## Normal2Var with a total sample size of 20:
+    ## KS has on average a type I error rate of 0.16% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 20:
+    ## KS has on average a type I error rate of 0.16% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 40:
+    ## KS has on average a type I error rate of 0.63% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 40:
+    ## KS has on average a type I error rate of 0.34% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 200:
+    ## KS has on average a type I error rate of 4.96% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 200:
+    ## KS has on average a type I error rate of 1.49% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 110:
+    ## KS has on average a type I error rate of 0.34% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 110:
+    ## KS has on average a type I error rate of 0.18% at the nominal 0.05 level.
+    ## Normal with a total sample size of 20:
+    ## KS has on average a type I error rate of 0.05% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## KS has on average a type I error rate of 0.11% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## KS has on average a type I error rate of 0.12% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## KS has on average a type I error rate of 0.14% at the nominal 0.05 level.
+    ## Normal with a total sample size of 20:
+    ## KS has on average a type I error rate of 0.03% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## KS has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## KS has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## KS has on average a type I error rate of 0.08% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 20:
+    ## KS has on average a type I error rate of 0.03% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## KS has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## KS has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## KS has on average a type I error rate of 0.08% at the nominal 0.05 level.
+    ## Normal with a total sample size of 20:
+    ## KS has on average a type I error rate of 0.02% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## KS has on average a type I error rate of 0.04% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## KS has on average a type I error rate of 0.05% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## KS has on average a type I error rate of 0.06% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 20:
+    ## KS has on average a type I error rate of 0.02% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## KS has on average a type I error rate of 0.04% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## KS has on average a type I error rate of 0.05% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## KS has on average a type I error rate of 0.06% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 20:
+    ## KS has on average a type I error rate of 0.02% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## KS has on average a type I error rate of 0.04% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## KS has on average a type I error rate of 0.05% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## KS has on average a type I error rate of 0.06% at the nominal 0.05 level.
+    ## On average (over all scenarios) :KS has a type I error rate not larger than 0.05 + 0.02 in 87.5% of the scenarios.
+    ## Logistic with a total sample size of 20:
+    ## TTest_VarEqual has on average a type I error rate of 1.25% at the nominal 0.05 level.
+    ##  Logistic with a total sample size of 40:
+    ## TTest_VarEqual has on average a type I error rate of 1.32% at the nominal 0.05 level.
+    ##  Logistic with a total sample size of 200:
+    ## TTest_VarEqual has on average a type I error rate of 1.15% at the nominal 0.05 level.
+    ##  Logistic with a total sample size of 110:
+    ## TTest_VarEqual has on average a type I error rate of 1.47% at the nominal 0.05 level.
+    ## Normal2Var with a total sample size of 20:
+    ## TTest_VarEqual has on average a type I error rate of 0.32% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 20:
+    ## TTest_VarEqual has on average a type I error rate of 0.29% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 40:
+    ## TTest_VarEqual has on average a type I error rate of 0.38% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 40:
+    ## TTest_VarEqual has on average a type I error rate of 0.34% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 200:
+    ## TTest_VarEqual has on average a type I error rate of 0.22% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 200:
+    ## TTest_VarEqual has on average a type I error rate of 0.33% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 110:
+    ## TTest_VarEqual has on average a type I error rate of 0% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 110:
+    ## TTest_VarEqual has on average a type I error rate of 0.04% at the nominal 0.05 level.
+    ## Normal with a total sample size of 20:
+    ## TTest_VarEqual has on average a type I error rate of 0.14% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## TTest_VarEqual has on average a type I error rate of 0.18% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## TTest_VarEqual has on average a type I error rate of 0.14% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## TTest_VarEqual has on average a type I error rate of 0.13% at the nominal 0.05 level.
+    ## Normal with a total sample size of 20:
+    ## TTest_VarEqual has on average a type I error rate of 0.08% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## TTest_VarEqual has on average a type I error rate of 0.11% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## TTest_VarEqual has on average a type I error rate of 0.09% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## TTest_VarEqual has on average a type I error rate of 0.08% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 20:
+    ## TTest_VarEqual has on average a type I error rate of 0.08% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## TTest_VarEqual has on average a type I error rate of 0.11% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## TTest_VarEqual has on average a type I error rate of 0.09% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## TTest_VarEqual has on average a type I error rate of 0.08% at the nominal 0.05 level.
+    ## Normal with a total sample size of 20:
+    ## TTest_VarEqual has on average a type I error rate of 0.06% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## TTest_VarEqual has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## TTest_VarEqual has on average a type I error rate of 0.06% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## TTest_VarEqual has on average a type I error rate of 0.06% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 20:
+    ## TTest_VarEqual has on average a type I error rate of 0.06% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## TTest_VarEqual has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## TTest_VarEqual has on average a type I error rate of 0.06% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## TTest_VarEqual has on average a type I error rate of 0.06% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 20:
+    ## TTest_VarEqual has on average a type I error rate of 0.06% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## TTest_VarEqual has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## TTest_VarEqual has on average a type I error rate of 0.06% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## TTest_VarEqual has on average a type I error rate of 0.06% at the nominal 0.05 level.
+    ## On average (over all scenarios) :TTest_VarEqual has a type I error rate not larger than 0.05 + 0.02 in 100% of the scenarios.
+    ## Logistic with a total sample size of 20:
+    ## TTest_VarUnequal has on average a type I error rate of 1.1% at the nominal 0.05 level.
+    ##  Logistic with a total sample size of 40:
+    ## TTest_VarUnequal has on average a type I error rate of 1.05% at the nominal 0.05 level.
+    ##  Logistic with a total sample size of 200:
+    ## TTest_VarUnequal has on average a type I error rate of 1.03% at the nominal 0.05 level.
+    ##  Logistic with a total sample size of 110:
+    ## TTest_VarUnequal has on average a type I error rate of 1.25% at the nominal 0.05 level.
+    ## Normal2Var with a total sample size of 20:
+    ## TTest_VarUnequal has on average a type I error rate of 0.32% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 20:
+    ## TTest_VarUnequal has on average a type I error rate of 0.25% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 40:
+    ## TTest_VarUnequal has on average a type I error rate of 0.32% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 40:
+    ## TTest_VarUnequal has on average a type I error rate of 0.36% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 200:
+    ## TTest_VarUnequal has on average a type I error rate of 0.31% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 200:
+    ## TTest_VarUnequal has on average a type I error rate of 0.26% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 110:
+    ## TTest_VarUnequal has on average a type I error rate of 0.28% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 110:
+    ## TTest_VarUnequal has on average a type I error rate of 0.35% at the nominal 0.05 level.
+    ## Normal with a total sample size of 20:
+    ## TTest_VarUnequal has on average a type I error rate of 0.17% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## TTest_VarUnequal has on average a type I error rate of 0.18% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## TTest_VarUnequal has on average a type I error rate of 0.14% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## TTest_VarUnequal has on average a type I error rate of 0.16% at the nominal 0.05 level.
+    ## Normal with a total sample size of 20:
+    ## TTest_VarUnequal has on average a type I error rate of 0.11% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## TTest_VarUnequal has on average a type I error rate of 0.11% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## TTest_VarUnequal has on average a type I error rate of 0.09% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## TTest_VarUnequal has on average a type I error rate of 0.1% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 20:
+    ## TTest_VarUnequal has on average a type I error rate of 0.11% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## TTest_VarUnequal has on average a type I error rate of 0.11% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## TTest_VarUnequal has on average a type I error rate of 0.09% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## TTest_VarUnequal has on average a type I error rate of 0.1% at the nominal 0.05 level.
+    ## Normal with a total sample size of 20:
+    ## TTest_VarUnequal has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## TTest_VarUnequal has on average a type I error rate of 0.08% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## TTest_VarUnequal has on average a type I error rate of 0.06% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## TTest_VarUnequal has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 20:
+    ## TTest_VarUnequal has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## TTest_VarUnequal has on average a type I error rate of 0.08% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## TTest_VarUnequal has on average a type I error rate of 0.06% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## TTest_VarUnequal has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 20:
+    ## TTest_VarUnequal has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## TTest_VarUnequal has on average a type I error rate of 0.08% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## TTest_VarUnequal has on average a type I error rate of 0.06% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## TTest_VarUnequal has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ## On average (over all scenarios) :TTest_VarUnequal has a type I error rate not larger than 0.05 + 0.02 in 100% of the scenarios.
+    ## Logistic with a total sample size of 20:
+    ## WMW_Asymp has on average a type I error rate of 1.07% at the nominal 0.05 level.
+    ##  Logistic with a total sample size of 40:
+    ## WMW_Asymp has on average a type I error rate of 1.15% at the nominal 0.05 level.
+    ##  Logistic with a total sample size of 200:
+    ## WMW_Asymp has on average a type I error rate of 1.57% at the nominal 0.05 level.
+    ##  Logistic with a total sample size of 110:
+    ## WMW_Asymp has on average a type I error rate of 1.05% at the nominal 0.05 level.
+    ## Normal2Var with a total sample size of 20:
+    ## WMW_Asymp has on average a type I error rate of 0.27% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 20:
+    ## WMW_Asymp has on average a type I error rate of 0.28% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 40:
+    ## WMW_Asymp has on average a type I error rate of 0.43% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 40:
+    ## WMW_Asymp has on average a type I error rate of 0.41% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 200:
+    ## WMW_Asymp has on average a type I error rate of 0.3% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 200:
+    ## WMW_Asymp has on average a type I error rate of 0.35% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 110:
+    ## WMW_Asymp has on average a type I error rate of 0.05% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 110:
+    ## WMW_Asymp has on average a type I error rate of 0.1% at the nominal 0.05 level.
+    ## Normal with a total sample size of 20:
+    ## WMW_Asymp has on average a type I error rate of 0.11% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## WMW_Asymp has on average a type I error rate of 0.16% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## WMW_Asymp has on average a type I error rate of 0.15% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## WMW_Asymp has on average a type I error rate of 0.12% at the nominal 0.05 level.
+    ## Normal with a total sample size of 20:
+    ## WMW_Asymp has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## WMW_Asymp has on average a type I error rate of 0.1% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## WMW_Asymp has on average a type I error rate of 0.09% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## WMW_Asymp has on average a type I error rate of 0.08% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 20:
+    ## WMW_Asymp has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## WMW_Asymp has on average a type I error rate of 0.1% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## WMW_Asymp has on average a type I error rate of 0.09% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## WMW_Asymp has on average a type I error rate of 0.08% at the nominal 0.05 level.
+    ## Normal with a total sample size of 20:
+    ## WMW_Asymp has on average a type I error rate of 0.05% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## WMW_Asymp has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## WMW_Asymp has on average a type I error rate of 0.06% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## WMW_Asymp has on average a type I error rate of 0.05% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 20:
+    ## WMW_Asymp has on average a type I error rate of 0.05% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## WMW_Asymp has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## WMW_Asymp has on average a type I error rate of 0.06% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## WMW_Asymp has on average a type I error rate of 0.05% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 20:
+    ## WMW_Asymp has on average a type I error rate of 0.05% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## WMW_Asymp has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## WMW_Asymp has on average a type I error rate of 0.06% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## WMW_Asymp has on average a type I error rate of 0.05% at the nominal 0.05 level.
+    ## On average (over all scenarios) :WMW_Asymp has a type I error rate not larger than 0.05 + 0.02 in 100% of the scenarios.
+
+``` r
+ggarrange(plotlist = Graphs_type1error)
+```
+
+    ## Warning: Removed 5 rows containing non-finite values (stat_boxplot).
+    ## Removed 5 rows containing missing values (geom_point).
+
+    ## Warning: Removed 5 rows containing non-finite values (stat_boxplot).
+
+    ## Warning: Removed 5 rows containing missing values (geom_point).
+
+    ## Warning: Removed 3 rows containing non-finite values (stat_boxplot).
+
+    ## Warning: Removed 3 rows containing missing values (geom_point).
+
+![](Demonstration_files/figure-gfm/unnamed-chunk-12-2.png)<!-- -->
+
+``` r
+# Boxplot of type  error for a specified method - boxplot: per data generator
+
+Graph2_type1error = Boxplot_TypeI(path,method1,panel="distribution")
+```
+
+    ## Logistic with a total sample size of 20:
+    ## CVM has on average a type I error rate of 1.15% at the nominal 0.05 level.
+    ##  Logistic with a total sample size of 40:
+    ## CVM has on average a type I error rate of 1.45% at the nominal 0.05 level.
+    ##  Logistic with a total sample size of 200:
+    ## CVM has on average a type I error rate of 1.32% at the nominal 0.05 level.
+    ##  Logistic with a total sample size of 110:
+    ## CVM has on average a type I error rate of 1.65% at the nominal 0.05 level.
+    ## Normal2Var with a total sample size of 20:
+    ## CVM has on average a type I error rate of 0.67% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 20:
+    ## CVM has on average a type I error rate of 0.32% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 40:
+    ## CVM has on average a type I error rate of 0.9% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 40:
+    ## CVM has on average a type I error rate of 0.45% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 200:
+    ## CVM has on average a type I error rate of 5.79% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 200:
+    ## CVM has on average a type I error rate of 1.96% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 110:
+    ## CVM has on average a type I error rate of 0.3% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 110:
+    ## CVM has on average a type I error rate of 0.22% at the nominal 0.05 level.
+    ## Normal with a total sample size of 20:
+    ## CVM has on average a type I error rate of 0.16% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## CVM has on average a type I error rate of 0.12% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## CVM has on average a type I error rate of 0.16% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## CVM has on average a type I error rate of 0.14% at the nominal 0.05 level.
+    ## Normal with a total sample size of 20:
+    ## CVM has on average a type I error rate of 0.1% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## CVM has on average a type I error rate of 0.08% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## CVM has on average a type I error rate of 0.1% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## CVM has on average a type I error rate of 0.08% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 20:
+    ## CVM has on average a type I error rate of 0.1% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## CVM has on average a type I error rate of 0.08% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## CVM has on average a type I error rate of 0.1% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## CVM has on average a type I error rate of 0.08% at the nominal 0.05 level.
+    ## Normal with a total sample size of 20:
+    ## CVM has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## CVM has on average a type I error rate of 0.05% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## CVM has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## CVM has on average a type I error rate of 0.06% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 20:
+    ## CVM has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## CVM has on average a type I error rate of 0.05% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## CVM has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## CVM has on average a type I error rate of 0.06% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 20:
+    ## CVM has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## CVM has on average a type I error rate of 0.05% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## CVM has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## CVM has on average a type I error rate of 0.06% at the nominal 0.05 level.
+    ## On average (over all scenarios) :CVM has a type I error rate not larger than 0.05 + 0.02 in 79.2% of the scenarios.
+
+``` r
+Graph2_type1error
+```
+
+    ## Warning: Removed 5 rows containing non-finite values (stat_boxplot).
+
+    ## Warning: Removed 5 rows containing missing values (geom_point).
+
+![](Demonstration_files/figure-gfm/unnamed-chunk-12-3.png)<!-- -->
+
+``` r
+Graphs2_type1error= list()
+for (m in methods){
+  
+  Graphs2_type1error[[m]] = Boxplot_TypeI(path,m,panel="distribution")
+}
+```
+
+    ## Logistic with a total sample size of 20:
+    ## AD has on average a type I error rate of 1.23% at the nominal 0.05 level.
+    ##  Logistic with a total sample size of 40:
+    ## AD has on average a type I error rate of 1.27% at the nominal 0.05 level.
+    ##  Logistic with a total sample size of 200:
+    ## AD has on average a type I error rate of 1.1% at the nominal 0.05 level.
+    ##  Logistic with a total sample size of 110:
+    ## AD has on average a type I error rate of 1.32% at the nominal 0.05 level.
+    ## Normal2Var with a total sample size of 20:
+    ## AD has on average a type I error rate of 0.54% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 20:
+    ## AD has on average a type I error rate of 0.31% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 40:
+    ## AD has on average a type I error rate of 1.33% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 40:
+    ## AD has on average a type I error rate of 0.5% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 200:
+    ## AD has on average a type I error rate of 6.23% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 200:
+    ## AD has on average a type I error rate of 3.66% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 110:
+    ## AD has on average a type I error rate of 0.16% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 110:
+    ## AD has on average a type I error rate of 0.13% at the nominal 0.05 level.
+    ## Normal with a total sample size of 20:
+    ## AD has on average a type I error rate of 0.16% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## AD has on average a type I error rate of 0.15% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## AD has on average a type I error rate of 0.11% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## AD has on average a type I error rate of 0.17% at the nominal 0.05 level.
+    ## Normal with a total sample size of 20:
+    ## AD has on average a type I error rate of 0.1% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## AD has on average a type I error rate of 0.09% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## AD has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## AD has on average a type I error rate of 0.1% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 20:
+    ## AD has on average a type I error rate of 0.1% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## AD has on average a type I error rate of 0.09% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## AD has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## AD has on average a type I error rate of 0.1% at the nominal 0.05 level.
+    ## Normal with a total sample size of 20:
+    ## AD has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## AD has on average a type I error rate of 0.06% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## AD has on average a type I error rate of 0.04% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## AD has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 20:
+    ## AD has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## AD has on average a type I error rate of 0.06% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## AD has on average a type I error rate of 0.04% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## AD has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 20:
+    ## AD has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## AD has on average a type I error rate of 0.06% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## AD has on average a type I error rate of 0.04% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## AD has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ## On average (over all scenarios) :AD has a type I error rate not larger than 0.05 + 0.02 in 79.2% of the scenarios.
+    ## Logistic with a total sample size of 20:
+    ## CVM has on average a type I error rate of 1.15% at the nominal 0.05 level.
+    ##  Logistic with a total sample size of 40:
+    ## CVM has on average a type I error rate of 1.45% at the nominal 0.05 level.
+    ##  Logistic with a total sample size of 200:
+    ## CVM has on average a type I error rate of 1.32% at the nominal 0.05 level.
+    ##  Logistic with a total sample size of 110:
+    ## CVM has on average a type I error rate of 1.65% at the nominal 0.05 level.
+    ## Normal2Var with a total sample size of 20:
+    ## CVM has on average a type I error rate of 0.67% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 20:
+    ## CVM has on average a type I error rate of 0.32% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 40:
+    ## CVM has on average a type I error rate of 0.9% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 40:
+    ## CVM has on average a type I error rate of 0.45% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 200:
+    ## CVM has on average a type I error rate of 5.79% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 200:
+    ## CVM has on average a type I error rate of 1.96% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 110:
+    ## CVM has on average a type I error rate of 0.3% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 110:
+    ## CVM has on average a type I error rate of 0.22% at the nominal 0.05 level.
+    ## Normal with a total sample size of 20:
+    ## CVM has on average a type I error rate of 0.16% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## CVM has on average a type I error rate of 0.12% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## CVM has on average a type I error rate of 0.16% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## CVM has on average a type I error rate of 0.14% at the nominal 0.05 level.
+    ## Normal with a total sample size of 20:
+    ## CVM has on average a type I error rate of 0.1% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## CVM has on average a type I error rate of 0.08% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## CVM has on average a type I error rate of 0.1% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## CVM has on average a type I error rate of 0.08% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 20:
+    ## CVM has on average a type I error rate of 0.1% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## CVM has on average a type I error rate of 0.08% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## CVM has on average a type I error rate of 0.1% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## CVM has on average a type I error rate of 0.08% at the nominal 0.05 level.
+    ## Normal with a total sample size of 20:
+    ## CVM has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## CVM has on average a type I error rate of 0.05% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## CVM has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## CVM has on average a type I error rate of 0.06% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 20:
+    ## CVM has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## CVM has on average a type I error rate of 0.05% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## CVM has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## CVM has on average a type I error rate of 0.06% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 20:
+    ## CVM has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## CVM has on average a type I error rate of 0.05% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## CVM has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## CVM has on average a type I error rate of 0.06% at the nominal 0.05 level.
+    ## On average (over all scenarios) :CVM has a type I error rate not larger than 0.05 + 0.02 in 79.2% of the scenarios.
+    ## Logistic with a total sample size of 20:
+    ## KS has on average a type I error rate of 0.4% at the nominal 0.05 level.
+    ##  Logistic with a total sample size of 40:
+    ## KS has on average a type I error rate of 0.7% at the nominal 0.05 level.
+    ##  Logistic with a total sample size of 200:
+    ## KS has on average a type I error rate of 0.9% at the nominal 0.05 level.
+    ##  Logistic with a total sample size of 110:
+    ## KS has on average a type I error rate of 0.88% at the nominal 0.05 level.
+    ## Normal2Var with a total sample size of 20:
+    ## KS has on average a type I error rate of 0.16% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 20:
+    ## KS has on average a type I error rate of 0.16% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 40:
+    ## KS has on average a type I error rate of 0.63% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 40:
+    ## KS has on average a type I error rate of 0.34% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 200:
+    ## KS has on average a type I error rate of 4.96% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 200:
+    ## KS has on average a type I error rate of 1.49% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 110:
+    ## KS has on average a type I error rate of 0.34% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 110:
+    ## KS has on average a type I error rate of 0.18% at the nominal 0.05 level.
+    ## Normal with a total sample size of 20:
+    ## KS has on average a type I error rate of 0.05% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## KS has on average a type I error rate of 0.11% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## KS has on average a type I error rate of 0.12% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## KS has on average a type I error rate of 0.14% at the nominal 0.05 level.
+    ## Normal with a total sample size of 20:
+    ## KS has on average a type I error rate of 0.03% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## KS has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## KS has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## KS has on average a type I error rate of 0.08% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 20:
+    ## KS has on average a type I error rate of 0.03% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## KS has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## KS has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## KS has on average a type I error rate of 0.08% at the nominal 0.05 level.
+    ## Normal with a total sample size of 20:
+    ## KS has on average a type I error rate of 0.02% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## KS has on average a type I error rate of 0.04% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## KS has on average a type I error rate of 0.05% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## KS has on average a type I error rate of 0.06% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 20:
+    ## KS has on average a type I error rate of 0.02% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## KS has on average a type I error rate of 0.04% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## KS has on average a type I error rate of 0.05% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## KS has on average a type I error rate of 0.06% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 20:
+    ## KS has on average a type I error rate of 0.02% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## KS has on average a type I error rate of 0.04% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## KS has on average a type I error rate of 0.05% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## KS has on average a type I error rate of 0.06% at the nominal 0.05 level.
+    ## On average (over all scenarios) :KS has a type I error rate not larger than 0.05 + 0.02 in 87.5% of the scenarios.
+    ## Logistic with a total sample size of 20:
+    ## TTest_VarEqual has on average a type I error rate of 1.25% at the nominal 0.05 level.
+    ##  Logistic with a total sample size of 40:
+    ## TTest_VarEqual has on average a type I error rate of 1.32% at the nominal 0.05 level.
+    ##  Logistic with a total sample size of 200:
+    ## TTest_VarEqual has on average a type I error rate of 1.15% at the nominal 0.05 level.
+    ##  Logistic with a total sample size of 110:
+    ## TTest_VarEqual has on average a type I error rate of 1.47% at the nominal 0.05 level.
+    ## Normal2Var with a total sample size of 20:
+    ## TTest_VarEqual has on average a type I error rate of 0.32% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 20:
+    ## TTest_VarEqual has on average a type I error rate of 0.29% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 40:
+    ## TTest_VarEqual has on average a type I error rate of 0.38% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 40:
+    ## TTest_VarEqual has on average a type I error rate of 0.34% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 200:
+    ## TTest_VarEqual has on average a type I error rate of 0.22% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 200:
+    ## TTest_VarEqual has on average a type I error rate of 0.33% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 110:
+    ## TTest_VarEqual has on average a type I error rate of 0% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 110:
+    ## TTest_VarEqual has on average a type I error rate of 0.04% at the nominal 0.05 level.
+    ## Normal with a total sample size of 20:
+    ## TTest_VarEqual has on average a type I error rate of 0.14% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## TTest_VarEqual has on average a type I error rate of 0.18% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## TTest_VarEqual has on average a type I error rate of 0.14% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## TTest_VarEqual has on average a type I error rate of 0.13% at the nominal 0.05 level.
+    ## Normal with a total sample size of 20:
+    ## TTest_VarEqual has on average a type I error rate of 0.08% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## TTest_VarEqual has on average a type I error rate of 0.11% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## TTest_VarEqual has on average a type I error rate of 0.09% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## TTest_VarEqual has on average a type I error rate of 0.08% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 20:
+    ## TTest_VarEqual has on average a type I error rate of 0.08% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## TTest_VarEqual has on average a type I error rate of 0.11% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## TTest_VarEqual has on average a type I error rate of 0.09% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## TTest_VarEqual has on average a type I error rate of 0.08% at the nominal 0.05 level.
+    ## Normal with a total sample size of 20:
+    ## TTest_VarEqual has on average a type I error rate of 0.06% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## TTest_VarEqual has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## TTest_VarEqual has on average a type I error rate of 0.06% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## TTest_VarEqual has on average a type I error rate of 0.06% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 20:
+    ## TTest_VarEqual has on average a type I error rate of 0.06% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## TTest_VarEqual has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## TTest_VarEqual has on average a type I error rate of 0.06% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## TTest_VarEqual has on average a type I error rate of 0.06% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 20:
+    ## TTest_VarEqual has on average a type I error rate of 0.06% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## TTest_VarEqual has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## TTest_VarEqual has on average a type I error rate of 0.06% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## TTest_VarEqual has on average a type I error rate of 0.06% at the nominal 0.05 level.
+    ## On average (over all scenarios) :TTest_VarEqual has a type I error rate not larger than 0.05 + 0.02 in 100% of the scenarios.
+    ## Logistic with a total sample size of 20:
+    ## TTest_VarUnequal has on average a type I error rate of 1.1% at the nominal 0.05 level.
+    ##  Logistic with a total sample size of 40:
+    ## TTest_VarUnequal has on average a type I error rate of 1.05% at the nominal 0.05 level.
+    ##  Logistic with a total sample size of 200:
+    ## TTest_VarUnequal has on average a type I error rate of 1.03% at the nominal 0.05 level.
+    ##  Logistic with a total sample size of 110:
+    ## TTest_VarUnequal has on average a type I error rate of 1.25% at the nominal 0.05 level.
+    ## Normal2Var with a total sample size of 20:
+    ## TTest_VarUnequal has on average a type I error rate of 0.32% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 20:
+    ## TTest_VarUnequal has on average a type I error rate of 0.25% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 40:
+    ## TTest_VarUnequal has on average a type I error rate of 0.32% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 40:
+    ## TTest_VarUnequal has on average a type I error rate of 0.36% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 200:
+    ## TTest_VarUnequal has on average a type I error rate of 0.31% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 200:
+    ## TTest_VarUnequal has on average a type I error rate of 0.26% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 110:
+    ## TTest_VarUnequal has on average a type I error rate of 0.28% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 110:
+    ## TTest_VarUnequal has on average a type I error rate of 0.35% at the nominal 0.05 level.
+    ## Normal with a total sample size of 20:
+    ## TTest_VarUnequal has on average a type I error rate of 0.17% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## TTest_VarUnequal has on average a type I error rate of 0.18% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## TTest_VarUnequal has on average a type I error rate of 0.14% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## TTest_VarUnequal has on average a type I error rate of 0.16% at the nominal 0.05 level.
+    ## Normal with a total sample size of 20:
+    ## TTest_VarUnequal has on average a type I error rate of 0.11% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## TTest_VarUnequal has on average a type I error rate of 0.11% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## TTest_VarUnequal has on average a type I error rate of 0.09% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## TTest_VarUnequal has on average a type I error rate of 0.1% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 20:
+    ## TTest_VarUnequal has on average a type I error rate of 0.11% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## TTest_VarUnequal has on average a type I error rate of 0.11% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## TTest_VarUnequal has on average a type I error rate of 0.09% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## TTest_VarUnequal has on average a type I error rate of 0.1% at the nominal 0.05 level.
+    ## Normal with a total sample size of 20:
+    ## TTest_VarUnequal has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## TTest_VarUnequal has on average a type I error rate of 0.08% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## TTest_VarUnequal has on average a type I error rate of 0.06% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## TTest_VarUnequal has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 20:
+    ## TTest_VarUnequal has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## TTest_VarUnequal has on average a type I error rate of 0.08% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## TTest_VarUnequal has on average a type I error rate of 0.06% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## TTest_VarUnequal has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 20:
+    ## TTest_VarUnequal has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## TTest_VarUnequal has on average a type I error rate of 0.08% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## TTest_VarUnequal has on average a type I error rate of 0.06% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## TTest_VarUnequal has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ## On average (over all scenarios) :TTest_VarUnequal has a type I error rate not larger than 0.05 + 0.02 in 100% of the scenarios.
+    ## Logistic with a total sample size of 20:
+    ## WMW_Asymp has on average a type I error rate of 1.07% at the nominal 0.05 level.
+    ##  Logistic with a total sample size of 40:
+    ## WMW_Asymp has on average a type I error rate of 1.15% at the nominal 0.05 level.
+    ##  Logistic with a total sample size of 200:
+    ## WMW_Asymp has on average a type I error rate of 1.57% at the nominal 0.05 level.
+    ##  Logistic with a total sample size of 110:
+    ## WMW_Asymp has on average a type I error rate of 1.05% at the nominal 0.05 level.
+    ## Normal2Var with a total sample size of 20:
+    ## WMW_Asymp has on average a type I error rate of 0.27% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 20:
+    ## WMW_Asymp has on average a type I error rate of 0.28% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 40:
+    ## WMW_Asymp has on average a type I error rate of 0.43% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 40:
+    ## WMW_Asymp has on average a type I error rate of 0.41% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 200:
+    ## WMW_Asymp has on average a type I error rate of 0.3% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 200:
+    ## WMW_Asymp has on average a type I error rate of 0.35% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 110:
+    ## WMW_Asymp has on average a type I error rate of 0.05% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 110:
+    ## WMW_Asymp has on average a type I error rate of 0.1% at the nominal 0.05 level.
+    ## Normal with a total sample size of 20:
+    ## WMW_Asymp has on average a type I error rate of 0.11% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## WMW_Asymp has on average a type I error rate of 0.16% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## WMW_Asymp has on average a type I error rate of 0.15% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## WMW_Asymp has on average a type I error rate of 0.12% at the nominal 0.05 level.
+    ## Normal with a total sample size of 20:
+    ## WMW_Asymp has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## WMW_Asymp has on average a type I error rate of 0.1% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## WMW_Asymp has on average a type I error rate of 0.09% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## WMW_Asymp has on average a type I error rate of 0.08% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 20:
+    ## WMW_Asymp has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## WMW_Asymp has on average a type I error rate of 0.1% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## WMW_Asymp has on average a type I error rate of 0.09% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## WMW_Asymp has on average a type I error rate of 0.08% at the nominal 0.05 level.
+    ## Normal with a total sample size of 20:
+    ## WMW_Asymp has on average a type I error rate of 0.05% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## WMW_Asymp has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## WMW_Asymp has on average a type I error rate of 0.06% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## WMW_Asymp has on average a type I error rate of 0.05% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 20:
+    ## WMW_Asymp has on average a type I error rate of 0.05% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## WMW_Asymp has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## WMW_Asymp has on average a type I error rate of 0.06% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## WMW_Asymp has on average a type I error rate of 0.05% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 20:
+    ## WMW_Asymp has on average a type I error rate of 0.05% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## WMW_Asymp has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## WMW_Asymp has on average a type I error rate of 0.06% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## WMW_Asymp has on average a type I error rate of 0.05% at the nominal 0.05 level.
+    ## On average (over all scenarios) :WMW_Asymp has a type I error rate not larger than 0.05 + 0.02 in 100% of the scenarios.
+
+``` r
+ggarrange(plotlist = Graphs2_type1error)
+```
+
+    ## Warning: Removed 5 rows containing non-finite values (stat_boxplot).
+    ## Removed 5 rows containing missing values (geom_point).
+
+    ## Warning: Removed 5 rows containing non-finite values (stat_boxplot).
+
+    ## Warning: Removed 5 rows containing missing values (geom_point).
+
+    ## Warning: Removed 3 rows containing non-finite values (stat_boxplot).
+
+    ## Warning: Removed 3 rows containing missing values (geom_point).
+
+    ## Warning: Removed 1 rows containing missing values (geom_point).
+
+![](Demonstration_files/figure-gfm/unnamed-chunk-12-4.png)<!-- -->
+
+``` r
+# Boxplot of type  error for a specified method - boxplot: per sample size
+
+Graph3_type1error = Boxplot_TypeI(path,method1,panel="n")
+```
+
+    ## Logistic with a total sample size of 20:
+    ## CVM has on average a type I error rate of 1.15% at the nominal 0.05 level.
+    ##  Logistic with a total sample size of 40:
+    ## CVM has on average a type I error rate of 1.45% at the nominal 0.05 level.
+    ##  Logistic with a total sample size of 200:
+    ## CVM has on average a type I error rate of 1.32% at the nominal 0.05 level.
+    ##  Logistic with a total sample size of 110:
+    ## CVM has on average a type I error rate of 1.65% at the nominal 0.05 level.
+    ## Normal2Var with a total sample size of 20:
+    ## CVM has on average a type I error rate of 0.67% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 20:
+    ## CVM has on average a type I error rate of 0.32% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 40:
+    ## CVM has on average a type I error rate of 0.9% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 40:
+    ## CVM has on average a type I error rate of 0.45% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 200:
+    ## CVM has on average a type I error rate of 5.79% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 200:
+    ## CVM has on average a type I error rate of 1.96% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 110:
+    ## CVM has on average a type I error rate of 0.3% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 110:
+    ## CVM has on average a type I error rate of 0.22% at the nominal 0.05 level.
+    ## Normal with a total sample size of 20:
+    ## CVM has on average a type I error rate of 0.16% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## CVM has on average a type I error rate of 0.12% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## CVM has on average a type I error rate of 0.16% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## CVM has on average a type I error rate of 0.14% at the nominal 0.05 level.
+    ## Normal with a total sample size of 20:
+    ## CVM has on average a type I error rate of 0.1% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## CVM has on average a type I error rate of 0.08% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## CVM has on average a type I error rate of 0.1% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## CVM has on average a type I error rate of 0.08% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 20:
+    ## CVM has on average a type I error rate of 0.1% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## CVM has on average a type I error rate of 0.08% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## CVM has on average a type I error rate of 0.1% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## CVM has on average a type I error rate of 0.08% at the nominal 0.05 level.
+    ## Normal with a total sample size of 20:
+    ## CVM has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## CVM has on average a type I error rate of 0.05% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## CVM has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## CVM has on average a type I error rate of 0.06% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 20:
+    ## CVM has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## CVM has on average a type I error rate of 0.05% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## CVM has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## CVM has on average a type I error rate of 0.06% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 20:
+    ## CVM has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## CVM has on average a type I error rate of 0.05% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## CVM has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## CVM has on average a type I error rate of 0.06% at the nominal 0.05 level.
+    ## On average (over all scenarios) :CVM has a type I error rate not larger than 0.05 + 0.02 in 79.2% of the scenarios.
+
+``` r
+Graph3_type1error
+```
+
+    ## Warning: Removed 5 rows containing non-finite values (stat_boxplot).
+
+    ## Warning: Removed 5 rows containing missing values (geom_point).
+
+![](Demonstration_files/figure-gfm/unnamed-chunk-12-5.png)<!-- -->
+
+``` r
+Graphs3_type1error= list()
+for (m in methods){
+  
+  Graphs3_type1error[[m]] = Boxplot_TypeI(path,m,panel='n')
+}
+```
+
+    ## Logistic with a total sample size of 20:
+    ## AD has on average a type I error rate of 1.23% at the nominal 0.05 level.
+    ##  Logistic with a total sample size of 40:
+    ## AD has on average a type I error rate of 1.27% at the nominal 0.05 level.
+    ##  Logistic with a total sample size of 200:
+    ## AD has on average a type I error rate of 1.1% at the nominal 0.05 level.
+    ##  Logistic with a total sample size of 110:
+    ## AD has on average a type I error rate of 1.32% at the nominal 0.05 level.
+    ## Normal2Var with a total sample size of 20:
+    ## AD has on average a type I error rate of 0.54% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 20:
+    ## AD has on average a type I error rate of 0.31% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 40:
+    ## AD has on average a type I error rate of 1.33% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 40:
+    ## AD has on average a type I error rate of 0.5% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 200:
+    ## AD has on average a type I error rate of 6.23% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 200:
+    ## AD has on average a type I error rate of 3.66% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 110:
+    ## AD has on average a type I error rate of 0.16% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 110:
+    ## AD has on average a type I error rate of 0.13% at the nominal 0.05 level.
+    ## Normal with a total sample size of 20:
+    ## AD has on average a type I error rate of 0.16% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## AD has on average a type I error rate of 0.15% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## AD has on average a type I error rate of 0.11% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## AD has on average a type I error rate of 0.17% at the nominal 0.05 level.
+    ## Normal with a total sample size of 20:
+    ## AD has on average a type I error rate of 0.1% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## AD has on average a type I error rate of 0.09% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## AD has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## AD has on average a type I error rate of 0.1% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 20:
+    ## AD has on average a type I error rate of 0.1% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## AD has on average a type I error rate of 0.09% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## AD has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## AD has on average a type I error rate of 0.1% at the nominal 0.05 level.
+    ## Normal with a total sample size of 20:
+    ## AD has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## AD has on average a type I error rate of 0.06% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## AD has on average a type I error rate of 0.04% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## AD has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 20:
+    ## AD has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## AD has on average a type I error rate of 0.06% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## AD has on average a type I error rate of 0.04% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## AD has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 20:
+    ## AD has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## AD has on average a type I error rate of 0.06% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## AD has on average a type I error rate of 0.04% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## AD has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ## On average (over all scenarios) :AD has a type I error rate not larger than 0.05 + 0.02 in 79.2% of the scenarios.
+    ## Logistic with a total sample size of 20:
+    ## CVM has on average a type I error rate of 1.15% at the nominal 0.05 level.
+    ##  Logistic with a total sample size of 40:
+    ## CVM has on average a type I error rate of 1.45% at the nominal 0.05 level.
+    ##  Logistic with a total sample size of 200:
+    ## CVM has on average a type I error rate of 1.32% at the nominal 0.05 level.
+    ##  Logistic with a total sample size of 110:
+    ## CVM has on average a type I error rate of 1.65% at the nominal 0.05 level.
+    ## Normal2Var with a total sample size of 20:
+    ## CVM has on average a type I error rate of 0.67% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 20:
+    ## CVM has on average a type I error rate of 0.32% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 40:
+    ## CVM has on average a type I error rate of 0.9% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 40:
+    ## CVM has on average a type I error rate of 0.45% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 200:
+    ## CVM has on average a type I error rate of 5.79% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 200:
+    ## CVM has on average a type I error rate of 1.96% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 110:
+    ## CVM has on average a type I error rate of 0.3% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 110:
+    ## CVM has on average a type I error rate of 0.22% at the nominal 0.05 level.
+    ## Normal with a total sample size of 20:
+    ## CVM has on average a type I error rate of 0.16% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## CVM has on average a type I error rate of 0.12% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## CVM has on average a type I error rate of 0.16% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## CVM has on average a type I error rate of 0.14% at the nominal 0.05 level.
+    ## Normal with a total sample size of 20:
+    ## CVM has on average a type I error rate of 0.1% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## CVM has on average a type I error rate of 0.08% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## CVM has on average a type I error rate of 0.1% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## CVM has on average a type I error rate of 0.08% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 20:
+    ## CVM has on average a type I error rate of 0.1% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## CVM has on average a type I error rate of 0.08% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## CVM has on average a type I error rate of 0.1% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## CVM has on average a type I error rate of 0.08% at the nominal 0.05 level.
+    ## Normal with a total sample size of 20:
+    ## CVM has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## CVM has on average a type I error rate of 0.05% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## CVM has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## CVM has on average a type I error rate of 0.06% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 20:
+    ## CVM has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## CVM has on average a type I error rate of 0.05% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## CVM has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## CVM has on average a type I error rate of 0.06% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 20:
+    ## CVM has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## CVM has on average a type I error rate of 0.05% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## CVM has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## CVM has on average a type I error rate of 0.06% at the nominal 0.05 level.
+    ## On average (over all scenarios) :CVM has a type I error rate not larger than 0.05 + 0.02 in 79.2% of the scenarios.
+    ## Logistic with a total sample size of 20:
+    ## KS has on average a type I error rate of 0.4% at the nominal 0.05 level.
+    ##  Logistic with a total sample size of 40:
+    ## KS has on average a type I error rate of 0.7% at the nominal 0.05 level.
+    ##  Logistic with a total sample size of 200:
+    ## KS has on average a type I error rate of 0.9% at the nominal 0.05 level.
+    ##  Logistic with a total sample size of 110:
+    ## KS has on average a type I error rate of 0.88% at the nominal 0.05 level.
+    ## Normal2Var with a total sample size of 20:
+    ## KS has on average a type I error rate of 0.16% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 20:
+    ## KS has on average a type I error rate of 0.16% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 40:
+    ## KS has on average a type I error rate of 0.63% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 40:
+    ## KS has on average a type I error rate of 0.34% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 200:
+    ## KS has on average a type I error rate of 4.96% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 200:
+    ## KS has on average a type I error rate of 1.49% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 110:
+    ## KS has on average a type I error rate of 0.34% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 110:
+    ## KS has on average a type I error rate of 0.18% at the nominal 0.05 level.
+    ## Normal with a total sample size of 20:
+    ## KS has on average a type I error rate of 0.05% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## KS has on average a type I error rate of 0.11% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## KS has on average a type I error rate of 0.12% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## KS has on average a type I error rate of 0.14% at the nominal 0.05 level.
+    ## Normal with a total sample size of 20:
+    ## KS has on average a type I error rate of 0.03% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## KS has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## KS has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## KS has on average a type I error rate of 0.08% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 20:
+    ## KS has on average a type I error rate of 0.03% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## KS has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## KS has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## KS has on average a type I error rate of 0.08% at the nominal 0.05 level.
+    ## Normal with a total sample size of 20:
+    ## KS has on average a type I error rate of 0.02% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## KS has on average a type I error rate of 0.04% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## KS has on average a type I error rate of 0.05% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## KS has on average a type I error rate of 0.06% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 20:
+    ## KS has on average a type I error rate of 0.02% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## KS has on average a type I error rate of 0.04% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## KS has on average a type I error rate of 0.05% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## KS has on average a type I error rate of 0.06% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 20:
+    ## KS has on average a type I error rate of 0.02% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## KS has on average a type I error rate of 0.04% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## KS has on average a type I error rate of 0.05% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## KS has on average a type I error rate of 0.06% at the nominal 0.05 level.
+    ## On average (over all scenarios) :KS has a type I error rate not larger than 0.05 + 0.02 in 87.5% of the scenarios.
+    ## Logistic with a total sample size of 20:
+    ## TTest_VarEqual has on average a type I error rate of 1.25% at the nominal 0.05 level.
+    ##  Logistic with a total sample size of 40:
+    ## TTest_VarEqual has on average a type I error rate of 1.32% at the nominal 0.05 level.
+    ##  Logistic with a total sample size of 200:
+    ## TTest_VarEqual has on average a type I error rate of 1.15% at the nominal 0.05 level.
+    ##  Logistic with a total sample size of 110:
+    ## TTest_VarEqual has on average a type I error rate of 1.47% at the nominal 0.05 level.
+    ## Normal2Var with a total sample size of 20:
+    ## TTest_VarEqual has on average a type I error rate of 0.32% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 20:
+    ## TTest_VarEqual has on average a type I error rate of 0.29% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 40:
+    ## TTest_VarEqual has on average a type I error rate of 0.38% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 40:
+    ## TTest_VarEqual has on average a type I error rate of 0.34% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 200:
+    ## TTest_VarEqual has on average a type I error rate of 0.22% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 200:
+    ## TTest_VarEqual has on average a type I error rate of 0.33% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 110:
+    ## TTest_VarEqual has on average a type I error rate of 0% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 110:
+    ## TTest_VarEqual has on average a type I error rate of 0.04% at the nominal 0.05 level.
+    ## Normal with a total sample size of 20:
+    ## TTest_VarEqual has on average a type I error rate of 0.14% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## TTest_VarEqual has on average a type I error rate of 0.18% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## TTest_VarEqual has on average a type I error rate of 0.14% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## TTest_VarEqual has on average a type I error rate of 0.13% at the nominal 0.05 level.
+    ## Normal with a total sample size of 20:
+    ## TTest_VarEqual has on average a type I error rate of 0.08% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## TTest_VarEqual has on average a type I error rate of 0.11% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## TTest_VarEqual has on average a type I error rate of 0.09% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## TTest_VarEqual has on average a type I error rate of 0.08% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 20:
+    ## TTest_VarEqual has on average a type I error rate of 0.08% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## TTest_VarEqual has on average a type I error rate of 0.11% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## TTest_VarEqual has on average a type I error rate of 0.09% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## TTest_VarEqual has on average a type I error rate of 0.08% at the nominal 0.05 level.
+    ## Normal with a total sample size of 20:
+    ## TTest_VarEqual has on average a type I error rate of 0.06% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## TTest_VarEqual has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## TTest_VarEqual has on average a type I error rate of 0.06% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## TTest_VarEqual has on average a type I error rate of 0.06% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 20:
+    ## TTest_VarEqual has on average a type I error rate of 0.06% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## TTest_VarEqual has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## TTest_VarEqual has on average a type I error rate of 0.06% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## TTest_VarEqual has on average a type I error rate of 0.06% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 20:
+    ## TTest_VarEqual has on average a type I error rate of 0.06% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## TTest_VarEqual has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## TTest_VarEqual has on average a type I error rate of 0.06% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## TTest_VarEqual has on average a type I error rate of 0.06% at the nominal 0.05 level.
+    ## On average (over all scenarios) :TTest_VarEqual has a type I error rate not larger than 0.05 + 0.02 in 100% of the scenarios.
+    ## Logistic with a total sample size of 20:
+    ## TTest_VarUnequal has on average a type I error rate of 1.1% at the nominal 0.05 level.
+    ##  Logistic with a total sample size of 40:
+    ## TTest_VarUnequal has on average a type I error rate of 1.05% at the nominal 0.05 level.
+    ##  Logistic with a total sample size of 200:
+    ## TTest_VarUnequal has on average a type I error rate of 1.03% at the nominal 0.05 level.
+    ##  Logistic with a total sample size of 110:
+    ## TTest_VarUnequal has on average a type I error rate of 1.25% at the nominal 0.05 level.
+    ## Normal2Var with a total sample size of 20:
+    ## TTest_VarUnequal has on average a type I error rate of 0.32% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 20:
+    ## TTest_VarUnequal has on average a type I error rate of 0.25% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 40:
+    ## TTest_VarUnequal has on average a type I error rate of 0.32% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 40:
+    ## TTest_VarUnequal has on average a type I error rate of 0.36% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 200:
+    ## TTest_VarUnequal has on average a type I error rate of 0.31% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 200:
+    ## TTest_VarUnequal has on average a type I error rate of 0.26% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 110:
+    ## TTest_VarUnequal has on average a type I error rate of 0.28% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 110:
+    ## TTest_VarUnequal has on average a type I error rate of 0.35% at the nominal 0.05 level.
+    ## Normal with a total sample size of 20:
+    ## TTest_VarUnequal has on average a type I error rate of 0.17% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## TTest_VarUnequal has on average a type I error rate of 0.18% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## TTest_VarUnequal has on average a type I error rate of 0.14% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## TTest_VarUnequal has on average a type I error rate of 0.16% at the nominal 0.05 level.
+    ## Normal with a total sample size of 20:
+    ## TTest_VarUnequal has on average a type I error rate of 0.11% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## TTest_VarUnequal has on average a type I error rate of 0.11% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## TTest_VarUnequal has on average a type I error rate of 0.09% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## TTest_VarUnequal has on average a type I error rate of 0.1% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 20:
+    ## TTest_VarUnequal has on average a type I error rate of 0.11% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## TTest_VarUnequal has on average a type I error rate of 0.11% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## TTest_VarUnequal has on average a type I error rate of 0.09% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## TTest_VarUnequal has on average a type I error rate of 0.1% at the nominal 0.05 level.
+    ## Normal with a total sample size of 20:
+    ## TTest_VarUnequal has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## TTest_VarUnequal has on average a type I error rate of 0.08% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## TTest_VarUnequal has on average a type I error rate of 0.06% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## TTest_VarUnequal has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 20:
+    ## TTest_VarUnequal has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## TTest_VarUnequal has on average a type I error rate of 0.08% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## TTest_VarUnequal has on average a type I error rate of 0.06% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## TTest_VarUnequal has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 20:
+    ## TTest_VarUnequal has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## TTest_VarUnequal has on average a type I error rate of 0.08% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## TTest_VarUnequal has on average a type I error rate of 0.06% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## TTest_VarUnequal has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ## On average (over all scenarios) :TTest_VarUnequal has a type I error rate not larger than 0.05 + 0.02 in 100% of the scenarios.
+    ## Logistic with a total sample size of 20:
+    ## WMW_Asymp has on average a type I error rate of 1.07% at the nominal 0.05 level.
+    ##  Logistic with a total sample size of 40:
+    ## WMW_Asymp has on average a type I error rate of 1.15% at the nominal 0.05 level.
+    ##  Logistic with a total sample size of 200:
+    ## WMW_Asymp has on average a type I error rate of 1.57% at the nominal 0.05 level.
+    ##  Logistic with a total sample size of 110:
+    ## WMW_Asymp has on average a type I error rate of 1.05% at the nominal 0.05 level.
+    ## Normal2Var with a total sample size of 20:
+    ## WMW_Asymp has on average a type I error rate of 0.27% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 20:
+    ## WMW_Asymp has on average a type I error rate of 0.28% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 40:
+    ## WMW_Asymp has on average a type I error rate of 0.43% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 40:
+    ## WMW_Asymp has on average a type I error rate of 0.41% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 200:
+    ## WMW_Asymp has on average a type I error rate of 0.3% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 200:
+    ## WMW_Asymp has on average a type I error rate of 0.35% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 110:
+    ## WMW_Asymp has on average a type I error rate of 0.05% at the nominal 0.05 level.
+    ##  Normal2Var with a total sample size of 110:
+    ## WMW_Asymp has on average a type I error rate of 0.1% at the nominal 0.05 level.
+    ## Normal with a total sample size of 20:
+    ## WMW_Asymp has on average a type I error rate of 0.11% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## WMW_Asymp has on average a type I error rate of 0.16% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## WMW_Asymp has on average a type I error rate of 0.15% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## WMW_Asymp has on average a type I error rate of 0.12% at the nominal 0.05 level.
+    ## Normal with a total sample size of 20:
+    ## WMW_Asymp has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## WMW_Asymp has on average a type I error rate of 0.1% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## WMW_Asymp has on average a type I error rate of 0.09% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## WMW_Asymp has on average a type I error rate of 0.08% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 20:
+    ## WMW_Asymp has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## WMW_Asymp has on average a type I error rate of 0.1% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## WMW_Asymp has on average a type I error rate of 0.09% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## WMW_Asymp has on average a type I error rate of 0.08% at the nominal 0.05 level.
+    ## Normal with a total sample size of 20:
+    ## WMW_Asymp has on average a type I error rate of 0.05% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## WMW_Asymp has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## WMW_Asymp has on average a type I error rate of 0.06% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## WMW_Asymp has on average a type I error rate of 0.05% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 20:
+    ## WMW_Asymp has on average a type I error rate of 0.05% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## WMW_Asymp has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## WMW_Asymp has on average a type I error rate of 0.06% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## WMW_Asymp has on average a type I error rate of 0.05% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 20:
+    ## WMW_Asymp has on average a type I error rate of 0.05% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 40:
+    ## WMW_Asymp has on average a type I error rate of 0.07% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 200:
+    ## WMW_Asymp has on average a type I error rate of 0.06% at the nominal 0.05 level.
+    ##  Normal with a total sample size of 110:
+    ## WMW_Asymp has on average a type I error rate of 0.05% at the nominal 0.05 level.
+    ## On average (over all scenarios) :WMW_Asymp has a type I error rate not larger than 0.05 + 0.02 in 100% of the scenarios.
+
+``` r
+ggarrange(plotlist = Graphs3_type1error)
+```
+
+    ## Warning: Removed 5 rows containing non-finite values (stat_boxplot).
+    ## Removed 5 rows containing missing values (geom_point).
+
+    ## Warning: Removed 5 rows containing non-finite values (stat_boxplot).
+
+    ## Warning: Removed 5 rows containing missing values (geom_point).
+
+    ## Warning: Removed 3 rows containing non-finite values (stat_boxplot).
+
+    ## Warning: Removed 3 rows containing missing values (geom_point).
+
+![](Demonstration_files/figure-gfm/unnamed-chunk-12-6.png)<!-- -->
