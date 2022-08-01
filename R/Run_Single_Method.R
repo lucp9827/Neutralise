@@ -2,7 +2,7 @@
 #' @export
 Run_Single_Method<-function(path,method.name,data.name,
                             settings,method.filename,data.filename,
-                            N=1000,
+                            N,
                             mode="all") {
 
   sample.sizes<-matrix(ncol=2,c(
