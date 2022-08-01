@@ -7,7 +7,7 @@ Test_New_Setting1<-function(path,data.name) {
 
   #cnt<-1
   #new.setting<-dir(path=paste(path,"/Settings",sep=""))
-  setting.file.name<-paste(data.name,"_settings.R",sep="")
+  setting.file.name<-paste(data.name,"_settings.RData",sep="")
   #setting.exists<-setting.file.name%in%new.setting
   #
   #if(!setting.exists) {
@@ -50,7 +50,7 @@ Test_New_Setting1<-function(path,data.name) {
       save(settings,
            file=paste(path,"/Settings/",
                       data.name,
-                      "_settings_new.RData",sep=""))
+                      "_settings.RData",sep=""))
       file.remove(filename)
     }
     #if(length(issues)>0) {

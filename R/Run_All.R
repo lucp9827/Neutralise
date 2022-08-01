@@ -11,6 +11,7 @@ Run_All<-function(path,N) {
   }
 
   test.data<-Test_New_Data(path)
+
   if(max(test.data$check.data.result)==1) {
     # run all tests on new data
     Run_All_New_Data(path,N=N)
