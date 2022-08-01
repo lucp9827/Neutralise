@@ -68,7 +68,7 @@ Test_New_Data<-function(path) {
                   name=data.name,
                   type="data",
                   check=TRUE,
-                  to.run=FALSE,
+                  to.run=TRUE,
                   neutralised=FALSE)
       }
       if(length(issues)>0) {
