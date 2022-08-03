@@ -28,6 +28,9 @@ Run_All_New_Data<-function(path,N=N) {
     }
   }
   for(data in new.data) {
+    settings.filename<-paste(path,"/Settings/",data.name,"_settings.RData",sep="")
+    load(settings.filename)
+
     data.name<-strsplit(data,".R")[[1]][1]
     neutralise.status$neutralised[neutralise.status$file.name==data]<-TRUE
     neutralise.status$to.run[neutralise.status$file.name==data]<-FALSE
@@ -35,7 +38,8 @@ Run_All_New_Data<-function(path,N=N) {
       (neutralise.status$name==data.name)&
         (neutralise.status$type=="setting")]<-TRUE
 
-    settings.filename<-paste(path,"/Settings/",data.name,"_settings_new.RData",sep="")
+    #settings.filename<-paste(path,"/Settings/",data.name,"_settings_new.RData",sep="")
+    #settings.filename<-paste(path,"/Settings/",data.name,"_settings.RData",sep="")
     first.setting<-!file.exists(
       paste(path,"/Settings/",data.name,"_settings.RData",sep=""))
     if(first.setting) {
@@ -48,7 +52,7 @@ Run_All_New_Data<-function(path,N=N) {
       settings<-rbind(settings,settings0)
       save(settings,
            file=paste(path,"/Settings/",data.name,"_settings.RData",sep=""))
-      file.remove(settings.filename)
+      #file.remove(settings.filename)
     }
   }
   save(neutralise.status,

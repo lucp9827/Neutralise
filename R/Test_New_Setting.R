@@ -8,7 +8,7 @@ Test_New_Setting<-function(path) {
   load(paste(path,"/Results/NeutraliseStatus.RData",sep=""))
   setting.files<-dir(path=paste(path,"/Settings",sep=""))
   setting.exists<-
-    !data.files%in%neutralise.status$file.name[
+    !setting.files%in%neutralise.status$file.name[
       (neutralise.status$type=="setting")&
         (neutralise.status$check==TRUE)]
   #setting.exists<-

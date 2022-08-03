@@ -7,7 +7,8 @@ Test_New_Setting1<-function(path,data.name) {
 
   #cnt<-1
   #new.setting<-dir(path=paste(path,"/Settings",sep=""))
-  setting.file.name<-paste(data.name,"_settings.RData",sep="")
+  #setting.file.name<-paste(data.name,"_settings.RData",sep="")
+  setting.file.name<-paste(data.name,"_settings.R",sep="")
   #setting.exists<-setting.file.name%in%new.setting
   #
   #if(!setting.exists) {
@@ -47,10 +48,14 @@ Test_New_Setting1<-function(path,data.name) {
 
 
     if(length(issues)==0) {
+      #save(settings,
+           #file=paste(path,"/Settings/",
+                      #data.name,
+                      #"_settings.RData",sep=""))
       save(settings,
            file=paste(path,"/Settings/",
                       data.name,
-                      "_settings.RData",sep=""))
+                      "_settings.R",sep=""))
       file.remove(filename)
     }
     #if(length(issues)>0) {
