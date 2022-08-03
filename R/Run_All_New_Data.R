@@ -17,7 +17,7 @@ Run_All_New_Data<-function(path,N=N) {
     for(data in new.data) {
       filename.data<-paste(path,"/Data/",data,sep="")
       data.name<-strsplit(data,".R")[[1]][1]
-      settings.filename<-paste(path,"/Settings/",data.name,"_settings_new.RData",sep="")
+      settings.filename<-paste(path,"/Settings/",data.name,"_settings.RData",sep="")
       load(settings.filename)
       source(filename.data)
 
