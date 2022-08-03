@@ -17,7 +17,7 @@ Run_All_New_Data<-function(path,N=N) {
     for(data in new.data) {
       filename.data<-paste(path,"/Data/",data,sep="")
       data.name<-strsplit(data,".R")[[1]][1]
-      settings.filename<-paste(path,"/Settings/",data.name,"_settings.RData",sep="")
+      settings.filename<-paste(path,"/Settings/",data.name,"_settings_new.RData",sep="")#####
       load(settings.filename)
       source(filename.data)
 
@@ -27,10 +27,12 @@ Run_All_New_Data<-function(path,N=N) {
     }
   }
   for(data in new.data) {
+
+    data.name<-strsplit(data,".R")[[1]][1]
+
     settings.filename<-paste(path,"/Settings/",data.name,"_settings_new.RData",sep="")
     load(settings.filename)
 
-    data.name<-strsplit(data,".R")[[1]][1]
     neutralise.status$neutralised[neutralise.status$file.name==data]<-TRUE
     neutralise.status$to.run[neutralise.status$file.name==data]<-FALSE
     neutralise.status$neutralised[
