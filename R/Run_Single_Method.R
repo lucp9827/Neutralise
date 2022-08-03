@@ -52,8 +52,8 @@ Run_Single_Method<-function(path,method.name,data.name,
   }
   dir.create(new.dir)
 
-  filename<-paste(new.dir,"/",method.name,"_",data.name,"_",seed,sep="")
-  filename_res<-paste(new.dir,"/",method.name,"_",data.name,"_",sep="")
+  filename<-paste(new.dir,"/",method.name,"_",data.name,sep="")
+  filename_res<-paste(new.dir,"/",method.name,"_",data.name,sep="")
 
   save(results,
        file=paste(filename_res,".RData",sep=""))
