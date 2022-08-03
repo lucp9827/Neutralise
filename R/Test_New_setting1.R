@@ -55,7 +55,7 @@ Test_New_Setting1<-function(path,data.name) {
       save(settings,
            file=paste(path,"/Settings/",
                       data.name,
-                      "_settings.R",sep=""))
+                      "_settings.RData",sep=""))
       file.remove(filename)
     }
     #if(length(issues)>0) {
