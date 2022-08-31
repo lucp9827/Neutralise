@@ -16,9 +16,6 @@ Boxplot_TypeI<-function(path,method,alpha=0.05,tol=0.02,panel="",ylim=c(0,0.13))
   results1<-list()
   for(d in data) {
 
-    if (d=='Normal2Var'){
-      d='Normal'
-    }
 
     dir1<-dir(paste(path,"/Results/SimRes_",method,"_",d,sep=""))
     file1<-paste(path,"/Results/SimRes_",method,"_",d,
@@ -27,6 +24,8 @@ Boxplot_TypeI<-function(path,method,alpha=0.05,tol=0.02,panel="",ylim=c(0,0.13))
 
     load(file1)
     results1[[d]]<-results
+
+    #results = filter_type1(d,results,alpha,path)
 
     x= colnames(results)
     colnr = grep(alpha,x)
