@@ -26,7 +26,7 @@ Code to install *Neutralise*, with authentication code for permission. (Authenti
 ```{r , message = FALSE}
 library(devtools)
 
-#install_github("lucp9827/Neutralise)
+install_github("lucp9827/Neutralise)
 
 library(Neutralise)
 ```
