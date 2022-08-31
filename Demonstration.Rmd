@@ -265,5 +265,35 @@ Graph3$graph
 ### Power-curve 
 ```{r}
 
+#load(paste(path,'\\Results\\NeutraliseStatus.RData',sep=''))
+
+library(dplyr)
+
+# All methods & data generation methods that have been 'neutralised'
+
+methods = All_Neutralised(path)
+data.gen = All_Neutralised(path, type='data')
+
+method=methods[2] # CVM
+data=data.gen[2]
+
+
+# Power curve - (not clear if scenarios has repetitions of delta, solution see next step )
+
+Graph1 = Power_curve(path,method,data,alpha=0.05)
+
+Graph1
+
+# Power curve and a specified setting parameter (rate1 = 0.5)
+
+db=data.frame(rate1=0.5) # important that the specified parameter is exactly the same as in the setting file 
+
+Graph2 = Power_curve(path,method,data,alpha=0.05,par.fix = db,CI=TRUE)
+
+Graph2
+
+
 ```
+
+
 
