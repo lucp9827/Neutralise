@@ -9,12 +9,14 @@ output: github_document
 knitr::opts_chunk$set(echo = TRUE)
 
 # load required packages
+library(ggplot2)
 library(tfse)
 library(zip)
 library(tidyverse)
 library(kSamples)
 library(twosamples)
 library(ggpubr)
+
 ```
 
 ## Github installation
@@ -24,7 +26,7 @@ Code to install *Neutralise*, with authentication code for permission. (Authenti
 ```{r , message = FALSE}
 library(devtools)
 
-#install_github("lucp9827/Neutralise",auth_token="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",force=TRUE)
+#install_github("lucp9827/Neutralise)
 
 library(Neutralise)
 ```
@@ -34,14 +36,15 @@ library(Neutralise)
 Download 'NeutraliseFiles.zip' from '<https://github.com/lucp9827/NeutraliseFiles>'. Unzip the 'NeutraliseFiles' file and save the path to this unzipped NeutraliseFiles folder.
 
 ```{r}
-# Example:
-path = "C:\\Users\\lucp9827\\Desktop\\R_codes & Data\\NeutraliseFiles"
+# Set working directory to (unzipped) NeutraliseFiles
+path = ".\\NeutraliseFiles"
 ```
 
 NeutraliseFiles contains 4 directories;
 
 1.  **Data**: This Folder contains the available data generator functions.
 2.  **Settings**: This Folder contains the settings for the existing data generators. If the settings have been simulated, the setting files change from an R-data file extension to an R workspace.
+3.  **Issues**: This Folder contains text files with possible issues in the functionality and lay-out of the R-files (Data generator/Settings file/ Method file) for the Neutralise function. 
 3.  **Methods**: This Folder contains the available statistical methods.
 4.  **Results**: This folder contains the result of all combinations of statistical methods and simulation scenarios available, and a text file 'Finished' with information on the simulation runs already done, and an R-file describing the status of all methods, data generators and settings, and a Local folder for the results of the *single* operating mode.
 
@@ -80,7 +83,6 @@ ExpLocShift<-function(n1=10,n2=10,parameters=c(0,1)) {
 and the following settings
 
 ```{r}
-
 settings<-data.frame(
   delta=c(0,1,2,3),
   rate1=c(1,0.5,0.25,0.125),
@@ -185,87 +187,6 @@ This initiative is set up as an open science collaboration, and we hope that man
 All the pull request will be checked by the coreteam and if validated they will be added to the repository.
 
 ## 4. Evaluate - report
-
-## Report results - Power
-
-```{r}
-#load(paste(path,'\\Results\\NeutraliseStatus.RData',sep=''))
-
-library(dplyr)
-
-# All methods & data generation methods that have been 'neutralised'
-
-methods = All_Neutralised(path)
-data.gen = All_Neutralised(path, type='data')
-
-method1=methods[2] # CVM
-method2=methods[5] # "TTest_VarUnequal"
-
-# Power comparison between two methods - general 
-
-Graph1 = Power_QQ(path,method1,method2,alpha=0.05)
-
-Graph1$graph
-
-# Power Comparison between a fixed method (e.g. CVM) and all other methods - general 
-
-Graphs = list()
-for (m in methods){
-  if(m != method1){
-  Graphs[[m]] = Power_QQ(path,m,method1,alpha=0.05)$graph
-  print("")}
-}
-
-ggarrange(plotlist=Graphs)
-
-# Power comparison between two methods - specified Data Generator = Logistic
-
-Graph1b = Power_QQ(path,method1,method2,alpha=0.05,data='Logistic')
-
-Graph1b$graph
-
-Graphsb = list()
-for (m in methods){
-  if(m != method1){
-  Graphsb[[m]] = Power_QQ(path,m,method1,alpha=0.05,data='Logistic')$graph
-  print("")}}
-
-
-ggarrange(plotlist=Graphsb)
-
-
-# Power comparison between two methods - per data generation method 
-Graph2 = Power_QQ(path,methods[2],methods[5],alpha=0.01,group=TRUE)
-
-Graph2$graph
-
-Graphs2 = list()
-for (m in methods){
-  if(m != method1){
-  Graphs2[[m]] = Power_QQ(path,m,method1,alpha=0.05,group=TRUE)$graph
-  print("")}}
-
-
-ggarrange(plotlist=Graphs2)
-
-# Power comparison between two methods - per data generation method and a specified setting parameter (delta = 0.5 --> difference in means of 0.5)
-
-db=data.frame(delta=0.5) # important that the specified parameter is exactly the same as in the setting file 
-Graph3 = Power_QQ(path,methods[2],methods[5],alpha=0.05,group=TRUE,par.fix=db)
-
-Graph3$graph
-
-Graphs3 = list()
-for (m in methods){
-  if(m != method1){
-  Graphs3[[m]] = Power_QQ(path,m,method1,alpha=0.05,group=TRUE,par.fix=db)$graph
-  print("")}}
-
-
-ggarrange(plotlist=Graphs3)
-
-```
-
 ## Report results - Type 1 error
 
 ```{r}
@@ -282,36 +203,67 @@ method1=methods[2]
 Graph1_type1error = Boxplot_TypeI(path,method1)
 Graph1_type1error
 
-Graphs_type1error= list()
-for (m in methods){
-  
-  Graphs_type1error[[m]] = Boxplot_TypeI(path,m)
-}
-
-ggarrange(plotlist = Graphs_type1error)
-# Boxplot of type  error for a specified method - boxplot: per data generator
+# Boxplot of type 1 error for a specified method per data generation method
 
 Graph2_type1error = Boxplot_TypeI(path,method1,panel="distribution")
 Graph2_type1error
 
-Graphs2_type1error= list()
-for (m in methods){
-  
-  Graphs2_type1error[[m]] = Boxplot_TypeI(path,m,panel="distribution")
-}
 
-ggarrange(plotlist = Graphs2_type1error)
-# Boxplot of type  error for a specified method - boxplot: per sample size
+# Boxplot of type error for a specified method per sample size (total sample size)
 
 Graph3_type1error = Boxplot_TypeI(path,method1,panel="n")
 Graph3_type1error
 
-Graphs3_type1error= list()
-for (m in methods){
-  
-  Graphs3_type1error[[m]] = Boxplot_TypeI(path,m,panel='n')
-}
 
-ggarrange(plotlist = Graphs3_type1error)
 
 ```
+
+## Report results - Power
+
+### Power-Power plot
+```{r}
+#load(paste(path,'\\Results\\NeutraliseStatus.RData',sep=''))
+
+library(dplyr)
+
+# All methods & data generation methods that have been 'neutralised'
+
+methods = All_Neutralised(path)
+data.gen = All_Neutralised(path, type='data')
+
+method1=methods[2] # CVM
+method2=methods[5] # "TTest_VarUnequal"
+
+# Power-power Plot - all data generation methods 
+
+Graph1 = Power_QQ(path,method1,method2,alpha=0.05)
+
+Graph1$graph
+
+# Power-power Plot - specified Data Generator = Logistic
+
+Graph1b = Power_QQ(path,method1,method2,alpha=0.05,data='Logistic')
+
+Graph1b$graph
+
+
+# Power-power Plot - per data generation method 
+Graph2 = Power_QQ(path,methods[2],methods[5],alpha=0.01,group=TRUE)
+
+Graph2$graph
+
+
+# Power-power Plot- per data generation method and a specified setting parameter (delta = 0.5 --> difference in means of 0.5)
+
+db=data.frame(delta=0.5) # important that the specified parameter is exactly the same as in the setting file 
+
+Graph3 = Power_QQ(path,methods[2],methods[5],alpha=0.05,group=TRUE,par.fix=db)
+
+Graph3$graph
+
+```
+### Power-curve 
+```{r}
+
+```
+

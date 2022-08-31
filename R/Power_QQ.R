@@ -102,7 +102,9 @@ Power_QQ<-function(path,method1,method2,alpha=0.05,
       ylim(0,1)+xlim(0,1)+
       geom_abline()+
       xlab(paste("power of ",method1,sep=""))+
-      ylab(paste("power of ",method2,sep=""))
+      ylab(paste("power of ",method2,sep=""))+ theme(axis.text.x = element_text(size = 15),
+                                                     axis.text.y = element_text(size = 15),
+                                                     axis.title = element_text(size = 20))
   }
     else {
       p<-add.to.plot+
@@ -114,11 +116,12 @@ Power_QQ<-function(path,method1,method2,alpha=0.05,
   if(is.null(add.to.plot)) {
     p<-ggplot(powers,aes(x=pwr1,y=pwr2))+
       geom_point(aes(colour=factor(data.gen)),size=3)+
-      geom_point(colour="grey90")+
       ylim(0,1)+xlim(0,1)+
       geom_abline()+
       xlab(paste("power of ",method1,sep=""))+
-      ylab(paste("power of ",method2,sep=""))
+      ylab(paste("power of ",method2,sep=""))+ theme(axis.text.x = element_text(size = 15),
+                                                     axis.text.y = element_text(size = 15),
+                                                     axis.title = element_text(size = 20))
   }
   else {
     p<-add.to.plot+

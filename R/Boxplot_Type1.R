@@ -1,9 +1,12 @@
 #' @export
-Boxplot_TypeI<-function(path,method,alpha=0.05,tol=0.02,panel="",ylim=c(0,0.07)) {
+Boxplot_TypeI<-function(path,method,alpha=0.05,tol=0.02,panel="",ylim=c(0,0.13)) {
 
   finished<-read.csv(paste(path,"/Results/Finished.txt",sep=""),
                      header=T)
   data<-finished$data[finished$method==method]
+
+  lowlim = optimise(function(p){(p+sqrt(p*(1-p)/1000)*qnorm(alpha/2, mean = 0, sd = 1, lower.tail = FALSE)-alpha)^2}, interval=c(0,1))$minimum
+  uplim = optimise(function(p){(p-sqrt(p*(1-p)/1000)*qnorm(alpha/2, mean = 0, sd = 1, lower.tail = FALSE)-alpha)^2}, interval=c(0,1))$minimum
 
   cnt.scenarios<-0
   cnt<-1
@@ -12,6 +15,11 @@ Boxplot_TypeI<-function(path,method,alpha=0.05,tol=0.02,panel="",ylim=c(0,0.07))
   n<-c()
   results1<-list()
   for(d in data) {
+
+    if (d=='Normal2Var'){
+      d='Normal'
+    }
+
     dir1<-dir(paste(path,"/Results/SimRes_",method,"_",d,sep=""))
     file1<-paste(path,"/Results/SimRes_",method,"_",d,
                  "/",dir1[grepl(".RData",dir1)&grepl(method,dir1)],
@@ -33,9 +41,9 @@ Boxplot_TypeI<-function(path,method,alpha=0.05,tol=0.02,panel="",ylim=c(0,0.07))
 
     db_tmp<-data.frame(pwr=pwr,distribution=distr,n=n)
 
-    cat(paste(d," with a total sample size of ",db_tmp[db_tmp$distribution==d,'n'],":\n",method," has on average a type I error rate of ",
-              round(100*db_tmp[db_tmp$distribution==d,'pwr']/cnt.scenarios,2),"% at the nominal ",
-              alpha," level.\n",sep=""))
+    # cat(paste(d," with a total sample size of ",db_tmp[db_tmp$distribution==d,'n'],":\n",method," has on average a type I error rate of ",
+    #           round(100*db_tmp[db_tmp$distribution==d,'pwr']/cnt.scenarios,2),"% at the nominal ",
+    #           alpha," level.\n",sep=""))
   }
 
   #boxplot(pwr,
@@ -67,6 +75,14 @@ Boxplot_TypeI<-function(path,method,alpha=0.05,tol=0.02,panel="",ylim=c(0,0.07))
     ylab(paste("Type I error rate of ",
                {{method}},sep=""))+
     geom_hline(yintercept=alpha, linetype="dotted", colour="red")+
-    xlab("")
+    geom_hline(yintercept= lowlim,linetype = "dotted")+
+    geom_hline(yintercept= uplim, linetype = "dotted") +
+    xlab("")+theme(axis.text.x = element_text(size = 18, angle = 90),
+                   axis.text.y = element_text(size = 15),
+                   axis.title = element_text(size = 18),
+                   strip.text.x = element_text(size = 15),
+                   legend.key.size = unit(1, 'cm'),
+                   legend.title = element_text(size=15),legend.text = element_text(size=15))
+
 
 }
