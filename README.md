@@ -21,7 +21,7 @@ Code to install *Neutralise*, with authentication code for permission. (Authenti
 ```{r , message = FALSE}
 library(devtools)
 
-#install_github("lucp9827/Neutralise",auth_token="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",force=TRUE)
+install_github("lucp9827/Neutralise)
 
 library('Neutralise')
 ```
@@ -32,7 +32,7 @@ Download 'NeutraliseFiles.zip' from 'https://github.com/lucp9827/NeutraliseFiles
 
 ```{r}
 # Example:
-path = "C:\\Users\\lucp9827\\Desktop\\Neutralise\\NeutraliseFiles"
+path = "~p\\Neutralise\\NeutraliseFiles"
 ```
 
 
