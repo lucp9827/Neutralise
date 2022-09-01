@@ -26,7 +26,7 @@ Code to install *Neutralise*, with authentication code for permission. (Authenti
 ```{r , message = FALSE}
 library(devtools)
 
-install_github("lucp9827/Neutralise)
+install_github("lucp9827/Neutralise")
 
 library(Neutralise)
 ```
@@ -193,7 +193,6 @@ All the pull request will be checked by the coreteam and if validated they will 
 This might take a little while (10-20 minutes), depending on the amount of results.The summarized results are also available in the zipfile with all the results, it isn't necessary to run this if you didn't added new results to the Neutralise files. 
 
 ```{r, message = FALSE}
-path="C:\\Users\\lucp9827\\Desktop\\new"
 # power
 summarize_results_power(path)
 
