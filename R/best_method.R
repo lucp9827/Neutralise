@@ -1,3 +1,4 @@
+#' @export
 best_method = function(results_df,name_methods=NULL,name_extra=NULL,alpha=0.01,n=20){
   results=results_df
   # results=subset(results,select=-mom1_1)
