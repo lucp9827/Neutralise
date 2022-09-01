@@ -14,7 +14,7 @@ Neutralise(
 )
 }
 \arguments{
-\item{path}{is the directory path of neutralizefiles}
+\item{path}{is the directory path of neutralisefiles}
 
 \item{Test}{is a function of a statistical test, if not specified (=NULL default) it will evaluate all statistical methods in the Methods directory if these are not evaluated yet.}
 
