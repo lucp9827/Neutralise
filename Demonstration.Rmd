@@ -187,10 +187,23 @@ This initiative is set up as an open science collaboration, and we hope that man
 All the pull request will be checked by the coreteam and if validated they will be added to the repository.
 
 ## 4. Evaluate - report
+
+### Summarize results power & Type 1 error 
+
+This might take a little while (10-20 minutes), depending on the amount of results.The summarized results are also available in the zipfile with all the results, it isn't necessary to run this if you didn't added new results to the Neutralise files. 
+
+```{r, message = FALSE}
+path="C:\\Users\\lucp9827\\Desktop\\new"
+# power
+summarize_results_power(path)
+
+# Type 1 error control
+summarize_results_type1(path)
+```
+
 ## Report results - Type 1 error
 
 ```{r}
-
 # All methods & data generation methods that have been 'neutralised'
 
 methods = All_Neutralised(path)
@@ -198,23 +211,27 @@ data.gen = All_Neutralised(path, type='data')
 
 method1=methods[2]
 
-# Boxplot of type  error for a specified method - boxplot: over all data generators & scenarios - Every printed row is a specific setting scenario for a data generator. In the Results folder for the specified method(in combination with a data generator), you can find the specifics for all the scenario parameters
+# Boxplot of type  error for a specified method - boxplot: over all data generators & scenarios
 
-Graph1_type1error = Boxplot_TypeI(path,method1)
-Graph1_type1error
+Graph1_type1error = Boxplot_TypeI(path,method1,alpha=0.05)
+Graph1_type1error$graph
 
 # Boxplot of type 1 error for a specified method per data generation method
 
 Graph2_type1error = Boxplot_TypeI(path,method1,panel="distribution")
-Graph2_type1error
+Graph2_type1error$graph
 
 
 # Boxplot of type error for a specified method per sample size (total sample size)
 
 Graph3_type1error = Boxplot_TypeI(path,method1,panel="n")
-Graph3_type1error
+Graph3_type1error$graph
 
 
+# # Boxplot of type error for a all methods (leave methods argument empty) per data generation method (total sample size)
+
+Graph4_type1error = Boxplot_TypeI(path,method=NULL,panel="distribution")
+Graph4_type1error$graph
 
 ```
 
@@ -222,11 +239,10 @@ Graph3_type1error
 
 ### Power-Power plot
 ```{r}
-#load(paste(path,'\\Results\\NeutraliseStatus.RData',sep=''))
 
 library(dplyr)
 
-# All methods & data generation methods that have been 'neutralised'
+# All methods & data generation methods that have been 'neutralised' + plots will be filtered based on type 1 error control
 
 methods = All_Neutralised(path)
 data.gen = All_Neutralised(path, type='data')
@@ -248,7 +264,7 @@ Graph1b$graph
 
 
 # Power-power Plot - per data generation method 
-Graph2 = Power_QQ(path,methods[2],methods[5],alpha=0.01,group=TRUE)
+Graph2 = Power_QQ(path,method1,method2,alpha=0.05,group=TRUE)
 
 Graph2$graph
 
@@ -257,7 +273,7 @@ Graph2$graph
 
 db=data.frame(delta=0.5) # important that the specified parameter is exactly the same as in the setting file 
 
-Graph3 = Power_QQ(path,methods[2],methods[5],alpha=0.05,group=TRUE,par.fix=db)
+Graph3 = Power_QQ(path,method1,method2,alpha=0.05,group=TRUE,par.fix=db)
 
 Graph3$graph
 
@@ -296,4 +312,16 @@ Graph2
 ```
 
 
+
+
+
+### Power-Power Best methods plot
+
+```{r}
+
+# Plot a method vs all other methods or a subset of methods (input name_methods as vector with methods specified)
+name_extra='AD'
+
+Best_method_plot(path,name_extra,n=20,alpha=0.05,name_methods=NULL)
+```
 

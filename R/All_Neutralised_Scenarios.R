@@ -1,19 +1,21 @@
 #' @export
-All_Neutralised_Scenarios<-function(path,method,data,type) {
-  dir<-dir(paste(path,"/Results/SimRes_",method,"_",data,sep=""))
-  file<-paste(path,"/Results/SimRes_",method,"_",data,
-              "/",dir[grepl(".RData",dir)&grepl(method,dir)],
+All_Neutralised_Scenarios<-function(path,data, type='power') {
+  dir<-dir(paste("settings/",data,"_settings",sep=""))
+  file<-paste("settings/",data,
+              "_settings.RData",
               sep="")
   load(file)
 
   if (type=='power'){
-  results<-results[results$null==0,]
-  scenarios<-unique(
-    results%>%select(!c(method,distribution,seed,null,N,power0.01,power0.05,power0.10,l_CI,u_CI)))
+    settings<-settings[settings$null==0,]
+    scenarios<-subset(settings,select=-null)
+    id=c(1:nrow(scenarios))
+    scenarios<-cbind(id,scenarios)
   }else{
-    results<-results[results$null==1,]
-    scenarios<-unique(
-      results%>%select(!c(method,distribution,seed,null,N,power0.01,power0.05,power0.10,l_CI,u_CI)))
+    settings<-settings[settings$null!=0,]
+    scenarios<-subset(settings,select=-null)
+    id=c(1:nrow(scenarios))
+    scenarios<-cbind(id,scenarios)
   }
   return(scenarios)
 }
