@@ -115,7 +115,7 @@ Power_QQ<-function(path,method1,method2,alpha=0.05,
       p<-print("No scenarios where both methods control the Type I error")
     }else{
     p<-ggplot(total_tmp,aes(x=power.x,y=power.y))+
-      geom_point(colour={{col}})+
+      geom_point(colour=col)+
       ylim(0,1)+xlim(0,1)+
       geom_abline()+
       xlab(paste("power of ",method1,sep=""))+
