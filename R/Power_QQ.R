@@ -123,8 +123,8 @@ Power_QQ<-function(path,method1,method2,alpha=0.05,
                                                      axis.text.y = element_text(size = 15),
                                                      axis.title = element_text(size = 20),
                                                      legend.key.size = unit(1, 'cm'),
-          }                                           legend.title = element_text(size=15),legend.text = element_text(size=15))
-  }else{
+                                                     legend.title = element_text(size=15),legend.text = element_text(size=15))
+  }}█else{
     if (dim(total_tmp)[1]==0){
       p<-print("No scenarios where both methods control the Type I error")
     }else{
