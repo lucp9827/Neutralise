@@ -110,7 +110,7 @@ To run all combinations of statistical methods and simulation scenarios (i.e. co
 
 # Run Neutralise main function 
 
-res<-Neutralise(path)
+res<-Neutralise(path,N=1)
 ```
 
 Suppose that we now have some new additional settings to be run for a data generator that already exists. Then we add a new settings R-file to the directory *Settings* and run the neutralise function again. We'll first demonstrate how a new settings R-file should be constructed.

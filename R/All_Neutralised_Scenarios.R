@@ -1,7 +1,7 @@
 #' @export
 All_Neutralised_Scenarios<-function(path,data, type='power') {
-  dir<-dir(paste("settings/",data,"_settings",sep=""))
-  file<-paste("settings/",data,
+  dir<-paste("Settings/",data,"_settings",sep="")
+  file<-paste(path,"/Settings/",data,
               "_settings.RData",
               sep="")
   load(file)
