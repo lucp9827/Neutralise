@@ -26,7 +26,7 @@ Code to install *Neutralise*, with authentication code for permission. (Authenti
 ```{r , message = FALSE}
 library(devtools)
 
-install_github("lucp9827/Neutralise")
+#install_github("lucp9827/Neutralise")
 
 library(Neutralise)
 ```
@@ -40,13 +40,13 @@ Download 'NeutraliseFiles.zip' from '<https://github.com/lucp9827/NeutraliseFile
 path = ".\\NeutraliseFiles"
 ```
 
-NeutraliseFiles contains 4 directories;
+NeutraliseFiles contains 5 directories;
 
 1.  **Data**: This Folder contains the available data generator functions.
 2.  **Settings**: This Folder contains the settings for the existing data generators. If the settings have been simulated, the setting files change from an R-data file extension to an R workspace.
 3.  **Issues**: This Folder contains text files with possible issues in the functionality and lay-out of the R-files (Data generator/Settings file/ Method file) for the Neutralise function. 
-3.  **Methods**: This Folder contains the available statistical methods.
-4.  **Results**: This folder contains the result of all combinations of statistical methods and simulation scenarios available, and a text file 'Finished' with information on the simulation runs already done, and an R-file describing the status of all methods, data generators and settings, and a Local folder for the results of the *single* operating mode.
+4.  **Methods**: This Folder contains the available statistical methods.
+5.  **Results**: This folder contains the result of all combinations of statistical methods and simulation scenarios available, and a text file 'Finished' with information on the simulation runs already done, and an R-file describing the status of all methods, data generators and settings, and a Local folder for the results of the *single* operating mode.
 
 # 2. Demonstration Neutralise
 
@@ -95,18 +95,21 @@ Then we can run the following code. This will NOT add the new method and data ge
 ```{r}
 res<-Neutralise(path,Test=AD_Asymp,
                 Data.Generator = ExpLocShift,
-                settings=settings)
+                settings=settings,N=1)
 ```
 
 ## 2.2 Operating mode: *All*
 
-To run all combinations of statistical methods and simulation scenarios (i.e. combination of data generator and settings) available on Github the following code can be used and the results will be saved in the *Results* directory. This function can be used to reproduce results of previous simulations. Note: To reproduce results it's important to have (1) an 'empty' *Results* directory and (2) to reinitialise the files *Finished.txt* and *neutralise_status.Rfile*. Also (3) add the specific settings RData-files that you want to reproduce into the *Settings* directory.
+To run all combinations of statistical methods and simulation scenarios (i.e. combination of data generator and settings) available on Github the following code can be used and the results will be saved in the *Results* directory. 
+
+
+This function can be used to reproduce results of previous simulations. Note: To reproduce results it's important to have (1) an 'empty' *Results* directory and (2) to reinitialise the files *Finished.txt* and *neutralise_status.Rfile*. Also (3) add the specific settings RData-files that you want to reproduce into the *Settings* directory.
 
 ```{r}
 
-# Code to reinitilize the files *Finished.txt* and *neutralise_status.Rfile (dont run if you don't want to reproduce all results)
+# Code to (re)initilize the files *Finished.txt* and *neutralise_status.Rfile (dont run if you don't want to reproduce all results)
 
-#Initialise_Neutralise(path)
+Initialise_Neutralise(path)
 
 # Run Neutralise main function 
 
@@ -135,7 +138,7 @@ save(settings,
 
 # Run the Neutralise main function
 
-res<-Neutralise(path)
+res<-Neutralise(path,N=1)
 ```
 
 Suppose that we now have an new statistical method to be run for the data generators that already exists. Then we'll add a new method's R-file to the directory *Methods* and run the code again. We'll first demonstrate how a new method's R-file should be constructed, this 'code chunck' should be saved by the user as 'KS.R' in the *Methods* directory.
@@ -246,8 +249,8 @@ library(dplyr)
 methods = All_Neutralised(path)
 data.gen = All_Neutralised(path, type='data')
 
-method1=methods[2] # CVM
-method2=methods[5] # "TTest_VarUnequal"
+method1=methods[1] # CVM
+method2=methods[6] # "TTest_VarUnequal"
 
 # Power-power Plot - all data generation methods 
 

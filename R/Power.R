@@ -2,12 +2,30 @@
 #' @export
 Power<-function(n1,n2,parameters,N=N) {
   p.values<-numeric(N)
+  ct_0.10<-0
+  ct_0.05<-0
+  ct_0.01<-0
+  na_ct <- 0
   for(i in 1:N) {
     db<-Data.Generator(n1=n1,
                        n2=n2,
                        parameters = parameters)
     res<-Test(db)
     p.values[i]<-res$p.value
+    if(is.na(res$p.value)){
+      na_ct = na_ct+1
+      next
+    }
+    if(res$p.value<0.10){
+      ct_0.10 = ct_0.10+1
+    }
+    if(res$p.value<0.05){
+      ct_0.05 = ct_0.05+1
+    }
+    if(res$p.value<0.01){
+      ct_0.01 = ct_0.01+1
+    }
+
   }
   pval_0.01 = mean(p.values<0.01)
   pval_0.05 = mean(p.values<0.05)
@@ -23,6 +41,6 @@ Power<-function(n1,n2,parameters,N=N) {
 
   return(c(pval_0.01,ci_0.01,
            pval_0.05,ci_0.05,
-           pval_0.1,ci_0.1))
+           pval_0.1,ci_0.1,ct_0.10,ct_0.05,ct_0.01))
 }
 
