@@ -14,7 +14,7 @@ Run_Single_Method<-function(path,method.name,data.name,
 
   n.settings<-nrow(settings)
   n.parameters<-ncol(settings)
-  results<-matrix(ncol=15+n.parameters,
+  results<-matrix(ncol=18+n.parameters,
                   nrow=n.settings*nrow(sample.sizes))
   results<-as.data.frame(results)
   names(results)<-c(c("method","distribution","seed","N","n1","n2"),
