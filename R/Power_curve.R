@@ -1,3 +1,13 @@
+#' Power_curve creates a curve plot of the power in function of delta
+#'
+#' @param path is the path to NeutraliseFiles
+#' @param methods is a character string that specifies a method (default =NULL, when =NULL a power curve is made for all methods seperatly)
+#' @param alpha is the significance level (default = 0.05)
+#' @param N is the amount of simulations (default = 10000)
+#' @param data is a character string that defines a data generation method (default = NULL, its necessary to specify this as the power-cruve will be unclear)
+#' @param par.fix is a data frame that specifies a specific setting parameter (default =NULL)
+#' @param CI is a logical variable, when =TRUE the CI for the observations wil be plotted
+#' @return Power curve
 #' @export
 Power_curve<-function(path,methods=NULL,alpha=0.05,
                           par.fix=NULL,
