@@ -1,66 +1,66 @@
 #' @export
-Boxplot_TypeI<-function(path,method=NULL,alpha=0.05,tol=0.02,panel="",ylim=c(0,0.13)) {
-  
+Boxplot_TypeI<-function(path,method=NULL,alpha=0.05,tol=0.02,panel="",ylim=c(0,0.13),N=10000) {
+
   load(paste0(path,'\\Results_typeI_perdatagen.RData'))
-  
+
   results = results_datagen_type1
-    
-    
+
+
   data = names(results)
-  lowlim = optimise(function(p){(p+sqrt(p*(1-p)/1000)*qnorm(alpha/2, mean = 0, sd = 1, lower.tail = FALSE)-alpha)^2}, interval=c(0,1))$minimum
-  uplim = optimise(function(p){(p-sqrt(p*(1-p)/1000)*qnorm(alpha/2, mean = 0, sd = 1, lower.tail = FALSE)-alpha)^2}, interval=c(0,1))$minimum
-  
+  lowlim = optimise(function(p){(p+sqrt(p*(1-p)/N)*qnorm(alpha/2, mean = 0, sd = 1, lower.tail = FALSE)-alpha)^2}, interval=c(0,1))$minimum
+  uplim = optimise(function(p){(p-sqrt(p*(1-p)/N)*qnorm(alpha/2, mean = 0, sd = 1, lower.tail = FALSE)-alpha)^2}, interval=c(0,1))$minimum
+
   if (is.null(method)){
     group=TRUE
   }else{
     group=FALSE
   }
-  
+
   if (!group){
-    
+
     cnt.scenarios<-0
     cnt<-1
     pwr<-c()
     distr<-c()
     n<-c()
     results1<-data.frame()
-    
+
     for(d in data) {
-      
+
       if (d=='Normal2Var'){
         d='Normal'
       }
-      
+
       results_method = results[[d]][results[[d]]$method==method,]
-      
+
       results_method = filter_significance(results_method,alpha)
-      
+
       results_method$n = results_method$n1+results_method$n2
-      
+
       n<-c(n,results_method$n)
-      
+
       cnt<-cnt+1
-      
+
       cnt.scenarios<-cnt.scenarios+nrow(results_method)
-      
+
       results1 = rbind(results1,results_method[,c(1:6,(ncol(results_method)-12):ncol(results_method))])
-      
+
       # cat(paste(d,results_method[results_method$distribution==d,'id']," with a total sample size of ",results_method[results_method$distribution==d,'n'],":\n",method," has a type I error rate of ",
       #           round(results_method[results_method$distribution==d,'power'],2)," at the nominal ",
       #           alpha," level.\n",sep=""))
     }
-    
+
     #boxplot(pwr,
     #        ylab=paste("Type I error rate of ",
     #                   deparse(substitute(method)),sep=""))
-    
-    
+
+
     txt =c(paste("On average (over all scenarios) :",method," has a type I error rate not larger than ",
                  alpha," + ",tol," in ",
                  round(100*mean(results1[,'power']<alpha+tol,na.rm = TRUE),1),
                  "% of the scenarios.\n",sep=""))
-    
-    
+
+
     if(panel=="") {
       p0<-ggplot(results1,aes(x="",y=power))
     }
@@ -88,51 +88,51 @@ Boxplot_TypeI<-function(path,method=NULL,alpha=0.05,tol=0.02,panel="",ylim=c(0,0
                       legend.title = element_text(size=15),legend.text = element_text(size=15))+
       labs(colour='Sample size (total)')
   }else{
-    
-    
+
+
     txt=c()
     results1<-data.frame()
     cnt.scenarios<-0
     cnt<-1
-    
-    
+
+
     for(d in data) {
-      
+
       if (d=='Normal2Var'){
         d='Normal'
       }
-      
+
       results_data= results[[d]]
       method=unique(results_data$method)
-      
+
       for (m in method){
-        
+
         results_method = results_data[results_data$method==m,]
-        
+
         results_method = filter_significance(results_method,alpha)
-        
+
         results_method$n = results_method$n1+results_method$n2
-        
+
         n<-c(n,results_method$n)
-        
+
         cnt<-cnt+1
-        
+
         cnt.scenarios<-cnt.scenarios+nrow(results_method)
-        
+
         results1 = rbind(results1,results_method[,c(1:6,(ncol(results_method)-12):ncol(results_method))])
-        
+
         # cat(paste(d,results_method[results_method$distribution==d,'id']," with a total sample size of ",results_method[results_method$distribution==d,'n'],":\n",method," has a type I error rate of ",
         #           round(results_method[results_method$distribution==d,'power'],2)," at the nominal ",
         #           alpha," level.\n",sep=""))
-        
+
       }
-      
+
       #boxplot(pwr,
       #        ylab=paste("Type I error rate of ",
       #                   deparse(substitute(method)),sep=""))
-      
+
     }
-    
+
     for (m in method){
       txt =c(txt,paste("On average (over all scenarios) :",m," has a type I error rate not larger than ",
                        alpha," + ",tol," in ",
@@ -166,8 +166,8 @@ Boxplot_TypeI<-function(path,method=NULL,alpha=0.05,tol=0.02,panel="",ylim=c(0,0
                                         legend.key.size = unit(1.5, 'cm'),
                                         legend.title = element_text(size=12),legend.text = element_text(size=12))+
       labs(colour='Sample size (total)')
-    
+
   }
-  
+
   return(list(graph=graph,text=txt,data=results1))
 }
