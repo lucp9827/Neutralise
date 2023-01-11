@@ -1,3 +1,14 @@
+#' Power_QQ creates a plot that compare the power results of 2 specified methods
+#'
+#' @param path is the path to NeutraliseFiles
+#' @param method1 is a character string that specifies a method
+#' @param method2 is a character string that specifies a second method
+#' @param alpha is the significance level (default = 0.05)
+#' @param N is the amount of simulations (default = 10000)
+#' @param group is a logical variable that indicates to color the observations based on data generation method
+#' @param data is a character string that defines a data generation method (default = NULL)
+#' @param par.fix is a data frame that specifies a specific setting parameter (default =NULL)
+#' @return a list object with 6 elements. 1) amount of times method1 has a higher power than method2 2) results1 - results data frame of method 1 3) results2 - results data frame of method 2 4) total - data frame of all the results for the graph 5) graph 6) text string that summarizes the results
 #' @export
 Power_QQ<-function(path,method1,method2,alpha=0.05,
                    par.fix=NULL,
