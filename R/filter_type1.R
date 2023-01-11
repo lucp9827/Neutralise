@@ -1,10 +1,13 @@
 #' @export
-filter_type1 = function(path,results,results_power,alpha){
+filter_type1 = function(path,results,results_power,alpha,N){
   # which scenarios to filter out?
   filter_data_list = list()
   filter_data_df = data.frame()
 
   data = names(results_power)
+  lowlim = optimise(function(p){(p+sqrt(p*(1-p)/N)*qnorm(alpha/2, mean = 0, sd = 1, lower.tail = FALSE)-alpha)^2}, interval=c(0,1))$minimum
+  uplim = optimise(function(p){(p-sqrt(p*(1-p)/N)*qnorm(alpha/2, mean = 0, sd = 1, lower.tail = FALSE)-alpha)^2}, interval=c(0,1))$minimum
+
 
   for (d in data){
 
@@ -16,7 +19,7 @@ filter_type1 = function(path,results,results_power,alpha){
 
     results_tmp=filter_significance(results_id,alpha)
 
-    results_tmp$control= round(results_tmp$l_CI,digits=2)<=alpha&round(results_tmp$u_CI,digits=2)>=alpha
+    results_tmp$control= round(results_tmp$l_CI,digits=2)>=lowlim&round(results_tmp$u_CI,digits=2)<=uplim
     results_tmp[is.na(results_tmp$control),'control']<-FALSE
 
     filter_data = results_tmp[results_tmp$control==FALSE,]

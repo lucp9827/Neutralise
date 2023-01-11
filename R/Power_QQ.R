@@ -2,7 +2,7 @@
 Power_QQ<-function(path,method1,method2,alpha=0.05,
                    par.fix=NULL,
                    data=NULL,
-                   col="black",group=FALSE) {
+                   col="black",group=FALSE,N=10000) {
   # data = data generation tool
 
   load(paste0(path,'\\Results_typeI_perdatagen.RData'))
@@ -11,7 +11,7 @@ Power_QQ<-function(path,method1,method2,alpha=0.05,
   load(paste0(path,'\\Results_power_perdatagen.RData'))
   results_list = results_datagen
 
-  results_list = filter_type1(path,results,results_power=results_list,alpha)$filter_list
+  results_list = filter_type1(path,results,results_power=results_list,alpha,N=N)$filter_list
 
   # Read finished file
   finished<-read.csv(paste0(path,"\\Results/Finished.txt"),sep=",",header=T)
