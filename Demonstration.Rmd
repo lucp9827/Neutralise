@@ -3,12 +3,15 @@ title: "Neutralise: an open source initiative for neutral comparison of two-samp
 output: github_document
 ---
 
+In this tutorial we will demonstrate how to use the Neutralise function for first time users. In section 1, we go through the steps to download the Neutralise package and define the required packages. In section 2, we demonstrate the main Neutralise function in two operating modes (single and all) and how to add new methods and/or data generation methods and settings. The third section shows several functions to visualise the results from Neutralise. And the final section gives a brief overview on how to add code/results to this initiative. We refer to the https://github.com/lucp9827/NeutraliseFiles for all the results available in this initiative, a report on these results and more information on the details (how to upload results/code, code format, bugs,...) of this initiative. 
+
 # 1. Load required packages and Installation steps
 
-```{r setup, include=FALSE}
+```{r setup}
 knitr::opts_chunk$set(echo = TRUE)
 
-reqpkg = c("remotes", "kSamples","dplyr","moments","ggplot2")
+# load required packages
+reqpkg = c("remotes", "kSamples","dplyr","moments","ggplot2","twosamples")
 # Load all required packages and show version
 for(i in reqpkg)
 {
@@ -16,15 +19,6 @@ for(i in reqpkg)
   print(packageVersion(i))
   library(i, quietly=TRUE, verbose=FALSE, warn.conflicts=FALSE, character.only=TRUE)
 }
-# # load required packages
-# library(remotes)
-# library(ggplot2)
-# library(tfse)
-# library(zip)
-# library(tidyverse)
-# library(kSamples)
-# library(twosamples)
-# library(ggpubr)
 
 ```
 

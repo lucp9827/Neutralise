@@ -2,7 +2,55 @@ Neutralise: an open source initiative for neutral comparison of
 two-sample tests
 ================
 
+In this tutorial we will demonstrate how to use the Neutralise function
+for first time users. In section 1, we go through the steps to download
+the Neutralise package and define the required packages. In section 2,
+we demonstrate the main Neutralise function in two operating modes
+(single and all) and how to add new methods and/or data generation
+methods and settings. The third section shows several functions to
+visualise the results from Neutralise. And the final section gives a
+brief overview on how to add code/results to this initiative. We refer
+to the <https://github.com/lucp9827/NeutraliseFiles> for all the results
+available in this initiative, a report on these results and more
+information on the details (how to upload results/code, code format,
+bugs,…) of this initiative.
+
 # 1. Load required packages and Installation steps
+
+``` r
+knitr::opts_chunk$set(echo = TRUE)
+
+# load required packages
+reqpkg = c("remotes", "kSamples","dplyr","moments","ggplot2")
+# Load all required packages and show version
+for(i in reqpkg)
+{
+  print(i)
+  print(packageVersion(i))
+  library(i, quietly=TRUE, verbose=FALSE, warn.conflicts=FALSE, character.only=TRUE)
+}
+```
+
+    ## [1] "remotes"
+    ## [1] '2.4.2'
+
+    ## Warning: package 'remotes' was built under R version 4.2.2
+
+    ## [1] "kSamples"
+    ## [1] '1.2.9'
+
+    ## Warning: package 'kSamples' was built under R version 4.2.2
+
+    ## Warning: package 'SuppDists' was built under R version 4.2.2
+
+    ## [1] "dplyr"
+    ## [1] '1.0.10'
+    ## [1] "moments"
+    ## [1] '0.14.1'
+    ## [1] "ggplot2"
+    ## [1] '3.4.0'
+
+    ## Warning: package 'ggplot2' was built under R version 4.2.2
 
 ## 1.1 Neutralise installation
 
@@ -436,6 +484,10 @@ Graph4_type1error$graph
 
 ### 3.3 Report results - Power
 
+The results of the power are filtered based on type I error control. The
+scenarios where a method didn’t control the type I error is filtered out
+of the results.
+
 #### 3.3.1 Power-Power plot
 
 ``` r
@@ -530,74 +582,10 @@ Graph2
 # Plot a method vs all other methods or a subset of methods (input name_methods as vector with methods specified)
 name_extra='WMW_Asymp'
 
-Best_method_plot(path,name_extra,n=200,alpha=0.05,name_methods=NULL,N=10000)
+Best_method_plot(path,name_extra,n=200,alpha=0.05,name_methods=NULL,N=10000)$graph
 ```
 
-    ## $graph
-
 ![](Demonstration_files/figure-gfm/unnamed-chunk-16-1.png)<!-- -->
-
-    ## 
-    ## $data
-    ##       scenario  method.x distribution.x    seed.x   N.x n1.x n2.x delta.x
-    ## 1     Normal 1 WMW_Asymp         Normal    221167 10000  100  100     0.5
-    ## 2     Normal 2 WMW_Asymp         Normal   1394105 10000  100  100     1.5
-    ## 3     Normal 3 WMW_Asymp         Normal 152525146 10000  100  100     2.5
-    ## 4 Normal2Var 1 WMW_Asymp     Normal2Var   3397491 10000  100  100     0.5
-    ## 5 Normal2Var 2 WMW_Asymp     Normal2Var  11277540 10000  100  100     0.5
-    ## 6 Normal2Var 3 WMW_Asymp     Normal2Var   1837846 10000  100  100     1.5
-    ## 7 Normal2Var 4 WMW_Asymp     Normal2Var    497461 10000  100  100     2.5
-    ##   power.x    l_CI.x    u_CI.x cnt.x n.x id.x    mom1_1.x  mom1_2.x  mom2_1.x
-    ## 1  0.2143 0.2062574 0.2223426  2143 200    1 0.006128865 0.4820573 8.8205034
-    ## 2  0.9294 0.9243794 0.9344206  9294 200    2 0.006128865 1.4820573 8.8205034
-    ## 3  0.9999 0.9997040 1.0000960  9999 200    3 0.006128865 2.4820573 8.8205034
-    ## 4  0.3452 0.3358815 0.3545185  3452 200    1 0.002042955 0.4820573 0.9800559
-    ## 5  0.3385 0.3292253 0.3477747  3385 200    2 0.006128865 0.4940191 8.8205034
-    ## 6  0.9925 0.9908090 0.9941910  9925 200    3 0.006128865 1.4940191 8.8205034
-    ## 7  1.0000 1.0000000 1.0000000 10000 200    4 0.006128865 2.4940191 8.8205034
-    ##    mom2_2.x    mom3_1.x   mom3_2.x mom4_1.x mom4_2.x control.x
-    ## 1 8.9653929 -0.03224013 0.03218498 2.942136 3.018198      TRUE
-    ## 2 8.9653929 -0.03224013 0.03218498 2.942136 3.018198      TRUE
-    ## 3 8.9653929 -0.03224013 0.03218498 2.942136 3.018198      TRUE
-    ## 4 8.9653929 -0.03224013 0.03218498 2.942136 3.018198      TRUE
-    ## 5 0.9961548 -0.03224013 0.03218498 2.942136 3.018198      TRUE
-    ## 6 0.9961548 -0.03224013 0.03218498 2.942136 3.018198      TRUE
-    ## 7 0.9961548 -0.03224013 0.03218498 2.942136 3.018198      TRUE
-    ##                          method.y distribution.y          seed.y   N.y n1.y
-    ## 1                TTest_VarUnequal         Normal          910137 10000  100
-    ## 2                TTest_VarUnequal         Normal       221183221 10000  100
-    ## 3                  TTest_VarEqual         Normal           48381 10000  100
-    ## 4                  TTest_VarEqual     Normal2Var          334755 10000  100
-    ## 5                  TTest_VarEqual     Normal2Var       254998866 10000  100
-    ## 6                TTest_VarUnequal     Normal2Var         1240383 10000  100
-    ## 7 TTest_VarEqual-TTest_VarUnequal     Normal2Var 3807796-1863832 10000  100
-    ##   n2.y delta.y power.y            l_CI.y            u_CI.y cnt.y n.y id.y
-    ## 1  100     0.5  0.2192 0.211091393063072 0.227308606936928  2192 200    1
-    ## 2  100     1.5  0.9451 0.940635414698049 0.949564585301951  9451 200    2
-    ## 3  100     2.5  1.0000                 1                 1 10000 200    3
-    ## 4  100     0.5  0.3454 0.336080229059982 0.354719770940018  3454 200    1
-    ## 5  100     0.5  0.3508 0.341446479136838 0.360153520863162  3508 200    2
-    ## 6  100     1.5  0.9973 0.996282929956394 0.998317070043606  9973 200    3
-    ## 7  100     2.5  1.0000               1-1               1-1 10000 200    4
-    ##      mom1_1.y  mom1_2.y  mom2_1.y  mom2_2.y    mom3_1.y   mom3_2.y mom4_1.y
-    ## 1 0.006128865 0.4820573 8.8205034 8.9653929 -0.03224013 0.03218498 2.942136
-    ## 2 0.006128865 1.4820573 8.8205034 8.9653929 -0.03224013 0.03218498 2.942136
-    ## 3 0.006128865 2.4820573 8.8205034 8.9653929 -0.03224013 0.03218498 2.942136
-    ## 4 0.002042955 0.4820573 0.9800559 8.9653929 -0.03224013 0.03218498 2.942136
-    ## 5 0.006128865 0.4940191 8.8205034 0.9961548 -0.03224013 0.03218498 2.942136
-    ## 6 0.006128865 1.4940191 8.8205034 0.9961548 -0.03224013 0.03218498 2.942136
-    ## 7 0.006128865 2.4940191 8.8205034 0.9961548 -0.03224013 0.03218498 2.942136
-    ##   mom4_2.y control.y
-    ## 1 3.018198      TRUE
-    ## 2 3.018198      TRUE
-    ## 3 3.018198      TRUE
-    ## 4 3.018198      TRUE
-    ## 5 3.018198      TRUE
-    ## 6 3.018198      TRUE
-    ## 7 3.018198      TRUE
-    ## 
-    ## $text
-    ## [1] "WMW_Asymp wins in 0 of the  7 scenarios"
 
 ## 4. Upload code and/or results to global NeutraliseFiles on Github
 
@@ -624,3 +612,7 @@ original NeutraliseFiles.
 
 All the pull request will be checked by the coreteam and if validated
 they will be added to the repository.
+
+For more information refer to
+<https://github.com/lucp9827/NeutraliseFiles> or contact us at
+leyla.kodalci@uhasselt.be
