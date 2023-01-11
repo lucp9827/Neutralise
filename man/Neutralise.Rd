@@ -10,15 +10,21 @@ Neutralise(
   Data.Generator = NULL,
   settings = NULL,
   B = 10000,
-  N = 1000
+  N = 10000
 )
 }
 \arguments{
-\item{path}{is the directory path of neutralisefiles}
+\item{path}{is the directory path of NeutraliseFiles}
 
 \item{Test}{is a function of a statistical test, if not specified (=NULL default) it will evaluate all statistical methods in the Methods directory if these are not evaluated yet.}
 
-\item{Data.Generator}{is a function of a data generator, if not specified (=NULL default) it will simulate data using all data generators in the Data directory and settings in the Setting directory, if these are not simulated yet.}
+\item{Data.Generator}{is a function of a data generator, if not specified (=NULL default) it will simulate data using all data generators in the Data directory and settings in the Settings directory, if these are not simulated yet.}
+
+\item{settings}{is a data frame where the parameters for a specific data generator are defined, if not specified (=NULL default) it will use the settings available in the Settings directory, if these are not evaluated yet.}
+
+\item{B}{the amount of permutations when neccessary}
+
+\item{N}{the amount of simulations you want to run (default = 10000)}
 }
 \value{
 results of the analysis (test statistic - p-value - power calculations) in the Results directory
