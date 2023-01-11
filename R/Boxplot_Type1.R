@@ -162,7 +162,7 @@ Boxplot_TypeI<-function(path,method=NULL,alpha=0.05,tol=0.02,panel="",ylim=c(0,0
       geom_boxplot()+
       geom_jitter(alpha=0.6,width = 0.2, aes(colour=n))+
       lims(y=ylim)+
-      ylab(paste("Type I error rate")+
+      ylab("Type I error rate")+
       geom_hline(yintercept=alpha, linetype="dotted", colour="red")+
       geom_hline(yintercept= lowlim,linetype = "dotted")+
       geom_hline(yintercept= uplim, linetype = "dotted") +
