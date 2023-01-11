@@ -348,6 +348,8 @@ Graph4_type1error$graph
 
 ### 3.3 Report results - Power
 
+The results of the power are filtered based on type I error control. The scenarios where a method didn't control the type I error is filtered out of the results.
+
 #### 3.3.1 Power-Power plot
 
 ```{r}
@@ -446,3 +448,5 @@ This initiative is set up as an open science collaboration, and we hope that man
 *Step 5*: Create pull request to merge changes (commits) with the original NeutraliseFiles.
 
 All the pull request will be checked by the coreteam and if validated they will be added to the repository.
+
+For more information refer to <https://github.com/lucp9827/NeutraliseFiles> or contact us at leyla.kodalci\@uhasselt.be
