@@ -1,4 +1,7 @@
+#' Initialise_Neutralise function to initilize/create the *Finished.txt* and *neutralise_status.Rfile*
 #'
+#' @param path is the directory path to NeutraliseFiles
+#' @return Two files in the Results directory: 1) *Finished.txt* which contains information on which evaluations are done 2) *neutralise_status.Rfile*, which contains information on the status of the different files. The 'check' variable defines if the file has passed the Neutralise format check, the 'to.run' variable identifies if a files still needs to be evaluated, and the 'neutralised' variable defines which files has been evaluated successfully.
 #' @export
 Initialise_Neutralise<-function(path) {
   neutralise.status<-data.frame(
