@@ -43,7 +43,7 @@ Boxplot_TypeI<-function(path,method=NULL,alpha=0.05,tol=0.02,panel="",ylim=c(0,0
 
       cnt.scenarios<-cnt.scenarios+nrow(results_method)
 
-      results1 = rbind(results1,results_method[,c(1:6,(ncol(results_method)-12):ncol(results_method))])
+      results1 = rbind(results1,results_method[,c(1:6,(ncol(results_method)-13):ncol(results_method))])
 
       # cat(paste(d,results_method[results_method$distribution==d,'id']," with a total sample size of ",results_method[results_method$distribution==d,'n'],":\n",method," has a type I error rate of ",
       #           round(results_method[results_method$distribution==d,'power'],2)," at the nominal ",
