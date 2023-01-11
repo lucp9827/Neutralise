@@ -1,3 +1,12 @@
+#' Boxplot_TypeI creates a boxplot of the type I error results per method
+#'
+#' @param path to the NeutraliseFiles
+#' @param method is a specified method (character string) or is NULL (default). When =NULL, a boxplot of all methods is made.
+#' @param alpha is the significance level, default=0.05
+#' @param panel is a paramter to specifiy the boxplot based on 'n'=samplesize or 'distribution'= data generation method
+#' @param N is the amount of simulations the results come from (default = 10 000)
+#' @param ylim are the limits of the y-axis of the boxplot
+#' @return a list with 3 objects: 1) Graph = ggplot2 boxplot 2) text object that defines the results 3) a dataframe with the results the graph is based on
 #' @export
 Boxplot_TypeI<-function(path,method=NULL,alpha=0.05,tol=0.02,panel="",ylim=c(0,0.13),N=10000) {
 
@@ -119,7 +128,7 @@ Boxplot_TypeI<-function(path,method=NULL,alpha=0.05,tol=0.02,panel="",ylim=c(0,0
 
         cnt.scenarios<-cnt.scenarios+nrow(results_method)
 
-        results1 = rbind(results1,results_method[,c(1:6,(ncol(results_method)-12):ncol(results_method))])
+        results1 = rbind(results1,results_method[,c(1:6,(ncol(results_method)-13):ncol(results_method))])
 
         # cat(paste(d,results_method[results_method$distribution==d,'id']," with a total sample size of ",results_method[results_method$distribution==d,'n'],":\n",method," has a type I error rate of ",
         #           round(results_method[results_method$distribution==d,'power'],2)," at the nominal ",

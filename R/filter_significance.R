@@ -41,8 +41,8 @@ filter_significance = function(results,alpha){
 
   }
   x= colnames(results_tmp)
-  colnr = grep(as.numeric(alpha),x)[1:3]
-  colnames(results_tmp)[colnr]=c("power","l_CI","u_CI")
+  colnr = grep(as.numeric(alpha),x)
+  colnames(results_tmp)[colnr]=c("power","l_CI","u_CI","cnt")
 
   return(results_tmp)
 }
