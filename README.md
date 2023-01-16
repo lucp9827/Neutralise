@@ -6,7 +6,7 @@ In this tutorial we will demonstrate how to use the Neutralise function
 for first time users. In section 1, we go through the steps to download
 the Neutralise package and define the required packages. In section 2,
 we demonstrate the main Neutralise function in two operating modes
-(single and all) and how to add new methods and/or data generation
+(single and all) and explain how to add new methods and/or data generation
 methods and settings. The third section shows several functions to
 visualise the results from Neutralise. And the final section gives a
 brief overview on how to add code/results to this initiative. We refer
