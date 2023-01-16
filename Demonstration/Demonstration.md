@@ -69,7 +69,7 @@ a local directory structure that contains all directories mentioned
 below.
 
 For this tutorial, you can download ‘**NeutraliseFiles_tutorial.zip**’
-from ‘<https://github.com/lucp9827/NeutraliseFiles>’. Unzip the
+from ‘<https://github.com/lucp9827/Neutralise>’. Unzip the
 ‘**NeutraliseFiles_tutorial**’ file and save the path to this unzipped
 folder.
 
