@@ -37,7 +37,7 @@ library(Neutralise)
 
 To start working with *Neutralise*, you first need to create or download a local directory structure that contains all directories mentioned below.
 
-For this tutorial, you can download '**NeutraliseFiles_tutorial.zip**' from '<https://github.com/lucp9827/NeutraliseFiles>'. Unzip the '**NeutraliseFiles_tutorial**' file and save the path to this unzipped folder.
+For this tutorial, you can download '**NeutraliseFiles_tutorial.zip**' from '<https://github.com/lucp9827/Neutralise>'. Unzip the '**NeutraliseFiles_tutorial**' file and save the path to this unzipped folder.
 
 ```{r}
 # Set working directory to (unzipped) NeutraliseFiles
