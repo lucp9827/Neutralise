@@ -17,6 +17,7 @@ bugs,…) of this initiative.
 
 # 1. Load required packages and Installation steps
 
+The following packages are suggested and are needed for full functionality.
 ``` r
 knitr::opts_chunk$set(echo = TRUE)
 
