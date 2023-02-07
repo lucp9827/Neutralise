@@ -82,7 +82,7 @@ Boxplot_TypeI<-function(path,method=NULL,alpha=0.05,tol=0.02,panel="",ylim=c(0,0
     }
     graph=p0+
       geom_boxplot()+
-      geom_jitter(alpha=0.6,width = 0.2, aes(colour=n))+
+      geom_jitter(alpha=0.6,width = 0.2, aes(colour=results1$n))+
       lims(y=ylim)+
       ylab(paste("Type I error rate of ",
                  {{method}},sep=""))+
