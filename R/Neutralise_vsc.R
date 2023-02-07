@@ -29,6 +29,6 @@ Neutralise_vsc<-function(path,
                            data.filename = paste0(data.name,'.R'),
                            settings = settings,
                            N=N,
-                           mode="all")
+                           mode="all",B=B)
   }
 }
