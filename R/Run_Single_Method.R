@@ -33,7 +33,7 @@ Run_Single_Method<-function(path,method.name,data.name,
       }else{ pwr<-Power(n1=sample.sizes[nn,1],
                  n2=sample.sizes[nn,2],
                  parameters = as.numeric(settings[pp,-n.parameters]),
-                 N=N}
+                 N=N)}
 
       results[cnt,]<-c(method.name,data.name,seed,N,
                        sample.sizes[nn,1],sample.sizes[nn,2],
