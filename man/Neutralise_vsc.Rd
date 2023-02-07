@@ -9,7 +9,7 @@ Neutralise_vsc(
   Test = NULL,
   Data.Generator = NULL,
   settings = NULL,
-  B = 10000,
+  B = NULL,
   N = 1000,
   data.name,
   method.name

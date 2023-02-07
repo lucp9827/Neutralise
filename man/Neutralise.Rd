@@ -9,7 +9,7 @@ Neutralise(
   Test = NULL,
   Data.Generator = NULL,
   settings = NULL,
-  B = 10000,
+  B = NULL,
   N = 10000
 )
 }
