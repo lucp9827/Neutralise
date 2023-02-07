@@ -4,7 +4,7 @@
 sum_methods = function(){
   
   method.files<-dir(path=paste("methods",sep=""))
-  load(paste("results/neutralisestatus.RData",sep=""))
+  load(paste("Results/neutralisestatus.RData",sep=""))
   method.exists<-method.files%in%neutralise.status$file.name[
     (neutralise.status$type=="method")&
       (neutralise.status$check==TRUE)]
