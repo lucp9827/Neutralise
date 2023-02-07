@@ -1,6 +1,6 @@
 #'
 #' @export
-Run_All<-function(path,N) {
+Run_All<-function(path,N,B) {
 
   test.method<-Test_New_Method(path)
   if(max(test.method$check.method.result)==1) {
