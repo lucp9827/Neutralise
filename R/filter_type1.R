@@ -19,7 +19,8 @@ filter_type1 = function(path,results,results_power,alpha,N){
 
     results_tmp=filter_significance(results_id,alpha)
 
-    results_tmp$control= results_tmp$power>=lowlim&results_tmp$power<=uplim
+    #results_tmp$control= results_tmp$power>=lowlim&results_tmp$power<=uplim
+    results_tmp$control= results_tmp$power<=uplim
     results_tmp[is.na(results_tmp$control),'control']<-FALSE
 
     filter_data = results_tmp[results_tmp$control==FALSE,]
