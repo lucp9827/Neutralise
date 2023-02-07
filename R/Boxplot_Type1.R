@@ -103,6 +103,7 @@ Boxplot_TypeI<-function(path,method=NULL,alpha=0.05,tol=0.02,panel="",ylim=c(0,0
     results1<-data.frame()
     cnt.scenarios<-0
     cnt<-1
+    n<-c()
 
 
     for(d in data) {
