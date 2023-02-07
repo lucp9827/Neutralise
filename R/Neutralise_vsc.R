@@ -10,18 +10,18 @@
 Neutralise_vsc<-function(path,
                      Test=NULL,
                      Data.Generator=NULL,
-                     settings=NULL, B=10000, N=1000,data.name,method.name) {
-  
+                     settings=NULL, B=NULL, N=1000,data.name,method.name) {
+
   if(is.null(Test)&is.null(Data.Generator)&is.null(settings)) {
     # run code that checks directories to see what need to be run: Run_All
     Run_All(path,N=N)
   }
-  
+
   if((!is.null(Test))&(!is.null(Data.Generator))&(!is.null(settings))) {
     assign("Test",Test, envir = .GlobalEnv)
     assign("Data.Generator",Data.Generator, envir = .GlobalEnv)
     assign("settings",settings,envir = .GlobalEnv)
-    
+
     res<-Run_Single_Method(path,
                            method.name = method.name,
                            method.filename = paste0(method.name,'.R'),

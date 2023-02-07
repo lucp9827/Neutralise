@@ -2,7 +2,7 @@
 #' @export
 Run_Single_Method<-function(path,method.name,data.name,
                             settings,method.filename,data.filename,
-                            N,
+                            N,B,
                             mode="all") {
 
   sample.sizes<-matrix(ncol=2,c(
@@ -25,10 +25,15 @@ Run_Single_Method<-function(path,method.name,data.name,
     for(pp in 1:n.settings) {
       seed<-round((as.numeric(Sys.time()))/100000*exp(runif(1,min=0.00001,max=10)),0)
       set.seed(seed)
-      pwr<-Power(n1=sample.sizes[nn,1],
+      if (!is.null(B)){
+        pwr<-Power_perm(n1=sample.sizes[nn,1],
+                   n2=sample.sizes[nn,2],
+                   parameters = as.numeric(settings[pp,-n.parameters]),
+                   N=N,B=B)
+      }else{ pwr<-Power(n1=sample.sizes[nn,1],
                  n2=sample.sizes[nn,2],
                  parameters = as.numeric(settings[pp,-n.parameters]),
-                 N=N)
+                 N=N}
 
       results[cnt,]<-c(method.name,data.name,seed,N,
                        sample.sizes[nn,1],sample.sizes[nn,2],

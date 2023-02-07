@@ -6,6 +6,8 @@ Power<-function(n1,n2,parameters,N=N,B=B) {
   ct_0.05<-0
   ct_0.01<-0
   na_ct <- 0
+  p_val_perm<-c()
+
   for(i in 1:N) {
     db<-Data.Generator(n1=n1,
                        n2=n2,
@@ -13,14 +15,23 @@ Power<-function(n1,n2,parameters,N=N,B=B) {
 
     if (!is.null(B)){
       null_dist=c()
-      for (i in (1:B)){
-        shuffled_data <- sample(db)
+      for (j in (1:B)){
+        shuffle <- sample(db[,2])
+        shuffled_data <- cbind(y=db[,1],group=shuffle)
+
+        res<-Test(shuffled_data)
+        null_dist[j]=res$stat
       }
     }
 
-
-
     res<-Test(db)
+
+
+    if (!is.null(B)){
+      p_val_perm=cbind(mean(null_dist >= res$stat),p_val_perm)
+      p_val_perm=mean(p_val_perm,na.rm = T)
+    }
+
     p.values[i]<-res$p.value
     if(is.na(res$p.value)){
       na_ct = na_ct+1
@@ -51,6 +62,6 @@ Power<-function(n1,n2,parameters,N=N,B=B) {
 
   return(c(pval_0.01,ci_0.01,
            pval_0.05,ci_0.05,
-           pval_0.1,ci_0.1,ct_0.10,ct_0.05,ct_0.01))
+           pval_0.1,ci_0.1,ct_0.10,ct_0.05,ct_0.01,p_val_perm))
 }
 
