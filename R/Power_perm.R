@@ -1,6 +1,6 @@
 #'
 #' @export
-Power<-function(n1,n2,parameters,N=N,B=B) {
+Power_perm<-function(n1,n2,parameters,N=N,B=B) {
   p.values<-numeric(N)
   ct_0.10<-0
   ct_0.05<-0
