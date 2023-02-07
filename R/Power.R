@@ -1,6 +1,6 @@
 #'
 #' @export
-Power<-function(n1,n2,parameters,N=N,B=B) {
+Power<-function(n1,n2,parameters,N=N) {
   p.values<-numeric(N)
   ct_0.10<-0
   ct_0.05<-0
@@ -10,14 +10,6 @@ Power<-function(n1,n2,parameters,N=N,B=B) {
     db<-Data.Generator(n1=n1,
                        n2=n2,
                        parameters = parameters)
-
-    if (!is.null(B)){
-      null_dist=c()
-      for (i in (1:B)){
-        shuffled_data <- sample(db)
-      }
-    }
-
 
 
     res<-Test(db)
