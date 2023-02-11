@@ -516,7 +516,7 @@ Graph3$graph
 ![](Demonstration_files/figure-gfm/unnamed-chunk-14-4.png)<!-- -->
 
 #### 3.3.2 Power-curve
-
+note: Scenarios that have different parameter settings for the same value of delta will result in power-curves that are not usable. Specify a scenario that is unique by specifying par.fix in the argument of the function. 
 ``` r
 # All methods & data generation methods that have been 'neutralised'
 
