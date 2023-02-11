@@ -25,7 +25,7 @@ Test_New_Method<-function(path) {
         issues<-c(issues,
                   "Header of method R file does not have a correct header")
       }
-      method.name<-strsplit(method,".R")[[1]]
+      method.name<-strsplit(method,".R",fixed=TRUE)[[1]]
       if(method.name%in%neutralise.status$name) {
         issues<-c(issues,
                   "methods name already exists")
