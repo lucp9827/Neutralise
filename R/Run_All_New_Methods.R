@@ -1,6 +1,6 @@
 #'
 #' @export
-Run_All_New_Methods<-function(path,N=N) {
+Run_All_New_Methods<-function(path,N=N,B=B) {
   load(paste(path,"/Results/NeutraliseStatus.RData",sep=""))
   new.methods<-neutralise.status$file.name[
     (neutralise.status$type=="method")&
@@ -23,7 +23,7 @@ Run_All_New_Methods<-function(path,N=N) {
       Run_Single_Method(path,method.name,data.name,
                         settings,filename.method,filename.data,
                         mode="all",
-                        N=N)
+                        N=N,B=B)
     }
 
     neutralise.status$neutralised[

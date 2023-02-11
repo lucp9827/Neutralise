@@ -5,7 +5,7 @@ Run_All<-function(path,N,B) {
   test.method<-Test_New_Method(path)
   if(max(test.method$check.method.result)==1) {
     # run new tests on all the data
-    Run_All_New_Methods(path,N=N)
+    Run_All_New_Methods(path,N=N,B=B)
   }
   else {
     # call function to report the issues

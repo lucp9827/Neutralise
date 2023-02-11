@@ -10,25 +10,25 @@ Run_All_New_Data<-function(path,N=N) {
       (neutralise.status$neutralised)]
 
   for(method in all.methods) {
-    method.name<-strsplit(method,".R")[[1]][1]
+    method.name<-strsplit(method,".R",fixed=TRUE)[[1]][1]
     filename.method<-paste(path,"/Methods/",method,sep="")
     source(filename.method)
 
     for(data in new.data) {
       filename.data<-paste(path,"/Data/",data,sep="")
-      data.name<-strsplit(data,".R")[[1]][1]
+      data.name<-strsplit(data,".R",fixed=TRUE)[[1]][1]
       settings.filename<-paste(path,"/Settings/",data.name,"_settings_new.RData",sep="")#####
       load(settings.filename)
       source(filename.data)
 
       Run_Single_Method(path,method.name,data.name,
                         settings,filename.method,filename.data,
-                        mode="all",N=N)
+                        mode="all",N=N,B=B)
     }
   }
   for(data in new.data) {
 
-    data.name<-strsplit(data,".R")[[1]][1]
+    data.name<-strsplit(data,".R",fixed=TRUE)[[1]][1]
 
     settings.filename<-paste(path,"/Settings/",data.name,"_settings_new.RData",sep="")
     load(settings.filename)
