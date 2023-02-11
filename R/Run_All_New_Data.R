@@ -1,6 +1,6 @@
 #'
 #' @export
-Run_All_New_Data<-function(path,N=N) {
+Run_All_New_Data<-function(path,N=N,B=B) {
   load(paste(path,"/Results/NeutraliseStatus.RData",sep=""))
   new.data<-neutralise.status$file.name[
     (neutralise.status$type=="data")&
