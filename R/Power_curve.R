@@ -119,6 +119,7 @@ Power_curve<-function(path,methods=NULL,alpha=0.05,
   if (group){
     load(paste0(path,file = "\\Results\\NeutraliseStatus.RData"))
     methods=neutralise.status[neutralise.status$type=='method','name']
+    methods=unlist(c(methods))
   }
 
   end=data.frame()
