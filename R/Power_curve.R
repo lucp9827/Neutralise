@@ -10,9 +10,9 @@
 #' @return Power curve
 #' @export
 Power_curve<-function(path,methods=NULL,alpha=0.05,
-                          par.fix=NULL,
-                          data=NULL,
-                          col="black",CI=FALSE,N=10000) {
+                      par.fix=NULL,
+                      data=NULL,
+                      col="black",CI=FALSE,N=10000) {
 
 
   load(paste0(path,'\\Results_typeI_perdatagen.RData'))
@@ -23,6 +23,85 @@ Power_curve<-function(path,methods=NULL,alpha=0.05,
 
   results_list = filter_type1(path,results,results_power=results_list,alpha,N=N)$filter_list
 
+
+  end = list()
+  datgen = c(names(results_list))
+  for (d in datgen){
+
+
+    data_power_dist = results_list[[d]]
+
+    if (d=='Normal2Var'){
+      data_type1_dist = results_datagen_type1[['Normal']]
+    }else{
+      data_type1_dist = results_datagen_type1[[d]]}
+    data_type1_dist = filter_significance(data_type1_dist,alpha)
+
+    uplim = optimise(function(p){(p-sqrt(p*(1-p)/N)*qnorm(alpha/2, mean = 0, sd = 1, lower.tail = FALSE)-alpha)^2}, interval=c(0,1))$minimum
+
+    data_type1_dist$control= data_type1_dist$power<=uplim
+    data_type1_dist = data_type1_dist[data_type1_dist$control==TRUE,]
+
+    ind=c()
+    colnr_1 = grep('delta',colnames(data_type1_dist))+1
+    colnr_2 = grep('power',colnames(data_type1_dist))-1
+    colnr_n = grep('cnt',colnames(data_type1_dist))+1
+    colnr_m = grep('method', colnames(data_type1_dist))
+    if(colnr_2-colnr_1>2){
+      ind=c(colnr_1,colnr_1+1,colnr_n)
+    }else{ind = c(colnr_1,colnr_n)}
+    data_type1_dist = remove_missing(data_type1_dist)
+    data_power_dist = remove_missing(data_power_dist)
+    data_power_dist_orig = data_power_dist
+
+    for (i in (1:nrow(unique(data_type1_dist[,ind])))){
+
+      if(d=="Normal2Var"){
+        df1= data.frame(unique(data_power_dist[,c(ind,ind[2]+1)])[i,])
+      }else{
+        df1= data.frame(unique(data_power_dist[,ind])[i,])}
+      settings.fix<-data_power_dist%>%dplyr::select(names(df1))
+      data_power_dist_1<-data_power_dist[apply(settings.fix,1,
+                                               function(x) {
+                                                 all(x==unlist(df1))
+                                               }),]
+
+      methodstt = unique(data_power_dist_1$method)
+      for (m in methodstt){
+
+        data_tt = data_power_dist_1[data_power_dist_1$method==m,]
+
+        extra_0 = data.frame(unique(data_tt[,c(colnr_1,colnr_2)]))
+        id= which(rownames(data_tt)==rownames(extra_0))
+
+        data_extra= data_tt[id,]
+        data_extra$delta=0
+
+        if ((colnr_2-colnr_1)<=2){
+          data_typeI_meth = data_type1_dist[data_type1_dist$method==m,]
+          power_add = which(data_typeI_meth[,c(colnr_1)] == data_extra[1,colnr_1])[1]
+          power_add= which(data_typeI_meth[,colnr_n]==data_extra$n[1])[1]
+        }else{
+
+          data_typeI_meth = data_type1_dist[data_type1_dist$method==m,]
+          power_add = which(data_typeI_meth[,c(colnr_1)] == data_extra[1,colnr_1])[1]
+          power_add = which(data_typeI_meth[,c(colnr_1+1)] == data_extra[1,colnr_1+1])[1]
+          power_add= which(data_typeI_meth[,colnr_n]==data_extra$n[1])[1]
+        }
+
+
+        data_extra$power = data_typeI_meth[power_add,'power']
+        data_extra$l_CI = data_typeI_meth[power_add,'l_CI']
+        data_extra$u_CI = data_typeI_meth[power_add,'u_CI']
+        data_power_dist_orig = rbind(data_power_dist_orig, data_extra)
+      }
+
+    }
+    end[[d]]= data_power_dist_orig
+  }
+
+
+  results_list = end
   if (is.null(methods)){
     group=TRUE
   }else{
