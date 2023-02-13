@@ -76,8 +76,13 @@ Power_curve<-function(path,methods=NULL,alpha=0.05,
           extra_0 = data.frame(unique(data_tt[,colnr_1]))
           rownames(extra_0) = rownames(data_tt)[1]
         }else{
-          extra_0 = data.frame(unique(data_tt[,c(colnr_1,colnr_2)]))}
+          if(colnr_2-colnr_1>2){
+            extra_0 = data.frame(unique(data_tt[,c(colnr_1,colnr_1+1,colnr_1+2)]))
+          }else{
+            extra_0 = data.frame(unique(data_tt[,c(colnr_1,colnr_2)]))
+          }
 
+        }
 
         t1 = data.frame(rn=rownames(data_tt))
 
@@ -97,7 +102,7 @@ Power_curve<-function(path,methods=NULL,alpha=0.05,
 
           data_typeI_meth = data_type1_dist[data_type1_dist$method==m,]
           power_add = data_typeI_meth[data_typeI_meth[,c(colnr_1)] == data_extra[1,colnr_1],]
-          power_add = power_add[power_add[,c(colnr_1+1)] == power_add[1,colnr_1+1],]
+          power_add = power_add[power_add[,c(colnr_1+1)] == data_extra[1,colnr_1+1],]
           power_add= power_add[power_add[,colnr_n]==data_extra$n[1],]
         }
 
