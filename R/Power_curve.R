@@ -54,7 +54,7 @@ Power_curve<-function(path,methods=NULL,alpha=0.05,
     data_power_dist_orig = data_power_dist
 
 
-    for (i in (1:nrow(unique(data_type1_dist[,ind])))){
+    for (i in (1:nrow(unique(data_power_dist[,ind])))){
 
       if(d=="Normal2Var"){
         df1= data.frame(unique(data_power_dist[,c(ind[1],ind[2])])[i,])
