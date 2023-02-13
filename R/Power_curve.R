@@ -28,7 +28,6 @@ Power_curve<-function(path,methods=NULL,alpha=0.05,
   datgen = c(names(results_list))
   for (d in datgen){
 
-
     data_power_dist = results_list[[d]]
 
     if (d=='Normal2Var'){
@@ -43,9 +42,9 @@ Power_curve<-function(path,methods=NULL,alpha=0.05,
     data_type1_dist = data_type1_dist[data_type1_dist$control==TRUE,]
 
     ind=c()
-    colnr_1 = grep('delta',colnames(data_type1_dist))+1
-    colnr_2 = grep('power',colnames(data_type1_dist))-1
-    colnr_n = grep('cnt',colnames(data_type1_dist))+1
+    colnr_1 = grep('delta',colnames(data_power_dist))+1
+    colnr_2 = grep('power',colnames(data_power_dist))-1
+    colnr_n = grep('cnt',colnames(data_power_dist))+1
     colnr_m = grep('method', colnames(data_type1_dist))
     if(colnr_2-colnr_1>2){
       ind=c(colnr_1,colnr_1+1,colnr_n)
@@ -54,10 +53,11 @@ Power_curve<-function(path,methods=NULL,alpha=0.05,
     data_power_dist = remove_missing(data_power_dist)
     data_power_dist_orig = data_power_dist
 
+
     for (i in (1:nrow(unique(data_type1_dist[,ind])))){
 
       if(d=="Normal2Var"){
-        df1= data.frame(unique(data_power_dist[,c(ind,ind[2]+1)])[i,])
+        df1= data.frame(unique(data_power_dist[,c(ind[1],ind[2])])[i,])
       }else{
         df1= data.frame(unique(data_power_dist[,ind])[i,])}
       settings.fix<-data_power_dist%>%dplyr::select(names(df1))
@@ -68,31 +68,43 @@ Power_curve<-function(path,methods=NULL,alpha=0.05,
 
       methodstt = unique(data_power_dist_1$method)
       for (m in methodstt){
+        if(m=='Gastwirth'){next}
 
         data_tt = data_power_dist_1[data_power_dist_1$method==m,]
 
-        extra_0 = data.frame(unique(data_tt[,c(colnr_1,colnr_2)]))
-        id= which(rownames(data_tt)==rownames(extra_0))
+        if(colnr_1==colnr_2){
+          extra_0 = data.frame(unique(data_tt[,colnr_1]))
+          rownames(extra_0) = rownames(data_tt)[1]
+        }else{
+          extra_0 = data.frame(unique(data_tt[,c(colnr_1,colnr_2)]))}
 
-        data_extra= data_tt[id,]
+
+        t1 = data.frame(rn=rownames(data_tt))
+
+        t2= c(rownames(extra_0))
+        data_extra= data_tt[match(t2, t1$rn),]
+
+
+
         data_extra$delta=0
 
         if ((colnr_2-colnr_1)<=2){
           data_typeI_meth = data_type1_dist[data_type1_dist$method==m,]
-          power_add = which(data_typeI_meth[,c(colnr_1)] == data_extra[1,colnr_1])[1]
-          power_add= which(data_typeI_meth[,colnr_n]==data_extra$n[1])[1]
+          power_add = data_typeI_meth[data_typeI_meth[,c(colnr_1)] == data_extra[1,colnr_1],]
+          if(d=="Normal2Var"){power_add= power_add[power_add[,colnr_n-1]==data_extra$n[1],]}else{
+            power_add= power_add[power_add[,colnr_n]==data_extra$n[1],]}
         }else{
 
           data_typeI_meth = data_type1_dist[data_type1_dist$method==m,]
-          power_add = which(data_typeI_meth[,c(colnr_1)] == data_extra[1,colnr_1])[1]
-          power_add = which(data_typeI_meth[,c(colnr_1+1)] == data_extra[1,colnr_1+1])[1]
-          power_add= which(data_typeI_meth[,colnr_n]==data_extra$n[1])[1]
+          power_add = data_typeI_meth[data_typeI_meth[,c(colnr_1)] == data_extra[1,colnr_1],]
+          power_add = power_add[power_add[,c(colnr_1+1)] == power_add[1,colnr_1+1],]
+          power_add= power_add[power_add[,colnr_n]==data_extra$n[1],]
         }
 
 
-        data_extra$power = data_typeI_meth[power_add,'power']
-        data_extra$l_CI = data_typeI_meth[power_add,'l_CI']
-        data_extra$u_CI = data_typeI_meth[power_add,'u_CI']
+        data_extra$power = power_add$power
+        data_extra$l_CI = power_add$l_CI
+        data_extra$u_CI = power_add$u_CI
         data_power_dist_orig = rbind(data_power_dist_orig, data_extra)
       }
 

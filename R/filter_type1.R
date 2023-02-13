@@ -4,6 +4,7 @@ filter_type1 = function(path,results,results_power,alpha,N){
   filter_data_list = list()
   filter_data_df = data.frame()
 
+
   data = names(results_power)
   lowlim = optimise(function(p){(p+sqrt(p*(1-p)/N)*qnorm(alpha/2, mean = 0, sd = 1, lower.tail = FALSE)-alpha)^2}, interval=c(0,1))$minimum
   uplim = optimise(function(p){(p-sqrt(p*(1-p)/N)*qnorm(alpha/2, mean = 0, sd = 1, lower.tail = FALSE)-alpha)^2}, interval=c(0,1))$minimum
@@ -11,6 +12,10 @@ filter_type1 = function(path,results,results_power,alpha,N){
 
   for (d in data){
 
+
+    if (d=='Exp'){
+      results_power[['Exp']][results_power[['Exp']]$rate1==0.12,'rate1']=0.125
+    }
     if (d!='Normal2Var'){
       results_id = results[[d]]
     }else{
