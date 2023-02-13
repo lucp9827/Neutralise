@@ -2,7 +2,7 @@ Neutralise: an open source initiative for neutral comparison of
 two-sample tests
 ================
 
-The two-sample problem is one of the earliest problems in statistics: given two samples, the question is whether or not the observations were sampled from the same distribution. Many statistical tests have been developed for this problem, and many tests have been evaluated in simulation studies, but hardly any study has tried to set up a neutral comparison study. In this project, we introduce an open science initiative that potentially allows for neutral comparisons of two-sample tests. It is designed as an open-source R package, a repository (NeutralisFiles), and an online R Shiny app (TODO add link).
+The two-sample problem is one of the earliest problems in statistics: given two samples, the question is whether or not the observations were sampled from the same distribution. Many statistical tests have been developed for this problem, and many tests have been evaluated in simulation studies, but hardly any study has tried to set up a neutral comparison study. In this project, we introduce an open science initiative that potentially allows for neutral comparisons of two-sample tests. It is designed as an open-source R package, a repository (NeutralisFiles), and an online R Shiny app (https://dsi-uhasselt.shinyapps.io/Neutralise/).
 
 In this tutorial we will demonstrate how to use the Neutralise function
 for first time users. In section 1, we go through the steps to download
