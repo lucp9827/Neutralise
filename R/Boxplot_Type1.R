@@ -19,13 +19,13 @@ Boxplot_TypeI<-function(path,method=NULL,alpha=0.05,tol=0.02,panel="",ylim=c(0,0
   lowlim = optimise(function(p){(p+sqrt(p*(1-p)/N)*qnorm(alpha/2, mean = 0, sd = 1, lower.tail = FALSE)-alpha)^2}, interval=c(0,1))$minimum
   uplim = optimise(function(p){(p-sqrt(p*(1-p)/N)*qnorm(alpha/2, mean = 0, sd = 1, lower.tail = FALSE)-alpha)^2}, interval=c(0,1))$minimum
 
-  if (is.null(method)){
+  if (length(method)==1){
     group=TRUE
   }else{
     group=FALSE
   }
 
-  if (!group){
+  if (group){
 
     cnt.scenarios<-0
     cnt<-1
@@ -95,6 +95,7 @@ Boxplot_TypeI<-function(path,method=NULL,alpha=0.05,tol=0.02,panel="",ylim=c(0,0
                       strip.text.x = element_text(size = 15),
                       legend.key.size = unit(1.5, 'cm'),
                       legend.title = element_text(size=15),legend.text = element_text(size=15))+
+      facet_wrap(~method,ncol=1)+
       labs(colour='Sample size (total)')
   }else{
 
