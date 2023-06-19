@@ -181,10 +181,12 @@ Power_curve<-function(path,methods=NULL,alpha=0.05,
   end=remove_missing(end)
   if (CI){
     graph=ggplot(end,aes(x=delta,y=power, group=n))+
-      geom_line(aes(col=n))+
+      geom_line(aes(col=n),size=1.3)+
       geom_point(aes(col=n))+
-      geom_errorbar(aes(ymin = l_CI, ymax = u_CI,col=n), width = 0.2)+
+      geom_errorbar(aes(ymin = l_CI, ymax = u_CI,col=n), width = 0.3,size=1.3)+
       ylim(0:1)+
+      xlab("Difference in means")+
+      ylab("Power")+
       facet_wrap(~method,ncol=3)+ theme(axis.text.x = element_text(size = 15),
                                         axis.text.y = element_text(size = 15),
                                         axis.title = element_text(size = 18),
@@ -193,9 +195,11 @@ Power_curve<-function(path,methods=NULL,alpha=0.05,
                                         legend.title = element_text(size=15),legend.text = element_text(size=15))+
       labs(colour='Sample size (total)')}
   else{  graph=ggplot(end,aes(x=delta,y=power, group=n))+
-    geom_line(aes(col=n))+
+    geom_line(aes(col=n),size=1.3)+
     geom_point(aes(col=n))+
     ylim(0:1)+
+    xlab("Difference in means")+
+    ylab("Power")+
     facet_wrap(~method,ncol=3)+ theme(axis.text.x = element_text(size = 15),
                                       axis.text.y = element_text(size = 15),
                                       axis.title = element_text(size = 18),
