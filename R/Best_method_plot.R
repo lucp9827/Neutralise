@@ -27,13 +27,16 @@ Best_method_plot = function(path,name_extra,n=20,alpha=0.05,name_methods=NULL,N=
     geom_point(aes(colour=factor(distribution.x)),size=3)+
     ylim(0,1)+xlim(0,1)+
     geom_abline()+
-    xlab(paste("power of ",'the best method',sep=""))+
-    ylab(paste("power of ",name_extra ,sep=""))+
-    labs(colour='Data generation method')+ theme(axis.text.x = element_text(size = 15),
+    xlab(paste("Power of Best method"))+
+    #xlab(paste("power of ",'the best method',sep=""))+
+    ylab(paste("Power of ",name_extra ,sep=""))+
+    labs(colour='Data generation method')+theme(axis.text.x = element_text(size = 15),
                                                  axis.text.y = element_text(size = 15),
                                                  axis.title = element_text(size = 18),
+                                                 strip.text=element_text(size=12),
                                                  legend.key.size = unit(1, 'cm'),
                                                  legend.title = element_text(size=15),legend.text = element_text(size=15))
 
   return(list(graph=p,data=tt1,text=txt))
 }
+

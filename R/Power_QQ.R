@@ -126,11 +126,12 @@ Power_QQ<-function(path,method1,method2,alpha=0.05,
       p<-print("No scenarios where both methods control the Type I error")
     }else{
     p<-ggplot(total_tmp,aes(x=power.x,y=power.y))+
-      geom_point(colour=col)+
+      geom_point(colour=col,size=4)+
       ylim(0,1)+xlim(0,1)+
       geom_abline()+
-      xlab(paste("power of ",method1,sep=""))+
-      ylab(paste("power of ",method2,sep=""))+ theme(axis.text.x = element_text(size = 15),
+      xlab(paste("power of",method1,sep=" "))+
+      ylab(paste("power of",method2,sep=" "))+
+      theme(axis.text.x = element_text(size = 15),
                                                      axis.text.y = element_text(size = 15),
                                                      axis.title = element_text(size = 20),
                                                      legend.key.size = unit(1, 'cm'),
@@ -140,14 +141,15 @@ Power_QQ<-function(path,method1,method2,alpha=0.05,
       p<-print("No scenarios where both methods control the Type I error")
     }else{
     p<- ggplot(total_tmp,aes(x=power.x,y=power.y))+
-      geom_point(aes(colour=factor(distribution.x)),size=3)+
+      geom_point(aes(colour=factor(distribution.x)),size=4)+
       ylim(0,1)+xlim(0,1)+
       geom_abline()+
-      xlab(paste("power of ",method1,sep=""))+
-      ylab(paste("power of ",method2 ,sep=""))+
+      xlab(paste("Power of",method1,sep=" "))+
+      ylab(paste("Power of",method2 ,sep=" "))+
       labs(colour='Data generation method')+ theme(axis.text.x = element_text(size = 15),
                                                    axis.text.y = element_text(size = 15),
-                                                   axis.title = element_text(size = 18),
+                                                   strip.text = element_text(size=15),
+                                                 axis.title = element_text(size = 18),
                                                    legend.key.size = unit(1, 'cm'),
                                                    legend.title = element_text(size=15),legend.text = element_text(size=15))
   }}
