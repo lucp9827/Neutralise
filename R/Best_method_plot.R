@@ -24,16 +24,16 @@ Best_method_plot = function(path,name_extra,n=20,alpha=0.05,name_methods=NULL,N=
   txt=paste(name_extra,'wins in',sum(tt1$power.x>tt1$power.y,na.rm=TRUE),'of the ',length(tt1$power.x),'scenarios')
 
   p <- ggplot(tt1,aes(x=power.y,y=power.x))+
-    geom_point(aes(colour=factor(distribution.x)),size=3)+
+    geom_point(aes(colour=factor(distribution.x)),size=4)+
     ylim(0,1)+xlim(0,1)+
     geom_abline()+
-    xlab(paste("Power of Best method"))+
-    #xlab(paste("power of ",'the best method',sep=""))+
+    # xlab(paste("Power of Best method"))+
+    xlab(paste("power of ",'the best method',sep=""))+
     ylab(paste("Power of ",name_extra ,sep=""))+
     labs(colour='Data generation method')+theme(axis.text.x = element_text(size = 15),
                                                  axis.text.y = element_text(size = 15),
                                                  axis.title = element_text(size = 18),
-                                                 strip.text=element_text(size=12),
+                                                 strip.text=element_text(size=15),
                                                  legend.key.size = unit(1, 'cm'),
                                                  legend.title = element_text(size=15),legend.text = element_text(size=15))
 
