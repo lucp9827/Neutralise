@@ -81,6 +81,22 @@ NeutraliseFiles contains the following 5 directories;
     R-file describing the status of all methods, and a Local folder for
     the results of the *single* operating mode.
 
+    5.A. The output files (method_datagenerationmethod.txt or method_datagenerationmethod.RData) in the results folder contain the following:
+          * method = method name
+          * distribution = data generation method
+          * seed = seed number to reproduce the exact results
+          * N = number of simulation runs
+          * n1 and n2 = sample size per group
+          * delta = location shift between the two groups
+          * ... parameters that are specific for the data generation method
+          * null = 1 if the scenario is under $H_0$
+          * power0.01 = power results with significance level of 1% + l_CI,U_CI which represent the lower and upper confidence limits. 
+          * power0.05 = power results with significance level of 5% + l_CI,U_CI which represent the lower and upper confidence limits. 
+          * power0.10 = power results with significance level of 10% + l_CI,U_CI which represent the lower and upper confidence limits.
+          * ct_0.10 = the number of times $H_0$ gets rejected in the simulation runs with 10% significance level
+          * ct_0.05 = the number of times $H_0$ gets rejected in the simulation runs with 5% significance level
+          * ct_0.01 = the number of times $H_0$ gets rejected in the simulation runs with 1% significance level
+    
 <u>**Important note:**</u> the tutorial version of NeutraliseFiles
 contains only the files needed to recreate the examples in this
 tutorial. The originial NeutraliseFiles-zip folder contains all files
