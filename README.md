@@ -36,10 +36,12 @@ for(i in reqpkg)
 
 ## 1.1 Neutralise installation
 
-Code to install *Neutralise* from Github:
+Code to install *Neutralise* from Github. You may need to install the R-package "remotes". 
+Note, the installation will require you to install and/or update required R-packages for the Neutralise framework. These packages are dependencies for the Neutralise package.
 
 ``` r
-install_github("lucp9827/Neutralise")
+# code to install R-package remotes: install.packages("remotes")
+remotes::install_github("lucp9827/Neutralise")
 
 library(Neutralise)
 ```
