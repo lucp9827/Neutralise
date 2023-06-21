@@ -63,7 +63,7 @@ path = ".\\NeutraliseFiles_tutorial"
 NeutraliseFiles contains the following 5 directories;
 
 1.  **Data**: This Folder contains the available data generator
-    functions.
+    functions. (no datasets)
 
 2.  **Settings**: This Folder contains the settings for the existing
     data generators. If the settings have been simulated, the setting
