@@ -13,7 +13,7 @@ methods and settings to the local NeutraliseFiles directory. The third section s
 visualise the results from Neutralise. And the final section gives a
 brief overview on how to add code/results to this initiative. We refer
 to the <https://github.com/lucp9827/NeutraliseFiles> for all the results
-available in this initiative, a report on these results and more
+available in this initiative, an annual report on these results and more
 information on the details (how to upload results/code, code format,
 bugs,…) of this initiative.
 
