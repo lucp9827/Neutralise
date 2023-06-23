@@ -457,7 +457,7 @@ Graph2_type1error = Boxplot_TypeI(path,method1,panel="distribution",N=10000)
 Graph2_type1error$graph
 ```
 
-![](Demonstration_files/figure-gfm/unnamed-chunk-13-2.png)<!-- -->
+![](Demonstration_files/figure-gfm/unnamed-chunk-13-22.png)<!-- -->
 
 ``` r
 # Boxplot of type error for a specified method per sample size (total sample size)
@@ -466,7 +466,7 @@ Graph3_type1error = Boxplot_TypeI(path,method1,panel="n",N=10000)
 Graph3_type1error$graph
 ```
 
-![](Demonstration_files/figure-gfm/unnamed-chunk-13-3.png)<!-- -->
+![](Demonstration_files/figure-gfm/unnamed-chunk-13-33.png)<!-- -->
 
 ``` r
 # # Boxplot of type error for a all methods (leave methods argument empty) per data generation method (total sample size)
@@ -475,7 +475,7 @@ Graph4_type1error = Boxplot_TypeI(path,method=NULL,panel="distribution",N=10000)
 Graph4_type1error$graph
 ```
 
-![](Demonstration_files/figure-gfm/unnamed-chunk-13-4.png)<!-- -->
+![](Demonstration_files/figure-gfm/unnamed-chunk-13-44.png)<!-- -->
 
 ### 3.3 Report results - Power
 
@@ -527,7 +527,7 @@ Graph2$graph
 
 db=data.frame(delta=0.5) # important that the specified parameter is exactly the same as in the setting file 
 
-Graph3 = Power_QQ(path,method1,method2,alpha=0.05,group=TRUE,par.fix=db,N=10000)
+Graph3 = Power_QQ(path,method1,method2,alpha=0.05,group=TRUE,par.fix=db,N=10000,n=)
 
 Graph3$graph
 ```
