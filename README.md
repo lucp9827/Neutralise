@@ -448,7 +448,7 @@ Graph1_type1error = Boxplot_TypeI(path,method1,alpha=0.05,N=10000)
 Graph1_type1error$graph
 ```
 
-![](Demonstration_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->
+![](Demonstration_files/figure-gfm/unnamed-chunk-13-11.png)<!-- -->
 
 ``` r
 # Boxplot of type 1 error for a specified method per data generation method
