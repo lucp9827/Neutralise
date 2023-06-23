@@ -21,7 +21,14 @@ Best_method_plot = function(path,name_extra,n=20,alpha=0.05,name_methods=NULL,N=
   tt = merge(results_1_method,df,by='scenario')
   tt1=remove_missing(tt)
 
-  txt=paste(name_extra,'wins in',sum(tt1$power.x>tt1$power.y,na.rm=TRUE),'of the ',length(tt1$power.x),'scenarios')
+  txt=paste(name_extra,'has the largest power in',sum(tt1$power.x>tt1$power.y,na.rm=TRUE),'of the ',length(tt1$power.x),'scenarios, which is ',(sum(tt1$power.x>tt1$power.y,na.rm=TRUE)/length(tt1$power.x))*100,"% of the scenarios.")
+
+  hh=tt1[(tt1$power.x<tt1$power.y),]
+  hh$difference = hh$power.y-hh$power.x
+  median(hh$difference)
+
+  txt2 = paste("The median of the power differences for scenarios where ",name_extra," has smaller power than the best test is ",median(hh$difference,na.rm=TRUE))
+
 
   p <- ggplot(tt1,aes(x=power.y,y=power.x))+
     geom_point(aes(colour=factor(distribution.x)),size=4)+
@@ -37,6 +44,6 @@ Best_method_plot = function(path,name_extra,n=20,alpha=0.05,name_methods=NULL,N=
                                                  legend.key.size = unit(1, 'cm'),
                                                  legend.title = element_text(size=15),legend.text = element_text(size=15))
 
-  return(list(graph=p,data=tt1,text=txt))
+  return(list(graph=p,data=tt1,text=txt,text2=txt2))
 }
 
