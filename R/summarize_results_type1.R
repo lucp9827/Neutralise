@@ -6,9 +6,10 @@ load(file = paste0(path,"\\Results\\NeutraliseStatus.RData"))
 names_methods=(All_Neutralised(path))
 
 names_data_scenarios = All_Neutralised(path,type='data')
+data.gen=names_data_scenarios
+
 rm(names_data_scenarios)
 
-data.gen=names_data_scenarios
 
 ## Summarize power results per datageneration method & scenario settings  (list per datagen)
 
