@@ -26,6 +26,8 @@ Power_curve<-function(path,methods=NULL,alpha=0.05,
 
   end = list()
   datgen = c(names(results_list))
+
+
   for (d in datgen){
 
     data_power_dist = results_list[[d]]
@@ -106,12 +108,13 @@ Power_curve<-function(path,methods=NULL,alpha=0.05,
           power_add= power_add[power_add[,colnr_n]==data_extra$n[1],]
         }
 
-
+        if (nrow(power_add)!=0){
         data_extra$power = power_add$power
         data_extra$l_CI = power_add$l_CI
         data_extra$u_CI = power_add$u_CI
         data_power_dist_orig = rbind(data_power_dist_orig, data_extra)
-      }
+        }else{next}
+    }
 
     }
     end[[d]]= data_power_dist_orig
@@ -193,8 +196,8 @@ Power_curve<-function(path,methods=NULL,alpha=0.05,
                                         strip.text.x = element_text(size = 15),
                                         legend.key.size = unit(1.5, 'cm'),
                                         legend.title = element_text(size=15),legend.text = element_text(size=15))+
-      labs(colour='Sample size (total)')}
-  else{  graph=ggplot(end,aes(x=delta,y=power, group=n))+
+      labs(colour='Sample size (total)')
+    }else{  graph=ggplot(end,aes(x=delta,y=power, group=n))+
     geom_line(aes(col=n),size=1.3)+
     geom_point(aes(col=n))+
     ylim(0:1)+
