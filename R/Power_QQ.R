@@ -110,16 +110,16 @@ Power_QQ<-function(path,method1,method2,alpha=0.05,
 
     if (group==TRUE){
       win_tmp = sum(tt2[,'power.x'] < tt2[,'power.y'])
-      text_group=c(text_group,paste(d,": ",method2," wins over ",method1, " in ", round(100*win_tmp/length(tt2[,'power.x'] < tt2[,'power.y']),1),
-                                    "% of the ",length(tt2[,'power.x'] < tt2[,'power.y']), " scenarios\b",sep=""))
+      text_group=c(text_group,paste(d,": ",method2," has higher power than ",method1, " in ", round(100*win_tmp/length(tt2[,'power.x'] < tt2[,'power.y']),1),
+                                    "% of the ",length(tt2[,'power.x'] < tt2[,'power.y']), " scenarios where both tests control the type I error rate\b",sep=""))
     }
 
     total_tmp = rbind(total_tmp,tt2)
   }
 
 
-  txt=(paste(method2," wins over ",method1, " in ", round(100*win2/cnt.scenarios,1),
-             "% of the ", cnt.scenarios, " scenarios\n",sep=""))
+  txt=(paste(method2," has higher power than ",method1, " in ", round(100*win2/cnt.scenarios,1),
+             "% of the ", cnt.scenarios, " scenarios where both tests control the type I error rate\n",sep=""))
 
   if (!group){
     if (dim(total_tmp)[1]==0){

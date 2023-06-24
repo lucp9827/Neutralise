@@ -100,14 +100,14 @@ Boxplot_TypeI<-function(path,method=NULL,alpha=0.05,tol=0.02,panel="",ylim=c(0,0
         lims(y=ylim)+
         ylab(paste("Type I error rate"))+
         #,{{method}},sep=""))+
-        geom_hline(yintercept=alpha, linetype="dotted", colour="red")+
-        geom_hline(yintercept= lowlim,linetype = 'dotted')+
-        geom_hline(yintercept= uplim, linetype = 'dotted')+
+        geom_hline(yintercept=alpha, linetype="dotted", colour="red",linewidth=1)+
+        geom_hline(yintercept= lowlim,linetype = 'dotted',linewidth=1)+
+        geom_hline(yintercept= uplim, linetype = 'dotted',linewidth=1)+
         xlab("")+ theme(axis.text.x = element_text(size = 18, angle = 90),
                         axis.text.y = element_text(size = 15),
                         axis.title = element_text(size = 18),
                         strip.text.x = element_text(size = 15),
-                        legend.key.size = unit(1.5, 'cm'),
+                        legend.key.size = unit(16, 'points'),
                         legend.title = element_text(size=15),legend.text = element_text(size=15))+
         facet_wrap(~method,ncol=1)+
         labs(colour='Sample size (total)')
@@ -128,7 +128,7 @@ Boxplot_TypeI<-function(path,method=NULL,alpha=0.05,tol=0.02,panel="",ylim=c(0,0
                       axis.text.y = element_text(size = 15),
                       axis.title = element_text(size = 18),
                       strip.text.x = element_text(size = 15),
-                      legend.key.size = unit(1.5, 'cm'),
+                      legend.key.size = unit(16, 'points'),
                       legend.title = element_text(size=15),legend.text = element_text(size=15))+
       facet_wrap(~method,ncol=1)+
       labs(colour='Data Generation Method')
@@ -224,7 +224,7 @@ Boxplot_TypeI<-function(path,method=NULL,alpha=0.05,tol=0.02,panel="",ylim=c(0,0
                                           axis.text.y = element_text(size = 12),
                                           axis.title = element_text(size = 15),
                                           strip.text.x = element_text(size = 12),
-                                          legend.key.size = unit(1.5, 'cm'),
+                                          legend.key.size = unit(16, 'points'),
                                           legend.title = element_text(size=12),legend.text = element_text(size=12))+
         labs(colour='Sample size (total)')
 
@@ -245,7 +245,7 @@ Boxplot_TypeI<-function(path,method=NULL,alpha=0.05,tol=0.02,panel="",ylim=c(0,0
                                           axis.text.y = element_text(size = 12),
                                           axis.title = element_text(size = 15),
                                           strip.text.x = element_text(size = 12),
-                                          legend.key.size = unit(1.5, 'cm'),
+                                          legend.key.size = unit(16, 'points'),
                                           legend.title = element_text(size=12),legend.text = element_text(size=12))+
         labs(colour='Data generation method')
 
