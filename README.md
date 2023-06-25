@@ -358,7 +358,7 @@ This function may refer to other functions in the same R-file or to
 other packages. When there is a package dependency, write the function
 in the following way: ‘package::functionname’.
 
-The R-file **must** contain a header that gives a **NAME** and a
+The R-file **must** contain a header that gives a **NAME**,**HYPOTHESIS** and a
 **DESCRIPTION** of the method and **REFERENCES** to the literature if
 appropriate. Also, at the end of the R-file comments add the ’**END’**
 comment. Check the following code chuck for an example.
@@ -368,6 +368,8 @@ comment. Check the following code chuck for an example.
 # Asymptotic Kolmogorov-Smirnov test
 # DESCRIPTION
 # Two sample Kolmogorov-Smirnov test . P-values based on asymptotic approximation
+# HYPOTHESIS
+# The null hypothesis states that two independent samples have the same underlying distribution. The alternative hypothesis states that two independent samples have different underlying distributions
 # REFERENCES
 # Kolmogorov, A. 1933. Sulla Determinazione Empirica di una Legge di Distributione. Giornale dell'Istituto Italiano degli Attuari, 4: 1-11.
 # Smirnov, H. 1939. Sur les Ecarts de la Courbe de Distribution Empirique. Recueil MathematiqueMatematiceskii Sbornik), : 3-26. N.S. 6
