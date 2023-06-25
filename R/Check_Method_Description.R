@@ -11,6 +11,9 @@ Check_Method_Description<-function(filename) {
   if(max(tmp=="# DESCRIPTION")!=1) {
     check<-FALSE
   }
+  if(max(tmp=="# HYPOTHESIS")!=1) {
+    check<-FALSE
+  }
   if(max(tmp=="# REFERENCES")!=1) {
     check<-FALSE
   }
