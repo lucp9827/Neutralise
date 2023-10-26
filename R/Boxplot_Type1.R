@@ -205,7 +205,7 @@ Boxplot_TypeI<-function(path,method=NULL,alpha=0.05,tol=0.02,panel="",ylim=c(0,0
                                           strip.text.x = element_text(size = 12),
                                           legend.key.size = unit(1.5, 'cm'),
                                           legend.title = element_text(size=12),legend.text = element_text(size=12))+
-        labs(colour='Sample size (total)')
+        labs(colour='Sample size (n1 + n2)')
 
     }
     if(panel=="distribution") {
@@ -226,7 +226,7 @@ Boxplot_TypeI<-function(path,method=NULL,alpha=0.05,tol=0.02,panel="",ylim=c(0,0
                                           strip.text.x = element_text(size = 12),
                                           legend.key.size = unit(16, 'points'),
                                           legend.title = element_text(size=12),legend.text = element_text(size=12))+
-        labs(colour='Sample size (total)')
+        labs(colour='Sample size (n1 + n2)')
 
     }
     if(panel=="n") {
