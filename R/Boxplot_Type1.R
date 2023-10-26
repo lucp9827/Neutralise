@@ -110,7 +110,7 @@ Boxplot_TypeI<-function(path,method=NULL,alpha=0.05,tol=0.02,panel="",ylim=c(0,0
                         legend.key.size = unit(16, 'points'),
                         legend.title = element_text(size=15),legend.text = element_text(size=15))+
         facet_wrap(~method,ncol=1)+
-        labs(colour='Sample size (total)')
+        labs(colour='Sample size (n1 + n2)')
     }
     if(panel=="n") {
       results1$n=factor(results1$n)
