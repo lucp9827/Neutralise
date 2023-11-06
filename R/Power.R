@@ -13,11 +13,17 @@ Power<-function(n1,n2,parameters,N=N) {
 
 
     res<-Test(db)
-    p.values[i]<-res$p.value
+    #p.values[i]<-res$p.value
     if(is.na(res$p.value)){
       na_ct = na_ct+1
+      N=N+1
       next
     }
+
+
+    p.values[i]<-res$p.value
+
+
     if(res$p.value<0.10){
       ct_0.10 = ct_0.10+1
     }
