@@ -21,7 +21,7 @@ Best_method_plot = function(path,name_extra,n=20,alpha=0.05,name_methods=NULL,N=
   tt = merge(results_1_method,df,by='scenario')
   tt1=remove_missing(tt)
 
-  txt=paste(name_extra,'has the largest power in',sum(tt1$power.x>tt1$power.y,na.rm=TRUE),'of the ',length(tt1$power.x),'scenarios, which is ',round(sum(tt1$power.x>tt1$power.y,na.rm=TRUE)/length(tt1$power.x),digits=4)*100,"% of the scenarios.")
+  txt=paste(name_extra,'has the largest power in',sum(tt1$power.x>=tt1$power.y,na.rm=TRUE),'of the ',length(tt1$power.x),'scenarios, which is ',round(sum(tt1$power.x>tt1$power.y,na.rm=TRUE)/length(tt1$power.x),digits=4)*100,"% of the scenarios.")
 
   hh=tt1[(tt1$power.x<tt1$power.y),]
   hh$difference = hh$power.y-hh$power.x
