@@ -48,6 +48,6 @@ Power<-function(n1,n2,parameters,N=N) {
 
   return(c(pval_0.01,ci_0.01,
            pval_0.05,ci_0.05,
-           pval_0.1,ci_0.1,ct_0.10,ct_0.05,ct_0.01,na_ct))
+           pval_0.1,ci_0.1,ct_0.10,ct_0.05,ct_0.01))
 }
 
