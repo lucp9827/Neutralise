@@ -1,7 +1,7 @@
 #'
 #' @export
 Power<-function(n1,n2,parameters,N=N) {
-  p.values<-numeric(N)
+  p.values<-c()
   ct_0.10<-0
   ct_0.05<-0
   ct_0.01<-0
@@ -16,12 +16,11 @@ Power<-function(n1,n2,parameters,N=N) {
     #p.values[i]<-res$p.value
     if(is.na(res$p.value)){
       na_ct = na_ct+1
-      N=N+1
       next
     }
 
 
-    p.values[i]<-res$p.value
+    p.values<-c(p.values,res$p.value)
 
 
     if(res$p.value<0.10){
@@ -49,6 +48,6 @@ Power<-function(n1,n2,parameters,N=N) {
 
   return(c(pval_0.01,ci_0.01,
            pval_0.05,ci_0.05,
-           pval_0.1,ci_0.1,ct_0.10,ct_0.05,ct_0.01))
+           pval_0.1,ci_0.1,ct_0.10,ct_0.05,ct_0.01,na_ct))
 }
 
