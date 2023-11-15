@@ -30,6 +30,11 @@ Best_method_plot = function(path,name_extra,n=20,alpha=0.05,name_methods=NULL,N=
   txt2 = paste("The median of the power differences for scenarios where ",name_extra," has smaller power than the best test is ",round(median(hh$difference,na.rm=TRUE),digits = 4))
 
 
+
+  colors <- c("Cauchy" = "red", "Normal" = "green", "Exp" = "blue","Logistic"="cyan","ghEqual"="brown","ghEqualK"="orange","GLDLS"="purple","Normal2Var"="magenta")
+
+
+
   p <- ggplot(tt1,aes(x=power.y,y=power.x))+
     geom_point(aes(colour=factor(distribution.x)),size=4)+
     ylim(0,1)+xlim(0,1)+
