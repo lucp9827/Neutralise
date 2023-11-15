@@ -3,7 +3,7 @@
 Run_Single_Method<-function(path,method.name,data.name,
                             settings,method.filename,data.filename,
                             N,B,
-                            mode="all") {
+                            mode="all",reproduce=TRUE) {
 
   sample.sizes<-matrix(ncol=2,c(
     10,10,
@@ -20,10 +20,18 @@ Run_Single_Method<-function(path,method.name,data.name,
   names(results)<-c(c("method","distribution","seed","N","n1","n2"),
                     names(settings),"power0.01","l_CI","u_CI", "power0.05","l_CI","u_CI","power0.10","l_CI","u_CI","ct_0.10","ct_0.05","ct_0.01")
 
+  if (reproduce==TRUE){
+    load(paste0(path,"\\Results\\SimRes_",method.name,"_",data.name,".RData"))
+  }
   cnt<-1
   for(nn in 1:nrow(sample.sizes)) {
     for(pp in 1:n.settings) {
-      seed<-round((as.numeric(Sys.time()))/100000*exp(runif(1,min=0.00001,max=10)),0)
+
+      if (!(reproduce==TRUE)){
+      seed<-round((as.numeric(Sys.time()))/100000*exp(runif(1,min=0.00001,max=10)),0)}
+      else{
+        seed=results$seed[cnt]
+      }
       set.seed(seed)
       if (!is.null(B)){
         pwr<-Power_perm(n1=sample.sizes[nn,1],
@@ -49,6 +57,7 @@ Run_Single_Method<-function(path,method.name,data.name,
   #new.dir<-paste(path,"/Results/Local/SimRes_",method.name,"_",data.name,sep="")
   #}
   subdir<-ifelse(mode=="single","Local/","")
+  subdir<-ifelse(reproduce==TRUE,"Repo/","")
   new.dir<-paste(path,"/Results/",subdir,"SimRes_",method.name,"_",data.name,sep="")
 
   if(file.exists(new.dir)) {
