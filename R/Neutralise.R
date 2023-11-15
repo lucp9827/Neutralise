@@ -12,7 +12,7 @@
 Neutralise<-function(path,
                      Test=NULL,
                      Data.Generator=NULL,
-                     settings=NULL, B=NULL, N=10000) {
+                     settings=NULL, B=NULL, N=10000,reproduce=FALSE) {
 
   if(is.null(Test)&is.null(Data.Generator)&is.null(settings)) {
     # run code that checks directories to see what need to be run: Run_All
@@ -31,4 +31,19 @@ Neutralise<-function(path,
                            N=N,
                            mode="single",B=B)
   }
+
+  If(reproduce == TRUE){
+
+    assign("Test",Test, envir = .GlobalEnv)
+    assign("Data.Generator",Data.Generator, envir = .GlobalEnv)
+    assign("settings",settings,envir = .GlobalEnv)
+
+    res<-Run_Single_Method(path,
+                           method.name = deparse(substitute(Test)),
+                           data.name = deparse(substitute(Data.Generator)),
+                           settings = settings,
+                           N=N,
+                           mode="all",B=B)
+  }
+
 }
