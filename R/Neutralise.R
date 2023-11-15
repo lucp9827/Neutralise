@@ -39,11 +39,13 @@ Neutralise<-function(path,
     assign("settings",settings,envir = .GlobalEnv)
 
     res<-Run_Single_Method(path,
-                           method.name = deparse(substitute(Test)),
-                           data.name = deparse(substitute(Data.Generator)),
+                           method.name = method.name,
+                           method.filename = paste0(method.name,'.R'),
+                           data.name = data.name,
+                           data.filename = paste0(data.name,'.R'),
                            settings = settings,
                            N=N,
-                           mode="all",B=B)
+                           mode="all",B=B,reproduce=TRUE)
   }
 
 }
