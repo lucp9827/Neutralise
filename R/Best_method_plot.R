@@ -37,6 +37,7 @@ Best_method_plot = function(path,name_extra,n=20,alpha=0.05,name_methods=NULL,N=
 
   p <- ggplot(tt1,aes(x=power.y,y=power.x))+
     geom_point(aes(colour=factor(distribution.x)),size=4)+
+    scale_color_manual(values = colors)+
     ylim(0,1)+xlim(0,1)+
     geom_abline()+
     # xlab(paste("Power of Best method"))+
