@@ -31,7 +31,7 @@ Best_method_plot = function(path,name_extra,n=20,alpha=0.05,name_methods=NULL,N=
 
 
 
-  colors <- c("Cauchy" = "red", "Normal" = "green", "Exp" = "blue","Logistic"="cyan","ghEqual"="brown","ghEqualK"="orange","GLDLS"="purple","Normal2Var"="magenta")
+  colors <- c("Cauchy" = "red", "Normal" = "purple", "Exp" = "yellow","Logistic"="blue","ghEqual"="green","ghEqualK"="darkgreen","GLDLS"="maroon","Normal2Var"="magenta")
 
 
 
