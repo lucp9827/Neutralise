@@ -12,7 +12,7 @@
 Neutralise<-function(path,
                      Test=NULL,
                      Data.Generator=NULL,
-                     settings=NULL, B=NULL, N=10000,reproduce=FALSE) {
+                     settings=NULL, B=NULL, N=10000,reproduce=FALSE,data.name=NULL,method.name=NULL) {
 
   if(is.null(Test)&is.null(Data.Generator)&is.null(settings)) {
     # run code that checks directories to see what need to be run: Run_All
