@@ -7,7 +7,7 @@ Maintainer: Leyla Kodalci <leyla.kodalci@uhasselt.be>
 Description: The two-sample problem is one of the earliest problems in statistics: given two samples, the question is whether or not the observations were sampled from the same distribution. Many statistical tests have been developed for this problem, and many tests have been evaluated in simulation studies, but hardly any study has tried to set up a neutral comparison study. We introduce an initiative that potentially allows for neutral comparisons of two-sample tests. It is designed as an open source R package and a GitHub repository. 
 License: What license is it under?
 Encoding: UTF-8
-Depends: dplyr, ggplot
+Depends: dplyr, ggplot2
 Imports: dplyr, ggplot2, moments, remotes, kSamples, lawstat, BWStest, RVAideMemoire, DescTools, WRS2, gk, gld, twosamples
 LazyData: true
 RoxygenNote: 7.2.3
