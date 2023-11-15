@@ -19,6 +19,7 @@ Neutralise<-function(path,
     Run_All(path,N=N,B=B)
   }
 
+  if (!reproduce){
   if((!is.null(Test))&(!is.null(Data.Generator))&(!is.null(settings))) {
     assign("Test",Test, envir = .GlobalEnv)
     assign("Data.Generator",Data.Generator, envir = .GlobalEnv)
@@ -31,12 +32,9 @@ Neutralise<-function(path,
                            N=N,
                            mode="single",B=B)
   }
-
+}
   if(reproduce){
 
-    assign("Test",Test, envir = .GlobalEnv)
-    assign("Data.Generator",Data.Generator, envir = .GlobalEnv)
-    assign("settings",settings,envir = .GlobalEnv)
 
     res<-Run_Single_Method(path,
                            method.name = method.name,

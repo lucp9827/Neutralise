@@ -3,7 +3,7 @@
 Run_Single_Method<-function(path,method.name,data.name,
                             settings,method.filename,data.filename,
                             N,B,
-                            mode="all",reproduce=TRUE) {
+                            mode="all",reproduce=FALSE) {
 
   sample.sizes<-matrix(ncol=2,c(
     10,10,
@@ -21,13 +21,13 @@ Run_Single_Method<-function(path,method.name,data.name,
                     names(settings),"power0.01","l_CI","u_CI", "power0.05","l_CI","u_CI","power0.10","l_CI","u_CI","ct_0.10","ct_0.05","ct_0.01")
 
   if (reproduce==TRUE){
-    load(paste0(path,"\\Results\\SimRes_",method.name,"_",data.name,".RData"))
+    load(paste0(path,"\\Results\\SimRes_",method.name,"_",data.name,"\\"method.name,"_",data.name,".RData"))
   }
   cnt<-1
   for(nn in 1:nrow(sample.sizes)) {
     for(pp in 1:n.settings) {
 
-      if (!(reproduce==TRUE)){
+      if (!(reproduce)){
       seed<-round((as.numeric(Sys.time()))/100000*exp(runif(1,min=0.00001,max=10)),0)}
       else{
         seed=results$seed[cnt]
