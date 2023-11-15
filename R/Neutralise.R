@@ -32,7 +32,7 @@ Neutralise<-function(path,
                            mode="single",B=B)
   }
 
-  If(reproduce){
+  if(reproduce){
 
     assign("Test",Test, envir = .GlobalEnv)
     assign("Data.Generator",Data.Generator, envir = .GlobalEnv)
