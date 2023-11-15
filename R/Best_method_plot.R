@@ -1,5 +1,5 @@
 #' @export
-Best_method_plot = function(path,name_extra,n=20,alpha=0.05,name_methods=NULL,N=10000){
+Best_method_plot = function(path,name_extra,n=20,alpha=0.05,name_methods=NULL,N=10000,include_legend=TRUE){
 
 
   load(paste0(path,'\\Results_typeI_perdatagen.RData'))
@@ -49,6 +49,14 @@ Best_method_plot = function(path,name_extra,n=20,alpha=0.05,name_methods=NULL,N=
                                                  strip.text=element_text(size=15),
                                                  legend.key.size = unit(1, 'cm'),
                                                  legend.title = element_text(size=15),legend.text = element_text(size=15))
+
+
+
+  if (!include_legend) {
+    p = p+ theme(legend.position = "none")
+
+  }
+
 
   return(list(graph=p,data=tt1,text=txt,text2=txt2))
 }
