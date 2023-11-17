@@ -160,6 +160,8 @@ AD_Asymp<-function(db) {
     p.value=results$ad[1,3]
   ))
 }
+
+
 ```
 
 We will use the following data generator which is based on the
@@ -179,6 +181,8 @@ ExpLocShift<-function(n1=10,n2=10,parameters=c(0,1)) {
   db<-data.frame(y=y, group=rep(c(1,2),c(n1,n2)))
   return(db)
 }
+
+
 ```
 
 and the following settings that are specific for the data generator
@@ -301,6 +305,8 @@ Data.Generator<-function(n1=10,n2=10,parameters=c(0,1,2)) {
   db<-data.frame(y=y, group=rep(c(1,2),c(n1,n2)))
   return(db)
 }
+
+
 ```
 
 Save the code chuck above as an R-file, with the name ‘Normal2Var.R’ in
@@ -390,6 +396,8 @@ Test<-function(db) {
       p.value=results$p.value
     ))
 }
+
+
 ```
 
 After saving the new method in the *Methods* directory as an R-file, we
