@@ -8,6 +8,6 @@ Description: The two-sample problem is one of the earliest problems in statistic
 License: What license is it under?
 Encoding: UTF-8
 Depends: dplyr, ggplot2, remotes, moments
-Imports: dplyr, ggplot2, moments, remotes, kSamples, lawstat, BWStest, RVAideMemoire, DescTools, WRS2, gld, twosamples
+Imports: 
 LazyData: true
 RoxygenNote: 7.2.3
