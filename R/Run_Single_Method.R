@@ -58,7 +58,7 @@ Run_Single_Method<-function(path,method.name,data.name,
   #}
   subdir<-ifelse(mode=="single","Local/","")
   if (reproduce){
-    subdir<-"Repo/"
+    subdir<-"Reproduce/"
   }
   new.dir<-paste(path,"/Results/",subdir,"SimRes_",method.name,"_",data.name,sep="")
 
