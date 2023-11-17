@@ -48,7 +48,7 @@ Code to install *Neutralise* from Github.
 Note, the installation will require you to install and/or update required R-packages for the Neutralise framework. These packages are dependencies for the Neutralise package.
 
 ``` r
-
+# To install remotes package: install.packages("remotes")
 remotes::install_github("lucp9827/Neutralise")
 
 library(Neutralise)
