@@ -25,12 +25,20 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Install and load required packages
 reqpkg = c("kSamples", "lawstat", "BWStest", "RVAideMemoire", "DescTools", "WRS2", "gld", "gk", "twosamples")
-# Install and Load all required packages and show version
+# Install and Load all required packages
 for(i in reqpkg)
 {
-  print(i)
-  install.packages(i)
-  library(i, quietly=TRUE, verbose=FALSE, warn.conflicts=FALSE, character.only=TRUE)
+print(i)
+tryCatch(
+    expr = {
+     install.packages(i, dependencies=TRUE)
+     library(i, quietly=TRUE, verbose=FALSE, warn.conflicts=FALSE, character.only=TRUE)
+      cat("Successfully installed", i, "\n")
+    },
+    error = function(e) {
+      cat("Error installing", i, ":", conditionMessage(e), "\n")
+    }
+  )
 }
 ```
 
