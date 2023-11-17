@@ -29,7 +29,6 @@ reqpkg = c("kSamples", "lawstat", "BWStest", "RVAideMemoire", "DescTools", "WRS2
 for(i in reqpkg)
 {
   print(i)
-  print(packageVersion(i))
   install.packages(i)
   library(i, quietly=TRUE, verbose=FALSE, warn.conflicts=FALSE, character.only=TRUE)
 }
