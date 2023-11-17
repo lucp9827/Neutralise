@@ -537,7 +537,7 @@ Graph2$graph
 
 db=data.frame(delta=0.5) # important that the specified parameter is exactly the same as in the setting file 
 
-Graph3 = Power_QQ(path,method1,method2,alpha=0.05,group=TRUE,par.fix=db,N=10000,n=)
+Graph3 = Power_QQ(path,method1,method2,alpha=0.05,group=TRUE,par.fix=db,N=10000)
 
 Graph3$graph
 ```
