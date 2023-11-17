@@ -88,8 +88,8 @@ NeutraliseFiles contains the following 5 directories;
 5.  **Results**: This folder contains the result of all combinations of
     statistical methods and simulation scenarios available, a text file
     ‘Finished’ with information on the simulation runs already done, an
-    R-file describing the status of all methods, and a Local folder for
-    the results of the *single* operating mode.
+    R-file describing the status of all methods, a Local folder for
+    the results of the *single* operating mode and a Reproduce folder for reproducing all the available results. 
 
     5.A. The output files (method_datagenerationmethod.txt or method_datagenerationmethod.RData) in the results folder contain the following:
     
