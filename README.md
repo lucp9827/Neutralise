@@ -19,17 +19,18 @@ bugs,…) of this initiative.
 
 # 1. Load required packages and Installation steps
 
-The following packages are suggested and are needed for full functionality. 
+The following packages are suggested and are needed for full functionality. These packages are needed to use all included methods and data generation methods in NeutraliseFiles. Not installing these will not hinder the installation of Neutralise and its functions, it will however not be able to use the specific function for a method or data generation method in NeurtaliseFiles. Neutralise will recognize this and provide the information in the Issues folder of NeutraliseFiles. 
 ``` r
 knitr::opts_chunk$set(echo = TRUE)
 
-# load required packages
-reqpkg = c("dplyr", "ggplot2", "moments", "remotes", "kSamples", "lawstat", "BWStest", "RVAideMemoire", "DescTools", "WRS2", "gld", "gk", "twosamples")
-# Load all required packages and show version
+# Install and load required packages
+reqpkg = c("kSamples", "lawstat", "BWStest", "RVAideMemoire", "DescTools", "WRS2", "gld", "gk", "twosamples")
+# Install and Load all required packages and show version
 for(i in reqpkg)
 {
   print(i)
   print(packageVersion(i))
+  install.packages(i)
   library(i, quietly=TRUE, verbose=FALSE, warn.conflicts=FALSE, character.only=TRUE)
 }
 ```
