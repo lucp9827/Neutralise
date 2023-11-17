@@ -19,7 +19,7 @@ bugs,…) of this initiative.
 
 # 1. Load required packages and Installation steps
 
-The following packages are suggested and are needed for full functionality. These packages are needed to use all included methods and data generation methods in NeutraliseFiles. Not installing these will not hinder the installation of Neutralise and its functions, it will however not be able to use the specific function for a method or data generation method in NeurtaliseFiles. Neutralise will recognize this and provide the information in the Issues folder of NeutraliseFiles. 
+The following packages are suggested and are needed for full functionality. These packages are needed to use all included methods and data generation methods in NeutraliseFiles. Not installing these will not hinder the installation of Neutralise and its functions, it will however not be able to use the specific function for a method or data generation method in NeurtaliseFiles. Neutralise will recognize this and provide the information in the Issues folder of NeutraliseFiles (see subsection 1.2). 
 ``` r
 knitr::opts_chunk$set(echo = TRUE)
 
