@@ -24,7 +24,7 @@ The following packages are suggested and are needed for full functionality.
 knitr::opts_chunk$set(echo = TRUE)
 
 # load required packages
-reqpkg = c("remotes", "kSamples","dplyr","moments","ggplot2")
+reqpkg = c("dplyr", "ggplot2", "moments", "remotes", "kSamples", "lawstat", "BWStest", "RVAideMemoire", "DescTools", "WRS2", "gld", "gk", "twosamples")
 # Load all required packages and show version
 for(i in reqpkg)
 {
