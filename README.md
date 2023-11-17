@@ -24,7 +24,7 @@ The following packages are suggested and are needed for full functionality. Thes
 knitr::opts_chunk$set(echo = TRUE)
 
 # Install and load required packages
-reqpkg = c("kSamples", "lawstat", "BWStest", "RVAideMemoire", "DescTools", "WRS2", "gld", "gk", "twosamples")
+reqpkg = c("remotes","kSamples", "lawstat", "BWStest", "RVAideMemoire", "DescTools", "WRS2", "gld", "gk", "twosamples")
 # Install and Load all required packages
 for(i in reqpkg)
 {
